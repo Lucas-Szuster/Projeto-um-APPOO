@@ -1,0 +1,19 @@
+[
+    {
+        "nome": "a",
+        "eventos": [
+            {
+                "nome_do_evento": "um"
+            },
+            {
+                "nome_do_evento": "dois"
+            },
+            {
+                "nome_do_evento": "tres"
+            },
+            {
+                "nome_do_evento": "quatro"
+            }
+        ]
+    }
+]
