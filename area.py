@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class area(ABC):
+class Area(ABC):
     def __init__(self, nome_area: str, qtd_maxima: int, lista_restricoes: list[str]):
         self.nome = nome_area
         self.qtd = qtd_maxima
