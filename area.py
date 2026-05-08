@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 
 class Area(ABC):
-    def __init__(self, nome_area: str, qtd_maxima: int, lista_restricoes: list[str]):
-        self.nome: str = nome_area
-        self.qtd_pessoas: int = qtd_maxima
-        self.restricoes: list[str] = lista_restricoes
+    def __init__(self, nome: str, qtd_pessoas: int, lista_restricoes: list[str]):
+        self.nome: str = nome
+        self.qtd_pessoas: int = qtd_pessoas
+        self.lista_restricoes: list[str] = lista_restricoes
         self.lista_eventos = []
     
     #Metodos associados a area
@@ -18,7 +18,6 @@ class Area(ABC):
     @abstractmethod
     def remover_evento(self, evento):
         pass
-
     
     #Getters e Setters
     @property
