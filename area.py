@@ -27,7 +27,7 @@ class Area(ABC):
     
     def nome(self, novo_nome:str):
         if novo_nome.strip():
-            self.nome_area = novo_nome()
+            self.nome_area = novo_nome
         else:
             raise SyntaxError("Entrada Invalida!")
         
