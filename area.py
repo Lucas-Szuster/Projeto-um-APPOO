@@ -2,9 +2,9 @@ from abc import ABC, abstractmethod
 
 class Area(ABC):
     def __init__(self, nome_area: str, qtd_maxima: int, lista_restricoes: list[str]):
-        self.nome = nome_area
-        self.qtd = qtd_maxima
-        self.restricoes = lista_restricoes
+        self.nome: str = nome_area
+        self.qtd_pessoas: int = qtd_maxima
+        self.restricoes: list[str] = lista_restricoes
         self.lista_eventos = []
     
     #Metodos associados a area
@@ -23,40 +23,37 @@ class Area(ABC):
     #Getters e Setters
     @property
     def nome(self):
-        return self.nome_area
+        return self.__nome
     
+    @nome.setter
     def nome(self, novo_nome:str):
-        if novo_nome.strip():
-            self.nome_area = novo_nome()
-        else:
-            raise SyntaxError("Entrada Invalida!")
+        if not isinstance(novo_nome, str):
+            raise TypeError("O nome deve ser uma string")
+        if not novo_nome.strip():
+            raise ValueError("Entrada Invalida!")
+        
+        self.__nome = novo_nome
         
     @property
     def qtd_pessoas(self):
-        return self.qtd_maxima
+        return self.__qtd_pessoas
     
+    @qtd_pessoas.setter
     def qtd_pessoas(self, nova_qtd: int):
-        if nova_qtd > 0:
-            self.qtd_maxima = nova_qtd
-        else:
+        if not isinstance(nova_qtd, int):
+            raise TypeError("O novo valor deve ser um int")
+        if nova_qtd <= 0:
             raise ValueError("Valor invalido!")
-        
-    @property
-    def restricoes(self):
-        return self.lista_restricoes
+
+        self.__qtd_pessoas = nova_qtd
     
-    def restricoes(self, nova_lista_restricoes: list[str]):
-        for restricao in nova_lista_restricoes:
-            if not restricao.strip():
-                raise SyntaxError("Restricao Invalida!")
-            else:
-                self.lista_restricoes = nova_lista_restricoes
 
-    @property
-    def eventos(self):
-        return self.lista_eventos
-
-
+a = Area('a', 12, ['restrição 1', 'restrição 2', 'restrição 3'])
+try:
+    a.restricoes = ['fds', 'fdsafds', '', 'hdfjsafjds']
+except Exception as e:
+    pass
+print(a.restricoes)
     
         
     
