@@ -48,7 +48,7 @@ class Area(ABC):
     def restricoes(self, nova_lista_restricoes: list[str]):
         for restricao in nova_lista_restricoes:
             if not restricao.strip():
-                raise SyntaxError("Resutricao Invalida!")
+                raise SyntaxError("Restricao Invalida!")
             else:
                 self.lista_restricoes = nova_lista_restricoes
 
