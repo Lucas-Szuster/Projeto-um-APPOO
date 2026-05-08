@@ -46,14 +46,3 @@ class Area(ABC):
             raise ValueError("Valor invalido!")
 
         self.__qtd_pessoas = nova_qtd
-    
-
-a = Area('a', 12, ['restrição 1', 'restrição 2', 'restrição 3'])
-try:
-    a.restricoes = ['fds', 'fdsafds', '', 'hdfjsafjds']
-except Exception as e:
-    pass
-print(a.restricoes)
-    
-        
-    
