@@ -1,11 +1,10 @@
 from abc import ABC, abstractmethod
-import datetime as dt
+from datetime import datetime
 
 class Evento(ABC):
-    def __init__(self, nome_evento: str, horario: dt.time, data: dt.date, qtd_participantes: int):
+    def __init__(self, nome_evento: str, data_e_horario: datetime, qtd_participantes: int):
         self.nome_evento = nome_evento
-        self.horario = horario
-        self.data = data
+        self.data_e_horario = data_e_horario
         self.qtd_participantes = qtd_participantes
         self.restricoes = []
 
@@ -29,28 +28,17 @@ class Evento(ABC):
         self.__nome_evento = novo_nome        
     
     @property
-    def horario(self):
-       return self.__horario
+    def data_e_horario(self):
+       return self.__data_e_horario
 
-    @horario.setter
-    def horario(self, novo_horario: dt.time):
-        if not isinstance(novo_horario, dt.time):
+    @data_e_horario.setter
+    def horario(self, novo_horario: datetime):
+        if not isinstance(novo_horario, datetime):
             raise TypeError('horario deve estar no formato de tempo')
             
-        self.__horario = novo_horario
+        self.__data_e_horario = novo_horario
 
-    @property
-    def data(self):
-        return self.__data
-    
-    @data.setter
-    def data(self, nova_data: dt.date):
-        if not isinstance(nova_data, dt.date):
-            raise TypeError('data deve estar no formato de tempo')
-        
-        self.__data = nova_data
-
-
+  
     @property
     def qtd_participantes(self):
         return self.__qtd_participantes
