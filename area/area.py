@@ -1,11 +1,12 @@
 from abc import ABC, abstractmethod
+from evento.evento import Evento
 
 class Area(ABC):
     def __init__(self, nome: str, qtd_pessoas: int, lista_restricoes: list[str]):
         self.nome: str = nome
         self.qtd_pessoas: int = qtd_pessoas
         self.lista_restricoes: list[str] = lista_restricoes
-        self.lista_eventos = []
+        self.lista_eventos: list[Evento] = []
     
     #Metodos associados a area
 
