@@ -10,44 +10,35 @@ class gerenciadora:
         print(f"Area adicionada!")
 
     def adicionar_evento_em_area(self, nome_area: str, novo_evento: Evento):
-        achado: bool = False
         
         for area_unitaria in self.lista_areas:
             if area_unitaria.nome == nome_area:
-                achado = True
+                print(f"Evento adicionado!")
                 ##chamar adicionar evento em area
+                return
         
-        if achado == False:
-             print(f"Evento invalido!")
-        else:
-             print(f"Evento adicionado!")
-            
+        print(f"Evento invalido!")
+        return           
 
     def remover_evento_em_area(self, nome_area: str, evento_a_ser_removido: Evento):
-        achado: bool = False
         
         for area_unitaria in self.lista_areas:
             if area_unitaria.nome == nome_area:
-                achado = True
+                print(f"Evento removido!")
                 ##chamar remover evento em area
         
-        if achado == False:
             print(f"Evento invalido!")
-        else:
-            print(f"Evento removido!")
+            return
         
     def alterar_evento_em_area(self, nome_area : str,  evento_a_ser_alterado: Evento):
-        achado: bool = False
         
         for area_unitaria in self.lista_areas:
             if area_unitaria.nome == nome_area:
-                achado = True
+                print(f"Evento alterado!")
                 ##chamar alterar evento em area
         
-        if achado == False:
-            print(f"Evento invalido!")
-        else:
-            print(f"Evento alterado!")
+        print(f"Evento invalido!")
+        return
 
     def gerar_relatorio(self):
         pass
