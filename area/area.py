@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class Area(ABC):
+class Area:
     def __init__(self, nome: str, qtd_pessoas: int, lista_restricoes: list[str]):
         self.nome: str = nome
         self.qtd_pessoas: int = qtd_pessoas
@@ -10,12 +10,10 @@ class Area(ABC):
     #Metodos associados a area
 
     ##adiciona evento
-    @abstractmethod
     def adicionar_evento(self, evento):
         pass
 
     ##remove evento
-    @abstractmethod
     def remover_evento(self, evento):
         pass
     
@@ -45,3 +43,5 @@ class Area(ABC):
             raise ValueError("Valor invalido!")
 
         self.__qtd_pessoas = nova_qtd
+
+        

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 import datetime as dt
 
-class Evento(ABC):
+class Evento:
     def __init__(self, nome_evento: str, horario: dt.time, data: dt.date, qtd_participantes: int):
         self.nome_evento = nome_evento
         self.horario = horario
@@ -10,7 +10,6 @@ class Evento(ABC):
         self.restricoes = []
 
 
-    @abstractmethod
     def adicionar_restricao(self, restricao: str):
         pass
 
