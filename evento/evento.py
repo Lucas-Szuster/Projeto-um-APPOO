@@ -1,16 +1,15 @@
-from abc import ABC, abstractmethod
 from datetime import datetime
 
-class Evento(ABC):
+class Evento:
     def __init__(self, nome_evento: str, data_e_horario: datetime, qtd_participantes: int):
         self.nome_evento = nome_evento
         self.data_e_horario = data_e_horario
         self.qtd_participantes = qtd_participantes
-        self.restricoes = []
+        self.lista_de_restricoes = []
 
-    @abstractmethod
-    def adicionar_restricao(self, restricao: str):
-        pass
+    # ======================
+    # PROPRIEDADES DA CLASSE
+    # ======================
 
     @property
     def nome_evento(self):
@@ -48,6 +47,20 @@ class Evento(ABC):
         
         self.__qtd_participantes = qtd_atualizada
 
+    # =======
+    # MÉTODOS
+    # =======
+
+    def adicionar_restricao(self, restricao: str):
+        if not isinstance(restricao, str):
+            raise TypeError("A restrição deve ser uma string")
+
+        self.lista_de_restricoes.append(restricao)
+
+    # ==========
+    # OPERADORES
+    # ==========
+
     def __eq__(self, other):
         if not isinstance(other, Evento):
             raise ValueError('Comparação só funciona entre eventos')
@@ -60,16 +73,3 @@ class Evento(ABC):
                 return False
             
         return True
-
-# ================
-# CLASSE DE TESTES
-# ================
-class evento1(Evento):
-    def __init__(self, nome_evento, data_e_horario, qtd_participantes):
-        super().__init__(nome_evento, data_e_horario, qtd_participantes)
-
-    def __str__(self):
-        return f'{self.nome_evento =}, {self.data_e_horario =}'
-
-    def adicionar_restricao(self, restricao):
-        return super().adicionar_restricao(restricao)
