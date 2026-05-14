@@ -8,7 +8,6 @@ class Evento(ABC):
         self.qtd_participantes = qtd_participantes
         self.restricoes = []
 
-
     @abstractmethod
     def adicionar_restricao(self, restricao: str):
         pass
@@ -32,13 +31,12 @@ class Evento(ABC):
        return self.__data_e_horario
 
     @data_e_horario.setter
-    def horario(self, novo_horario: datetime):
+    def data_e_horario(self, novo_horario: datetime):
         if not isinstance(novo_horario, datetime):
             raise TypeError('horario deve estar no formato de tempo')
             
         self.__data_e_horario = novo_horario
 
-  
     @property
     def qtd_participantes(self):
         return self.__qtd_participantes
