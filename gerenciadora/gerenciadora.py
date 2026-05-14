@@ -3,7 +3,7 @@ from evento.evento import Evento
 
 class gerenciadora:
     def __init__(self):
-        self.lista_areas = []
+        self.lista_areas: list[Area] = []
 
     def adicionar_area(self, nova_area: Area):
         self.lista_areas.append(nova_area)
@@ -39,4 +39,3 @@ class gerenciadora:
 
     def gerar_relatorio(self):
         pass
-        #implementar geracao de relatorio
