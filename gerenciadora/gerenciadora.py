@@ -10,7 +10,6 @@ class gerenciadora:
         print(f"Area adicionada!")
 
     def adicionar_evento_em_area(self, nome_area: str, novo_evento: Evento):
-        
         for area_unitaria in self.lista_areas:
             if area_unitaria.nome == nome_area:
                 print(f"Evento adicionado!")
@@ -21,7 +20,6 @@ class gerenciadora:
         return           
 
     def remover_evento_em_area(self, nome_area: str, evento_a_ser_removido: Evento):
-        
         for area_unitaria in self.lista_areas:
             if area_unitaria.nome == nome_area:
                 print(f"Evento removido!")
@@ -31,7 +29,6 @@ class gerenciadora:
             return
         
     def alterar_evento_em_area(self, nome_area : str,  evento_a_ser_alterado: Evento):
-        
         for area_unitaria in self.lista_areas:
             if area_unitaria.nome == nome_area:
                 print(f"Evento alterado!")

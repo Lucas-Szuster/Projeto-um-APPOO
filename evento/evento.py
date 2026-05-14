@@ -1,15 +1,14 @@
 from abc import ABC, abstractmethod
-import datetime as dt
+from datetime import datetime
 
-class Evento:
-    def __init__(self, nome_evento: str, horario: dt.time, data: dt.date, qtd_participantes: int):
+class Evento(ABC):
+    def __init__(self, nome_evento: str, data_e_horario: datetime, qtd_participantes: int):
         self.nome_evento = nome_evento
-        self.horario = horario
-        self.data = data
+        self.data_e_horario = data_e_horario
         self.qtd_participantes = qtd_participantes
         self.restricoes = []
 
-
+    @abstractmethod
     def adicionar_restricao(self, restricao: str):
         pass
 
@@ -28,27 +27,15 @@ class Evento:
         self.__nome_evento = novo_nome        
     
     @property
-    def horario(self):
-       return self.__horario
+    def data_e_horario(self):
+       return self.__data_e_horario
 
-    @horario.setter
-    def horario(self, novo_horario: dt.time):
-        if not isinstance(novo_horario, dt.time):
+    @data_e_horario.setter
+    def data_e_horario(self, novo_horario: datetime):
+        if not isinstance(novo_horario, datetime):
             raise TypeError('horario deve estar no formato de tempo')
             
-        self.__horario = novo_horario
-
-    @property
-    def data(self):
-        return self.__data
-    
-    @data.setter
-    def data(self, nova_data: dt.date):
-        if not isinstance(nova_data, dt.date):
-            raise TypeError('data deve estar no formato de tempo')
-        
-        self.__data = nova_data
-
+        self.__data_e_horario = novo_horario
 
     @property
     def qtd_participantes(self):
@@ -60,3 +47,16 @@ class Evento:
             raise ValueError('quantidade de participantes nao pode ser negativa ou nula')
         
         self.__qtd_participantes = qtd_atualizada
+
+    def __eq__(self, other):
+        if not isinstance(other, Evento):
+            raise ValueError('Comparação só funciona entre eventos')
+        
+        # =====================================================
+        # Checa se TODOS os atributos são iguais, pode ser que talvez seja melhor checar somente alguns.
+        # ======================================================
+        for caracteristica_do_evento, _  in self.__dict__.items():
+            if getattr(self, caracteristica_do_evento) != getattr(other, caracteristica_do_evento):
+                return False
+            
+        return True
