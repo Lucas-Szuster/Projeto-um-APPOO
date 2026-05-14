@@ -47,3 +47,16 @@ class Evento(ABC):
             raise ValueError('quantidade de participantes nao pode ser negativa ou nula')
         
         self.__qtd_participantes = qtd_atualizada
+
+    def __eq__(self, other):
+        if not isinstance(other, Evento):
+            raise ValueError('Comparação só funciona entre eventos')
+        
+        # =====================================================
+        # Checa se TODOS os atributos são iguais, pode ser que talvez seja melhor checar somente alguns.
+        # ======================================================
+        for caracteristica_do_evento, _  in self.__dict__.items():
+            if getattr(self, caracteristica_do_evento) != getattr(other, caracteristica_do_evento):
+                return False
+            
+        return True
