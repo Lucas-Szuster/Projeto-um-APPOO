@@ -1,16 +1,15 @@
-from abc import ABC, abstractmethod
 from datetime import datetime
 
-class Evento(ABC):
+class Evento:
     def __init__(self, nome_evento: str, data_e_horario: datetime, qtd_participantes: int):
         self.nome_evento = nome_evento
         self.data_e_horario = data_e_horario
         self.qtd_participantes = qtd_participantes
-        self.restricoes = []
+        self.lista_de_restricoes = []
 
-    @abstractmethod
-    def adicionar_restricao(self, restricao: str):
-        pass
+    # ======================
+    # PROPRIEDADES DA CLASSE
+    # ======================
 
     @property
     def nome_evento(self):
@@ -47,6 +46,20 @@ class Evento(ABC):
             raise ValueError('quantidade de participantes nao pode ser negativa ou nula')
         
         self.__qtd_participantes = qtd_atualizada
+
+    # =======
+    # MÉTODOS
+    # =======
+
+    def adicionar_restricao(self, restricao: str):
+        if not isinstance(restricao, str):
+            raise TypeError("A restrição deve ser uma string")
+
+        self.lista_de_restricoes.append(restricao)
+
+    # ==========
+    # OPERADORES
+    # ==========
 
     def __eq__(self, other):
         if not isinstance(other, Evento):
