@@ -1,12 +1,13 @@
 from abc import ABC, abstractmethod
 from evento.evento import Evento
+from copy import deepcopy
 
 class Area(ABC):
     def __init__(self, nome: str, qtd_pessoas: int, lista_restricoes: list[str]):
         self.nome: str = nome
         self.qtd_pessoas: int = qtd_pessoas
         self.lista_restricoes: list[str] = lista_restricoes
-        self.lista_eventos: list[Evento] = []
+        self._lista_eventos: list[Evento] = []
     
     #Metodos associados a area
 
@@ -46,3 +47,11 @@ class Area(ABC):
             raise ValueError("Valor invalido!")
 
         self.__qtd_pessoas = nova_qtd
+
+    @property
+    def lista_eventos(self):
+        return deepcopy(self._lista_eventos)
+    
+    @lista_eventos.setter
+    def lista_eventos(self, nova_lista: list[Evento]):
+        raise AttributeError('Não se pode alterar a lista de eventos')
