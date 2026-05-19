@@ -5,9 +5,17 @@ from copy import deepcopy
 class Usuario:
     def __init__(self, nome: str, idade: int, id: int):
         self.nome = nome
-        self.__idade = idade
-        self.__id = id
         self.__lista_de_eventos: list[Evento] = []
+
+        if not isinstance(idade, int):
+            raise TypeError("A idade deve ser um int")
+        if idade <= 0:
+            raise ValueError("A idade deve ser válida (maior que 0)")
+        self.__idade = idade
+
+        if not isinstance(id, int):
+            raise TypeError("O id deve ser um número")
+        self.__id = id
 
     # ============
     # PROPRIEDADES
