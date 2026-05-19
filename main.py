@@ -1,18 +1,36 @@
 from gerenciadora.gerenciadora import gerenciadora
-from area.area import Area
+from area.areaSocial import AreaSocial
 from evento.evento import Evento
-from datetime import date, time
+from datetime import datetime
 
 geral = gerenciadora()
 
-restricoes = ["Proibido nadar", "Proibido fumar"]
+geral.adicionar_area(AreaSocial('area social 1', 12, 14, True))
+geral.adicionar_area(AreaSocial('area social 2', 12, 14, True))
 
-area_1 = Area("Sala de estar", 4, restricoes)
-geral.adicionar_area(area_1)
-area_2 = Area("Piscina", 7, restricoes)
-geral.adicionar_area(area_2)
+print('parte 1\n=========')
+for area in geral.lista_areas:
+    print(area.nome)
+    for evento in area.lista_eventos:
+        print(f'{evento.nome_evento}')
+    print('\n\n')
 
-evento_1 = Evento("Festinha", time(14, 00, 00), date(2027, 3, 21), 5)
 
-geral.adicionar_evento_em_area("Sala de estar", evento_1)
-geral.adicionar_evento_em_area("Churrasqueira", evento_1)
+geral.adicionar_evento_em_area('area social 1', Evento('evento 1', datetime(1, 1, 1, 1, 1, 1), 13))
+geral.adicionar_evento_em_area('area social 1', Evento('evento 2', datetime(2, 2, 2, 2, 2, 2), 13))
+
+print('parte 2\n=========')
+for area in geral.lista_areas:
+    print(area.nome)
+    for evento in area.lista_eventos:
+        print(f'{evento.nome_evento}')
+    print('\n\n\n')
+
+geral.remover_evento_em_area('area social 1', geral.buscar_area_por_nome('area social 1').lista_eventos[0])
+
+print('parte 3\n=========')
+for area in geral.lista_areas:
+    print(area.nome)
+    for evento in area.lista_eventos:
+        print(f'{evento.nome_evento}')
+    print('\n\n\n')
