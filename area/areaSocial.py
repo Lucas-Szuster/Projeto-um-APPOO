@@ -10,7 +10,7 @@ class AreaSocial(Area):
         "churrasqueira"
     ]
 
-    def __init__(self, nome, qtd_pessoas, area_espaco: float, sistema_de_som: bool):
+    def __init__(self, nome, qtd_pessoas, area_espaco: float | int, sistema_de_som: bool):
         super().__init__(nome, qtd_pessoas)
 
         self.area_espaco = area_espaco
@@ -25,8 +25,8 @@ class AreaSocial(Area):
         return self.__area_espaco
     
     @area_espaco.setter
-    def area_espaco(self, nova_area: float):
-        if not isinstance(nova_area, float):
+    def area_espaco(self, nova_area: float | int):
+        if (not isinstance(nova_area, float)) and (not isinstance(nova_area, int)):
             raise TypeError("A nova área deve ser um número")
         if nova_area <= 0:
             raise ValueError("A nova área deve ser um valor positivo")

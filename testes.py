@@ -3,9 +3,13 @@
 from area.areaEsportiva import AreaEsportiva
 from evento.evento import Evento
 from datetime import datetime
+from area.areaSocial import AreaSocial
 
-a = AreaEsportiva("nome", 12, "futebol", True)
 
-a.adicionar_item_na_lista('bola de futebol')
+# teste área esportiva
 
-print(a.lista_de_itens)
+areaesportiva = AreaEsportiva("area de esportes", 12, "futebol", True)
+print(areaesportiva.qtd_pessoas)
+
+areasocial = AreaSocial("area de lazer", 12, 23, False)
+print(areasocial.area_espaco)
