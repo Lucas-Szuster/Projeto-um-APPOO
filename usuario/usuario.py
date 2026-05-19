@@ -3,8 +3,9 @@ from evento.evento import Evento
 from copy import deepcopy
 
 class Usuario:
-    def __init__(self, nome: str, idade: int, id: int):
+    def __init__(self, nome: str, idade: int, id: int, senha: str):
         self.nome = nome
+        self.senha = senha
         self.__lista_de_eventos: list[Evento] = []
 
         if not isinstance(idade, int):
@@ -50,6 +51,19 @@ class Usuario:
     def id(self, novo_id):
         raise AttributeError("O id não pode ser alterado")
     
+    @property
+    def senha(self):
+        return self.__senha
+    
+    @senha.setter
+    def senha(self, nova_senha: str):
+        if not isinstance(nova_senha, str):
+            raise TypeError("A senha deve ser uma string")
+        if not nova_senha.strip():
+            raise ValueError("A senha não pode ser vazia")
+
+        self.__senha = nova_senha
+
     @property
     def lista_de_eventos(self):
         return deepcopy(self.__lista_de_eventos)
