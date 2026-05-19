@@ -73,3 +73,4 @@ class Evento:
                 return False
             
         return True
+    

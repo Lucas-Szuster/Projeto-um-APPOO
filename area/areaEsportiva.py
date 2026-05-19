@@ -8,23 +8,62 @@ from datetime import time
 # ======================
 
 class AreaEsportiva(Area):
-    def __init__(self, nome: str, qtd_pessoas: int):
+    # podemos expandir os itens permitidos
+    ITENS_PERMITIDOS: list[str] = [
+        "bola de futebol",
+        "bola de basquete",
+        "bola de vôlei",
+        "bola de tênis",
+        "raquete de tênis",
+        "cesta de basquete móvel"
+    ]
+
+    def __init__(self, nome: str, qtd_pessoas: int, esporte_praticado: str, sistema_de_iluminacao: bool):
         super().__init__(nome, qtd_pessoas)
 
-    def adicionar_evento(self, evento_esportivo: Evento):
-        if not isinstance(evento_esportivo, Evento):
-            raise TypeError('O evento deve ser do tipo evento')
+        self.esporte_praticado = esporte_praticado
+        self.sistema_de_iluminacao = sistema_de_iluminacao
+
+    # ============
+    # PROPRIEDADES
+    # ============
+
+    @property
+    def esporte_praticado(self):
+        return self.__esporte_praticado
+    
+    @esporte_praticado.setter
+    def esporte_praticado(self, novo_esporte: str):
+        if not isinstance(novo_esporte, str):
+            raise TypeError("O esporte deve ser uma string")
+        if not novo_esporte.strip():
+            raise ValueError("O esporte não pode ser vazio")
         
-        for evento in self._lista_eventos:
-            if (evento.data_e_horario == evento_esportivo.data_e_horario):
-                raise AttributeError('eventos não podem ter o mesmo dia e hora')
+        self.__esporte_praticado = novo_esporte
 
-        self._lista_eventos.append(evento_esportivo) 
-        self._lista_eventos.sort(key=lambda o: o.data_e_horario)
+    @property
+    def sistema_de_iluminacao(self):
+        return self.__sistema_de_iluminacao
+    
+    @sistema_de_iluminacao.setter
+    def sistema_de_iluminacao(self, nova_situacao_do_sistema_de_iluminacao):
+        if not isinstance(nova_situacao_do_sistema_de_iluminacao, bool):
+            raise TypeError("A área esportiva deve ter ou não um sistema de iluminação")
 
-    def remover_evento(self, evento):
-        # =================
-        # IDEIA BÁSICA: PODE-SE ALTERAR MUITO
-        # ================
+        self.__sistema_de_iluminacao = nova_situacao_do_sistema_de_iluminacao
 
-        self._lista_eventos.remove(evento)
+    # =======
+    # MÉTODOS
+    # =======
+
+    def adicionar_item_na_lista(self, item: str):
+        if not isinstance(item, str):
+            raise TypeError("O novo item deve ser uma string")
+        
+        if item.lower() not in AreaEsportiva.ITENS_PERMITIDOS:
+            raise ValueError(f"O item a ser adicionado deve ser um item permitido. Itens permitidos: {AreaEsportiva.ITENS_PERMITIDOS}")
+        
+        self._lista_de_itens.append(item)
+
+    def remover_item_da_lista(self, item):
+        self._lista_de_itens.remove(item)
