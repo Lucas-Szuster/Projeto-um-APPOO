@@ -1,5 +1,6 @@
 from area.area import Area
 from evento.evento import Evento
+from usuario.usuario import Usuario
 
 from copy import deepcopy
 

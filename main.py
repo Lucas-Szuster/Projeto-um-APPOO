@@ -2,6 +2,8 @@ from gerenciadora.gerenciadora import gerenciadora
 from area.areaSocial import AreaSocial
 from evento.evento import Evento
 from datetime import datetime
+from usuario.usuario import Usuario
+
 
 geral = gerenciadora()
 
