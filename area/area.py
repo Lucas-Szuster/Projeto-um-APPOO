@@ -3,25 +3,17 @@ from evento.evento import Evento
 from copy import deepcopy
 
 class Area(ABC):
-    def __init__(self, nome: str, qtd_pessoas: int, lista_restricoes: list[str]):
+    def __init__(self, nome: str, qtd_pessoas: int):
         self.nome: str = nome
         self.qtd_pessoas: int = qtd_pessoas
-        self.lista_restricoes: list[str] = lista_restricoes
+        self.lista_restricoes: list[str] = []
         self._lista_eventos: list[Evento] = []
+        self._lista_de_itens: list[str] = []
     
-    #Metodos associados a area
+    # ============
+    # PROPRIEDADES
+    # ============
 
-    ##adiciona evento
-    @abstractmethod
-    def adicionar_evento(self, evento):
-        pass
-
-    ##remove evento
-    @abstractmethod
-    def remover_evento(self, evento):
-        pass
-    
-    #Getters e Setters
     @property
     def nome(self):
         return self.__nome
@@ -55,3 +47,41 @@ class Area(ABC):
     @lista_eventos.setter
     def lista_eventos(self, nova_lista: list[Evento]):
         raise AttributeError('Não se pode alterar a lista de eventos')
+    
+    @property 
+    def lista_de_itens(self):
+        return deepcopy(self._lista_de_itens)
+    
+    @lista_de_itens.setter
+    def lista_de_itens(self, nova_lista: list[str]):
+        raise AttributeError('Não se pode alterar a lista de itens da área')
+    
+    # =======
+    # MÉTODOS
+    # =======
+
+    def adicionar_evento(self, evento_esportivo: Evento):
+        if not isinstance(evento_esportivo, Evento):
+            raise TypeError('O evento deve ser do tipo evento')
+        
+        for evento in self._lista_eventos:
+            if (evento.data_e_horario == evento_esportivo.data_e_horario):
+                raise AttributeError('eventos não podem ter o mesmo dia e hora')
+
+        self._lista_eventos.append(evento_esportivo) 
+        self._lista_eventos.sort(key=lambda o: o.data_e_horario)
+
+    def remover_evento(self, evento):
+        self._lista_eventos.remove(evento)
+
+    # =================
+    # MÉTODOS ABSTRATOS
+    # =================
+
+    @abstractmethod
+    def adicionar_item_na_lista(self, item: str):
+        pass
+
+    @abstractmethod
+    def remover_item_da_lista(self, item: str):
+        pass

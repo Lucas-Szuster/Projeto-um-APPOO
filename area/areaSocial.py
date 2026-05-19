@@ -1,0 +1,61 @@
+from area.area import Area
+from evento.evento import Evento
+from datetime import time
+
+class AreaSocial(Area):
+    ITENS_PERMITIDOS: list[str] = [
+        "pebolinho",
+        "tênis de mesa",
+        "televisão",
+        "churrasqueira"
+    ]
+
+    def __init__(self, nome, qtd_pessoas, area_espaco: float | int, sistema_de_som: bool):
+        super().__init__(nome, qtd_pessoas)
+
+        self.area_espaco = area_espaco
+        self.sistema_de_som = sistema_de_som
+
+    # ============
+    # PROPRIEDADES
+    # ============
+
+    @property
+    def area_espaco(self):
+        return self.__area_espaco
+    
+    @area_espaco.setter
+    def area_espaco(self, nova_area: float | int):
+        if (not isinstance(nova_area, float)) and (not isinstance(nova_area, int)):
+            raise TypeError("A nova área deve ser um número")
+        if nova_area <= 0:
+            raise ValueError("A nova área deve ser um valor positivo")
+        
+        self.__area_espaco = nova_area
+
+    @property
+    def sistema_de_som(self):
+        return self.__sistema_de_som
+    
+    @sistema_de_som.setter
+    def sistema_de_som(self, nova_situacao_do_sistema_de_som: bool):
+        if not isinstance(nova_situacao_do_sistema_de_som, bool):
+            raise TypeError("A área deve ou não ter um sistema de som")
+        
+        self.__sistema_de_som = nova_situacao_do_sistema_de_som
+
+    # =======
+    # MÉTODOS
+    # =======
+
+    def adicionar_item_na_lista(self, item):
+        if not isinstance(item, str):
+            raise TypeError("O novo item deve ser uma string")
+        
+        if item.lower() not in AreaSocial.ITENS_PERMITIDOS:
+            raise ValueError(f"O item a ser adicionado deve ser um item permitido. Itens permitidos: {AreaSocial.ITENS_PERMITIDOS}")
+        
+        self._lista_de_itens.append(item)
+
+    def remover_item_da_lista(self, item):
+        self._lista_de_itens.remove(item)
