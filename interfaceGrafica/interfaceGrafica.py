@@ -135,7 +135,7 @@ class App:
             erro_dados("Não há senha de usuário inserida")
             return
 
-        if(self.gerenciadora.validar_usuario(nome_do_usuario, senha_do_usuario)):
+        if (self.gerenciadora.validar_usuario(nome_do_usuario, senha_do_usuario)):
             self.usuario_logado = self.gerenciadora.get_usuario_por_nome(nome_do_usuario)
             self.trocar_tela(enumTelas.TELA_MENU_USUARIO)
         else:
