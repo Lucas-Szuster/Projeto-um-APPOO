@@ -4,7 +4,7 @@ from usuario.usuario import Usuario
 
 from copy import deepcopy
 
-class gerenciadora:
+class Gerenciadora:
     def __init__(self):
         self.__lista_areas: list[Area] = []
         self.__lista_usuarios: list[Usuario] = []
