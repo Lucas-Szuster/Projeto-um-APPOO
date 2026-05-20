@@ -82,4 +82,8 @@ class Usuario:
 
         self.__lista_de_eventos.append(evento)
 
-    
+    def remover_evento(self, evento: Evento):
+        if not isinstance(evento, Evento):
+            raise TypeError("O evento deve ser do tipo evento")
+        
+        self.__lista_de_eventos.remove(evento)
