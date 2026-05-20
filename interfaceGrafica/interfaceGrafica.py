@@ -3,8 +3,11 @@ import ttkbootstrap as ttk
 from tkinter import messagebox
 from enumInterfaceGrafica import enumTelas
 
+from gerenciadora.gerenciadora import Gerenciadora
+
+
 class App:
-    def __init__(self, titulo_app: str, geometria_app: str):
+    def __init__(self, titulo_app: str, geometria_app: str, gerenciadora: Gerenciadora):
         self.janela_principal = tk.Tk()
         self.janela_principal.title(titulo_app)
         self.janela_principal.geometry(geometria_app)
