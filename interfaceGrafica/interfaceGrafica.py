@@ -1,20 +1,25 @@
 import tkinter as tk
 import ttkbootstrap as ttk
 from tkinter import messagebox
-from enumInterfaceGrafica import enumTelas
+from interfaceGrafica.enumInterfaceGrafica import enumTelas
 
+from usuario.usuario import Usuario
 from gerenciadora.gerenciadora import Gerenciadora
-
+from evento.evento import Evento
+from area.area import Area
+from area.areaSocial import AreaSocial
+from area.areaEsportiva import AreaEsportiva
 
 class App:
     def __init__(self, titulo_app: str, geometria_app: str, gerenciadora: Gerenciadora):
+        self.area_atual: Area | None = None
         self.janela_principal = tk.Tk()
         self.janela_principal.title(titulo_app)
         self.janela_principal.geometry(geometria_app)
 
-        # =============================================
-        # A FAZER: ADICIONAR UMA INSTâNCIA DE GESTORA QUE SERÁ RECEBIDA E UTILIZADA PARA VALIDAR DADOS/GERAR INTERFACES
-        # =============================================
+        if not isinstance(gerenciadora, Gerenciadora):
+            raise TypeError("A gerenciadora deve ser do tipo Gerenciadora")
+        self.gerenciadora = gerenciadora
 
         self.trocar_tela(enumTelas.TELA_LOGIN)
 
@@ -48,6 +53,12 @@ class App:
         match (tela):
             case enumTelas.TELA_LOGIN:
                 self.gerar_tela_login()
+            case enumTelas.TELA_MENU_USUARIO:
+                self.gerar_tela_menu_usuario()
+            case enumTelas.TELA_AREAS_DISPONIVEIS:
+                self.gerar_tela_areas_disponiveis()
+            case enumTelas.TELA_EVENTOS_AREA:
+                self.gerar_tela_eventos_area()
             case _:
                 pass
 
@@ -111,30 +122,118 @@ class App:
             erro_dados("Não há senha de usuário inserida")
             return
 
-        print(f'{nome_do_usuario =}, {senha_do_usuario =}')
-
-        # =============================================
-        # A FAZER: VALIDAR USUÁRIO, E, CASO EXISTA, PASSAR PARA A PRÓXIMA FASE
-        #
-        # ideia básica:
-        #   usuario = Usuario(nome_do_usuario, senha_do_usuario)
-        #
-        #   if (self.instancia_gestora.validar_usuario(usuario)):
-        #       self.trocar_tela(enumTelas.TELA_MENU_USUARIO)
-        #   else:
-        #       erro_dados("Usuário não encontrado na base de dados: senha e/ou nome de usuário errados")
-        #       return
-        # =============================================
+        if(self.gerenciadora.validar_usuario(nome_do_usuario, senha_do_usuario)):
+            self.usuario_logado = self.gerenciadora.get_usuario_por_nome(nome_do_usuario)
+            self.trocar_tela(enumTelas.TELA_MENU_USUARIO)
+        else:
+            erro_dados("Usuário não encontrado na base de dados: senha e/ou nome de usuário errados")
+            return
 
     # TELA MENU USUARIO
 
-    # =============================================
-    # A FAZER: TELA QUE MOSTRE AS OPÇÕES PARA O USUÁRIO
-    #
-    # ideia básica:
-    #   for area in self.instancia_gestora.areas:
-    #       gerar_opcao_de_marcar_evento_em_area(area)
-    # =============================================    
+    def gerar_tela_menu_usuario(self):
+        area_botoes_tela_menu_usuario = ttk.Frame(self.janela_principal)
+        area_botoes_tela_menu_usuario.pack(expand=True)
+
+        botao_ver_areas = ttk.Button(
+            area_botoes_tela_menu_usuario,
+            text="Ver áreas disponíveis",
+            command=lambda: self.trocar_tela(enumTelas.TELA_AREAS_DISPONIVEIS)
+        )
+        botao_ver_areas.grid(column=0, row=0, padx=10)
+
+        botao_ver_eventos_proprios = ttk.Button(
+            area_botoes_tela_menu_usuario,
+            text="Ver eventos próprios",
+            command=lambda: self.trocar_tela(enumTelas.TELA_EVENTOS_PROPRIOS)
+        )
+        botao_ver_eventos_proprios.grid(column=1, row=0, padx=10)
+
+    # TELA ÁREAS DISPONÍVEIS
+
+    def gerar_tela_areas_disponiveis(self):
+        def comando_botao_ver_eventos(area: Area):
+            self.area_atual = area
+            self.trocar_tela(enumTelas.TELA_EVENTOS_AREA)
+
+        def formatar_area(area: Area, master):
+            widget_area = ttk.Frame(master)
+            widget_area.pack(padx=5, pady=5)
+
+            label_nome_area = ttk.Label(
+                widget_area,
+                text=f"Nome da área: {area.nome}"
+            )
+            label_nome_area.pack()
+
+            label_quantidade_maxima_de_pessoas = ttk.Label(
+                widget_area,
+                text=f"Quantidade máxima de pessoas: {area.qtd_pessoas}"
+            )
+            label_quantidade_maxima_de_pessoas.pack()
+
+            if (isinstance(area, AreaSocial)):
+                label_metros_quadrados = ttk.Label(
+                    widget_area,
+                    text=f"Espaco da área: {area.area_espaco} metros quadrados"
+                )
+                label_metros_quadrados.pack()
+
+                label_sistema_de_soma = ttk.Label(
+                    widget_area,
+                    text=f"A área possui sistema de som? {"Sim" if area.sistema_de_som else "Não"}"
+                )
+                label_sistema_de_soma.pack()
+
+            if (isinstance(area, AreaEsportiva)):
+                label_esporte_praticado = ttk.Label(
+                    widget_area,
+                    text=f"Esporte da área: {area.esporte_praticado}"
+                )
+                label_esporte_praticado.pack()
+
+                label_sistema_de_iluminação = ttk.Label(
+                    widget_area,
+                    text=f"A área possui sistema de iluminação? {"Sim" if area.sistema_de_iluminacao else "Não"}"
+                )
+                label_sistema_de_iluminação.pack()
+
+            botao_ver_eventos = ttk.Button(
+                widget_area, 
+                text="Ver eventos da área",
+                command= lambda: comando_botao_ver_eventos(area))
+            botao_ver_eventos.pack()
+
+        area_de_areas = ttk.Frame(self.janela_principal)
+        area_de_areas.pack()
+
+        for area in self.gerenciadora.lista_areas:
+            formatar_area(area, area_de_areas)
+
+    # TELA EVENTOS AREA
+
+    def gerar_tela_eventos_area(self):
+        def formatar_evento(evento: Evento, master):
+            label_nome_evento = ttk.Label(
+                master,
+                text= f"Nome do evento: {evento.nome_evento}"
+            )
+            label_nome_evento.pack()
+
+            label_data_e_horario_evento = ttk.Label(
+                master,
+                text= f"Data do evento: {evento.data_e_horario.date()}, Hora do evento: {evento.data_e_horario.time()}"
+            )
+            label_data_e_horario_evento.pack()
+
+        if (self.area_atual == None):
+            messagebox.showerror('Erro', 'Não há área selecionada')
+
+        area_do_evento = ttk.Frame(self.janela_principal)
+        area_do_evento.pack()
+
+        for evento in self.area_atual.lista_eventos:
+            formatar_evento(evento, area_do_evento)
 
     # INICIAR
 
