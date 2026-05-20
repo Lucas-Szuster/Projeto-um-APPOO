@@ -86,4 +86,7 @@ class Usuario:
         if not isinstance(evento, Evento):
             raise TypeError("O evento deve ser do tipo evento")
         
-        self.__lista_de_eventos.remove(evento)
+        try:
+            self.__lista_de_eventos.remove(evento)
+        except Exception as e:
+            raise e
