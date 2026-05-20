@@ -25,10 +25,17 @@ class gerenciadora:
     # MÉTODOS
     # =======
 
+    def validar_usuario(self, nome_usuario: str, senha_usuario: str) -> bool:
+        for usuario in self.lista_usuarios:
+            if (usuario.nome == nome_usuario) and (usuario.senha == senha_usuario):
+                return True
+            
+        return False
+
     def adicionar_area(self, nova_area: Area):
         self.__lista_areas.append(nova_area)
 
-    def buscar_area_por_nome(self, nome_area):
+    def buscar_area_por_nome(self, nome_area) -> Area:
         lista_de_nomes_de_areas: list[str] = [area.nome for area in self.__lista_areas]
         if nome_area not in lista_de_nomes_de_areas:
             raise ValueError("Esta área não existe")
