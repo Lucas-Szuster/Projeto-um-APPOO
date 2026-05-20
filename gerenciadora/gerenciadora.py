@@ -2,8 +2,6 @@ from area.area import Area
 from evento.evento import Evento
 from usuario.usuario import Usuario
 
-from copy import deepcopy
-
 class Gerenciadora:
     def __init__(self):
         self.__lista_areas: list[Area] = []
@@ -15,11 +13,11 @@ class Gerenciadora:
 
     @property
     def lista_areas(self):
-        return deepcopy(self.__lista_areas)
+        return (self.__lista_areas)
     
     @property
     def lista_usuarios(self):
-        return deepcopy(self.__lista_usuarios)
+        return (self.__lista_usuarios)
 
     # =======
     # MÉTODOS
@@ -37,7 +35,7 @@ class Gerenciadora:
         if nome_usuario not in lista_de_nomes_de_usuarios:
             raise ValueError("Este usuário não existe")
         
-        return deepcopy(self.__lista_usuarios[lista_de_nomes_de_usuarios.index(nome_usuario)])
+        return (self.__lista_usuarios[lista_de_nomes_de_usuarios.index(nome_usuario)])
     
     def adicionar_usuario(self, novo_usuario: Usuario):
         if not isinstance(novo_usuario, Usuario):

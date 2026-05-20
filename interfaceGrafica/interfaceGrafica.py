@@ -59,8 +59,30 @@ class App:
                 self.gerar_tela_areas_disponiveis()
             case enumTelas.TELA_EVENTOS_AREA:
                 self.gerar_tela_eventos_area()
+            case enumTelas.TELA_EVENTOS_PROPRIOS:
+                self.gerar_tela_eventos_proprios()
             case _:
                 pass
+
+    # REMOVER EVENTO
+
+    def remover_evento_em_area(self, evento: Evento):
+        lista_de_nomes_de_areas: list[str] = [area.nome for area in self.gerenciadora.lista_areas]
+
+        for nome in lista_de_nomes_de_areas:
+            try:
+                self.gerenciadora.remover_evento_em_area(nome, evento)
+            except Exception as e:
+                print(f'{nome}: {e}')
+
+    def remover_evento(self, evento: Evento, tela_para_recarregar: enumTelas):
+        self.remover_evento_em_area(evento)
+        
+        # A IMPLEMENTAR
+        #
+        # self.remover_evento_em_usuario(evento)
+
+        self.trocar_tela(tela_para_recarregar)
 
     # BOTAO VOLTAR
 
@@ -204,9 +226,9 @@ class App:
         for area in self.gerenciadora.lista_areas:
             formatar_area(area, area_de_areas)
 
-    # TELA EVENTOS AREA
+    # GERAR LISTA DE EVENTOS (USADO PARA MÚLTIPLAS TELAS)
 
-    def gerar_tela_eventos_area(self):
+    def gerar_lista_de_eventos(self, master, lista: list[Evento], permissao: bool, tela_para_recarregar: enumTelas):
         def gerar_componente_label_simples(master, texto: str):
             return ttk.Label(
                 master,
@@ -220,22 +242,41 @@ class App:
             gerar_componente_label_simples(frame_evento, f"Nome do evento: {evento.nome_evento}").pack()
             gerar_componente_label_simples(frame_evento, f"Data do evento: {evento.data_e_horario.date()}, Hora do evento: {evento.data_e_horario.time()}").pack()
 
+            if permissao:
+                botao_remover = ttk.Button(
+                    frame_evento, 
+                    text="Remover evento",
+                    command=lambda: self.remover_evento(evento, tela_para_recarregar)
+                )
+                botao_remover.pack()
+
+        for evento in lista:
+            formatar_evento(evento, master)
+
+    # TELA EVENTOS AREA
+
+    def gerar_tela_eventos_area(self):
         if (self.area_atual == None):
             messagebox.showerror('Erro', 'Não há área selecionada')
 
         self.gerar_botao_voltar(enumTelas.TELA_AREAS_DISPONIVEIS)
 
-        area_do_evento = ttk.Frame(self.janela_principal)
-        area_do_evento.pack()
+        area_de_eventos = ttk.Frame(self.janela_principal)
+        area_de_eventos.pack()
 
-        for evento in self.area_atual.lista_eventos:
-            formatar_evento(evento, area_do_evento)
+        self.gerar_lista_de_eventos(area_de_eventos, self.area_atual.lista_eventos, True, enumTelas.TELA_EVENTOS_AREA)
+
+    # TELA EVENTOS PRÓPRIOS
+
+    def gerar_tela_eventos_proprios(self):        
+        self.gerar_botao_voltar(enumTelas.TELA_MENU_USUARIO)
+
+        area_de_eventos = ttk.Frame(self.janela_principal)
+        area_de_eventos.pack()
+
+        self.gerar_lista_de_eventos(area_de_eventos, self.usuario_logado.lista_de_eventos, True, enumTelas.TELA_EVENTOS_PROPRIOS)    
 
     # INICIAR
 
     def iniciar(self):
         self.janela_principal.mainloop()
-
-if __name__ == "__main__":
-    a = App("Aplicativo gestor de espaços", "500x500")
-    a.iniciar()
