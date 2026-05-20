@@ -62,6 +62,19 @@ class App:
             case _:
                 pass
 
+    # BOTAO VOLTAR
+
+    def gerar_botao_voltar(self, tela_anterior):
+        frame_botao_voltar = ttk.Frame(self.janela_principal)
+        frame_botao_voltar.pack()
+
+        botao_voltar = ttk.Button(
+            frame_botao_voltar,
+            text="Voltar",
+            command=lambda: self.trocar_tela(tela_anterior)
+        )
+        botao_voltar.pack(side='left')
+
     # TELA LOGIN
 
     def gerar_tela_login(self):
@@ -183,6 +196,8 @@ class App:
                 command= lambda: comando_botao_ver_eventos(area))
             botao_ver_eventos.pack()
 
+        self.gerar_botao_voltar(enumTelas.TELA_MENU_USUARIO)
+
         area_de_areas = ttk.Frame(self.janela_principal)
         area_de_areas.pack()
 
@@ -207,6 +222,8 @@ class App:
 
         if (self.area_atual == None):
             messagebox.showerror('Erro', 'Não há área selecionada')
+
+        self.gerar_botao_voltar(enumTelas.TELA_AREAS_DISPONIVEIS)
 
         area_do_evento = ttk.Frame(self.janela_principal)
         area_do_evento.pack()
