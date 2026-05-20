@@ -152,6 +152,12 @@ class App:
     # TELA ÁREAS DISPONÍVEIS
 
     def gerar_tela_areas_disponiveis(self):
+        def gerar_componente_label_simples(master, texto: str):
+            return ttk.Label(
+                master,
+                text=texto
+            )
+
         def comando_botao_ver_eventos(area: Area):
             self.area_atual = area
             self.trocar_tela(enumTelas.TELA_EVENTOS_AREA)
@@ -160,43 +166,16 @@ class App:
             widget_area = ttk.Frame(master)
             widget_area.pack(padx=5, pady=5)
 
-            label_nome_area = ttk.Label(
-                widget_area,
-                text=f"Nome da área: {area.nome}"
-            )
-            label_nome_area.pack()
-
-            label_quantidade_maxima_de_pessoas = ttk.Label(
-                widget_area,
-                text=f"Quantidade máxima de pessoas: {area.qtd_pessoas}"
-            )
-            label_quantidade_maxima_de_pessoas.pack()
+            gerar_componente_label_simples(widget_area, f"Nome da área: {area.nome}").pack()
+            gerar_componente_label_simples(widget_area, f"Quantidade máxima de pessoas: {area.qtd_pessoas}").pack()
 
             if (isinstance(area, AreaSocial)):
-                label_metros_quadrados = ttk.Label(
-                    widget_area,
-                    text=f"Espaco da área: {area.area_espaco} metros quadrados"
-                )
-                label_metros_quadrados.pack()
-
-                label_sistema_de_soma = ttk.Label(
-                    widget_area,
-                    text=f"A área possui sistema de som? {"Sim" if area.sistema_de_som else "Não"}"
-                )
-                label_sistema_de_soma.pack()
+                gerar_componente_label_simples(widget_area, f"Espaco da área: {area.area_espaco} metros quadrados").pack()
+                gerar_componente_label_simples(widget_area, f"A área possui sistema de som? {"Sim" if area.sistema_de_som else "Não"}").pack()
 
             if (isinstance(area, AreaEsportiva)):
-                label_esporte_praticado = ttk.Label(
-                    widget_area,
-                    text=f"Esporte da área: {area.esporte_praticado}"
-                )
-                label_esporte_praticado.pack()
-
-                label_sistema_de_iluminação = ttk.Label(
-                    widget_area,
-                    text=f"A área possui sistema de iluminação? {"Sim" if area.sistema_de_iluminacao else "Não"}"
-                )
-                label_sistema_de_iluminação.pack()
+                gerar_componente_label_simples(widget_area, f"Esporte da área: {area.esporte_praticado}").pack()
+                gerar_componente_label_simples(widget_area, f"A área possui sistema de iluminação? {"Sim" if area.sistema_de_iluminacao else "Não"}").pack()
 
             botao_ver_eventos = ttk.Button(
                 widget_area, 
