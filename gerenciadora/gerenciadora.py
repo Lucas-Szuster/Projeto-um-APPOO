@@ -31,8 +31,24 @@ class Gerenciadora:
                 return True
             
         return False
+    
+    def get_usuario_por_nome(self, nome_usuario: str) -> Usuario:
+        lista_de_nomes_de_usuarios: list[str] = [usuario.nome for usuario in self.__lista_usuarios]
+        if nome_usuario not in lista_de_nomes_de_usuarios:
+            raise ValueError("Este usuário não existe")
+        
+        return deepcopy(self.__lista_usuarios[lista_de_nomes_de_usuarios.index(nome_usuario)])
+    
+    def adicionar_usuario(self, novo_usuario: Usuario):
+        if not isinstance(novo_usuario, Usuario):
+            raise TypeError("O usuário deve ser do tipo Usuario")
+
+        self.__lista_usuarios.append(novo_usuario)
 
     def adicionar_area(self, nova_area: Area):
+        if not isinstance(nova_area, Area):
+            raise TypeError("A área deve ser do tipo Area")
+
         self.__lista_areas.append(nova_area)
 
     def buscar_area_por_nome(self, nome_area) -> Area:
