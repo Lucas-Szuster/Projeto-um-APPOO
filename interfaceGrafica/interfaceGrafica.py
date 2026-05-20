@@ -75,12 +75,18 @@ class App:
             except Exception as e:
                 print(f'{nome}: {e}')
 
+    def remover_evento_em_usuario(self, evento: Evento):
+        lista_de_nomes_de_usuarios: list[str] = [usuario.nome for usuario in self.gerenciadora.lista_usuarios]
+
+        for nome in lista_de_nomes_de_usuarios:
+            try:
+                self.gerenciadora.remover_evento_em_usuario(nome, evento)
+            except Exception as e:
+                print(f'{nome}: {e}')
+
     def remover_evento(self, evento: Evento, tela_para_recarregar: enumTelas):
         self.remover_evento_em_area(evento)
-        
-        # A IMPLEMENTAR
-        #
-        # self.remover_evento_em_usuario(evento)
+        self.remover_evento_em_usuario(evento)
 
         self.trocar_tela(tela_para_recarregar)
 
@@ -264,7 +270,7 @@ class App:
         area_de_eventos = ttk.Frame(self.janela_principal)
         area_de_eventos.pack()
 
-        self.gerar_lista_de_eventos(area_de_eventos, self.area_atual.lista_eventos, True, enumTelas.TELA_EVENTOS_AREA)
+        self.gerar_lista_de_eventos(area_de_eventos, self.area_atual.lista_eventos, False, enumTelas.TELA_EVENTOS_AREA)
 
     # TELA EVENTOS PRÓPRIOS
 
