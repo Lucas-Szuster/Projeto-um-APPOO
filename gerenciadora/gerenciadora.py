@@ -43,6 +43,19 @@ class Gerenciadora:
 
         self.__lista_usuarios.append(novo_usuario)
 
+    def buscar_usuario_por_nome(self, nome_usuario: str):
+        lista_de_nomes_de_usuarios: list[str] = [usuario.nome for usuario in self.__lista_usuarios]
+        if nome_usuario not in lista_de_nomes_de_usuarios:
+            raise ValueError("Este usuário não existe")
+
+        return self.__lista_usuarios[lista_de_nomes_de_usuarios.index(nome_usuario)]
+
+    def adicionar_evento_em_usuario(self, nome_usuario: str, novo_evento: Evento):
+        self.buscar_usuario_por_nome(nome_usuario).adicionar_evento(novo_evento)
+
+    def remover_evento_em_usuario(self, nome_usuario: str, evento_a_ser_removido: Evento):
+        self.buscar_usuario_por_nome(nome_usuario).remover_evento(evento_a_ser_removido)
+
     def adicionar_area(self, nova_area: Area):
         if not isinstance(nova_area, Area):
             raise TypeError("A área deve ser do tipo Area")
