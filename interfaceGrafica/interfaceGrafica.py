@@ -192,18 +192,18 @@ class App:
     # TELA EVENTOS AREA
 
     def gerar_tela_eventos_area(self):
-        def formatar_evento(evento: Evento, master):
-            label_nome_evento = ttk.Label(
+        def gerar_componente_label_simples(master, texto: str):
+            return ttk.Label(
                 master,
-                text= f"Nome do evento: {evento.nome_evento}"
+                text=texto
             )
-            label_nome_evento.pack()
 
-            label_data_e_horario_evento = ttk.Label(
-                master,
-                text= f"Data do evento: {evento.data_e_horario.date()}, Hora do evento: {evento.data_e_horario.time()}"
-            )
-            label_data_e_horario_evento.pack()
+        def formatar_evento(evento: Evento, master):
+            frame_evento = ttk.Frame(master)
+            frame_evento.pack(padx=5, pady=5)
+
+            gerar_componente_label_simples(frame_evento, f"Nome do evento: {evento.nome_evento}").pack()
+            gerar_componente_label_simples(frame_evento, f"Data do evento: {evento.data_e_horario.date()}, Hora do evento: {evento.data_e_horario.time()}").pack()
 
         if (self.area_atual == None):
             messagebox.showerror('Erro', 'Não há área selecionada')
