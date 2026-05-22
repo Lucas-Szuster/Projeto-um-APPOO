@@ -77,3 +77,9 @@ class Gerenciadora:
 
     def gerar_relatorio(self):
         pass
+
+    def adicionar_item_em_area(self, nome_area: str, item: str):
+        self.buscar_area_por_nome(nome_area).adicionar_item_na_lista(item)
+
+    def remover_item_em_area(self, nome_area: str, item: str):
+        self.buscar_area_por_nome(nome_area).remover_item_da_lista(item)
