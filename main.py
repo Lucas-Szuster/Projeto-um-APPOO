@@ -1,11 +1,11 @@
-from gerenciadora.gerenciadora import gerenciadora
+from gerenciadora.gerenciadora import Gerenciadora
 from area.areaSocial import AreaSocial
 from evento.evento import Evento
 from datetime import datetime
 from usuario.usuario import Usuario
 
 
-geral = gerenciadora()
+geral = Gerenciadora()
 
 geral.adicionar_area(AreaSocial('area social 1', 12, 14, True))
 geral.adicionar_area(AreaSocial('area social 2', 12, 14, True))
@@ -36,3 +36,34 @@ for area in geral.lista_areas:
     for evento in area.lista_eventos:
         print(f'{evento.nome_evento}')
     print('\n\n\n')
+
+print('parte 4\n========')
+
+geral.adicionar_usuario(Usuario("Pedro", 19, 2021015, "Batata09", False))
+geral.adicionar_usuario(Usuario("Olavo", 63, 2121212,"Sindicancia", True))
+
+for usuario in geral.lista_usuarios:
+    print(f"{usuario.nome}, {usuario.idade}, {usuario.id}, {usuario.senha}, {usuario.is_adm}")
+
+
+print('parte 5\n========')
+
+geral.adicionar_item_em_area("Olavo", "area social 1", "Televisão")
+
+for area in geral.lista_areas:
+    print(f"{area.nome}\n{area.lista_de_itens}")
+
+print('parte 6\n========')
+
+geral.remover_item_em_area("Olavo", "area social 1", "Televisão")
+
+for area in geral.lista_areas:
+    print(f"{area.nome}\n{area.lista_de_itens}")
+
+print('parte 7\n========')
+
+geral.adicionar_item_em_area("Pedro", "area social 1", "Televisão")
+
+for area in geral.lista_areas:
+    print(f"{area.nome}\n{area.lista_de_itens}")
+

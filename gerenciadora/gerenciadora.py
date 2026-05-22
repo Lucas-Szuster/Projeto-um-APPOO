@@ -23,6 +23,7 @@ class Gerenciadora:
     # MÉTODOS
     # =======
 
+    
     def validar_usuario(self, nome_usuario: str, senha_usuario: str) -> bool:
         for usuario in self.lista_usuarios:
             if (usuario.nome == nome_usuario) and (usuario.senha == senha_usuario):
@@ -56,6 +57,12 @@ class Gerenciadora:
     def remover_evento_em_usuario(self, nome_usuario: str, evento_a_ser_removido: Evento):
         self.buscar_usuario_por_nome(nome_usuario).remover_evento(evento_a_ser_removido)
 
+    def checar_tipo_usuario(self, nome_usuario: str):
+        if self.buscar_usuario_por_nome(nome_usuario).is_adm:
+            return True
+        
+        return False
+
     def adicionar_area(self, nova_area: Area):
         if not isinstance(nova_area, Area):
             raise TypeError("A área deve ser do tipo Area")
@@ -78,8 +85,14 @@ class Gerenciadora:
     def gerar_relatorio(self):
         pass
 
-    def adicionar_item_em_area(self, nome_area: str, item: str):
+    def adicionar_item_em_area(self, nome_usuario: str, nome_area: str, item: str):
+        if self.checar_tipo_usuario(nome_usuario) == False:
+            raise TypeError("O usuário não é do tipo ADM! Logo, não pode adicionar item!")
+        
         self.buscar_area_por_nome(nome_area).adicionar_item_na_lista(item)
 
-    def remover_item_em_area(self, nome_area: str, item: str):
+    def remover_item_em_area(self, nome_usuario: str, nome_area: str, item: str):
+        if self.checar_tipo_usuario(nome_usuario) == False:
+            raise TypeError("O usuário não é do tipo ADM! Logo, não pode remover item!")
+        
         self.buscar_area_por_nome(nome_area).remover_item_da_lista(item)
