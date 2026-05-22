@@ -44,13 +44,6 @@ class Gerenciadora:
 
         self.__lista_usuarios.append(novo_usuario)
 
-    def buscar_usuario_por_nome(self, nome_usuario: str):
-        lista_de_nomes_de_usuarios: list[str] = [usuario.nome for usuario in self.__lista_usuarios]
-        if nome_usuario not in lista_de_nomes_de_usuarios:
-            raise ValueError("Este usuário não existe")
-
-        return self.__lista_usuarios[lista_de_nomes_de_usuarios.index(nome_usuario)]
-
     def buscar_usuario_por_id(self, id_usuario: int):
         lista_ids_de_usuario: list[int] = [usuario.id for usuario in self.__lista_usuarios]
         if id_usuario not in lista_ids_de_usuario:
@@ -62,7 +55,7 @@ class Gerenciadora:
         self.buscar_usuario_por_id(id_usuario).adicionar_evento(novo_evento)
 
     def remover_evento_em_usuario(self, id_usuario: id, evento_a_ser_removido: Evento):
-        self.buscar_usuario_por_nome(id_usuario).remover_evento(evento_a_ser_removido)
+        self.buscar_usuario_por_id(id_usuario).remover_evento(evento_a_ser_removido)
 
     def checar_tipo_usuario(self, id_usuario: int):
         if self.buscar_usuario_por_id(id_usuario).is_adm:
