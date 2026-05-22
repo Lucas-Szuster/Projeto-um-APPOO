@@ -51,14 +51,21 @@ class Gerenciadora:
 
         return self.__lista_usuarios[lista_de_nomes_de_usuarios.index(nome_usuario)]
 
-    def adicionar_evento_em_usuario(self, nome_usuario: str, novo_evento: Evento):
-        self.buscar_usuario_por_nome(nome_usuario).adicionar_evento(novo_evento)
+    def buscar_usuario_por_id(self, id_usuario: int):
+        lista_ids_de_usuario: list[int] = [usuario.id for usuario in self.__lista_usuarios]
+        if id_usuario not in lista_ids_de_usuario:
+            raise ValueError("Este usuário não existe")
+    
+        return self.__lista_usuarios[lista_ids_de_usuario.index(id_usuario)]
+    
+    def adicionar_evento_em_usuario(self, id_usuario: int, novo_evento: Evento):
+        self.buscar_usuario_por_id(id_usuario).adicionar_evento(novo_evento)
 
-    def remover_evento_em_usuario(self, nome_usuario: str, evento_a_ser_removido: Evento):
-        self.buscar_usuario_por_nome(nome_usuario).remover_evento(evento_a_ser_removido)
+    def remover_evento_em_usuario(self, id_usuario: id, evento_a_ser_removido: Evento):
+        self.buscar_usuario_por_nome(id_usuario).remover_evento(evento_a_ser_removido)
 
-    def checar_tipo_usuario(self, nome_usuario: str):
-        if self.buscar_usuario_por_nome(nome_usuario).is_adm:
+    def checar_tipo_usuario(self, id_usuario: int):
+        if self.buscar_usuario_por_id(id_usuario).is_adm:
             return True
         
         return False
@@ -68,6 +75,7 @@ class Gerenciadora:
             raise TypeError("A área deve ser do tipo Area")
 
         self.__lista_areas.append(nova_area)
+        
 
     def buscar_area_por_nome(self, nome_area) -> Area:
         lista_de_nomes_de_areas: list[str] = [area.nome for area in self.__lista_areas]
@@ -85,14 +93,14 @@ class Gerenciadora:
     def gerar_relatorio(self):
         pass
 
-    def adicionar_item_em_area(self, nome_usuario: str, nome_area: str, item: str):
-        if self.checar_tipo_usuario(nome_usuario) == False:
+    def adicionar_item_em_area(self, id_usuario: int, nome_area: str, item: str):
+        if self.checar_tipo_usuario(id_usuario) == False:
             raise TypeError("O usuário não é do tipo ADM! Logo, não pode adicionar item!")
         
         self.buscar_area_por_nome(nome_area).adicionar_item_na_lista(item)
 
-    def remover_item_em_area(self, nome_usuario: str, nome_area: str, item: str):
-        if self.checar_tipo_usuario(nome_usuario) == False:
+    def remover_item_em_area(self, id_usuario: int, nome_area: str, item: str):
+        if self.checar_tipo_usuario(id_usuario) == False:
             raise TypeError("O usuário não é do tipo ADM! Logo, não pode remover item!")
         
         self.buscar_area_por_nome(nome_area).remover_item_da_lista(item)

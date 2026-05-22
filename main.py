@@ -48,22 +48,25 @@ for usuario in geral.lista_usuarios:
 
 print('parte 5\n========')
 
-geral.adicionar_item_em_area("Olavo", "area social 1", "Televisão")
+geral.adicionar_item_em_area(2121212, "area social 1", "Televisão")
 
 for area in geral.lista_areas:
-    print(f"{area.nome}\n{area.lista_de_itens}")
+    print(f"{area.nome}, \n{area.lista_de_itens}")
 
 print('parte 6\n========')
 
-geral.remover_item_em_area("Olavo", "area social 1", "Televisão")
+geral.remover_item_em_area(2121212, "area social 1", "Televisão")
 
 for area in geral.lista_areas:
-    print(f"{area.nome}\n{area.lista_de_itens}")
+    print(f"{area.nome}, \n{area.lista_de_itens}")
 
 print('parte 7\n========')
 
-geral.adicionar_item_em_area("Pedro", "area social 1", "Televisão")
+geral.adicionar_item_em_area(2021015, "area social 1", "Televisão")
 
 for area in geral.lista_areas:
     print(f"{area.nome}\n{area.lista_de_itens}")
+
+
+
 
