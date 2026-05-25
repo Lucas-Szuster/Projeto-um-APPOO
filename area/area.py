@@ -1,11 +1,12 @@
 from abc import ABC, abstractmethod
 from evento.evento import Evento
-from copy import deepcopy
+from datetime import datetime, timedelta
 
 class Area(ABC):
-    def __init__(self, nome: str, qtd_pessoas: int):
+    def __init__(self, nome: str, qtd_pessoas: int, intervalo: timedelta):
         self.nome: str = nome
         self.qtd_pessoas: int = qtd_pessoas
+        self.intervalo = intervalo
         self.lista_restricoes: list[str] = []
         self._lista_eventos: list[Evento] = []
         self._lista_de_itens: list[str] = []
@@ -42,7 +43,7 @@ class Area(ABC):
 
     @property
     def lista_eventos(self):
-        return deepcopy(self._lista_eventos)
+        return self._lista_eventos
     
     @lista_eventos.setter
     def lista_eventos(self, nova_lista: list[Evento]):
@@ -50,7 +51,7 @@ class Area(ABC):
     
     @property 
     def lista_de_itens(self):
-        return deepcopy(self._lista_de_itens)
+        return self._lista_de_itens
     
     @lista_de_itens.setter
     def lista_de_itens(self, nova_lista: list[str]):
@@ -67,6 +68,10 @@ class Area(ABC):
         for evento in self._lista_eventos:
             if (evento.data_e_horario == novo_evento.data_e_horario):
                 raise AttributeError('eventos não podem ter o mesmo dia e hora')
+            
+            if (evento.data_e_horario.date() == novo_evento.data_e_horario.date()) and (novo_evento.data_e_horario <= (evento.data_e_horario + self.intervalo)):
+                print(f'{novo_evento.data_e_horario} | {(evento.data_e_horario + self.intervalo)} | {novo_evento.data_e_horario >= (evento.data_e_horario + self.intervalo)}')
+                raise AttributeError(f"Um evento só pode ser agendado quando outro acabar, o intervalo é {self.intervalo}")
 
         self._lista_eventos.append(novo_evento) 
         self._lista_eventos.sort(key=lambda o: o.data_e_horario)

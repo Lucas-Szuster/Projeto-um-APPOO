@@ -1,6 +1,6 @@
 from area.area import Area
 from evento.evento import Evento
-from datetime import time
+from datetime import timedelta
 
 # ======================
 # IMPORTANTE: Como lista_eventos é um atributo interno que NÃO queremos chamar o getter (pois ele retorna uma cópia),
@@ -19,7 +19,7 @@ class AreaEsportiva(Area):
     ]
 
     def __init__(self, nome: str, qtd_pessoas: int, esporte_praticado: str, sistema_de_iluminacao: bool):
-        super().__init__(nome, qtd_pessoas)
+        super().__init__(nome, qtd_pessoas, timedelta(minutes=50))
 
         self.esporte_praticado = esporte_praticado
         self.sistema_de_iluminacao = sistema_de_iluminacao

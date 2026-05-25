@@ -1,6 +1,6 @@
 from area.area import Area
 from evento.evento import Evento
-from datetime import time
+from datetime import timedelta
 
 class AreaSocial(Area):
     ITENS_PERMITIDOS: list[str] = [
@@ -11,7 +11,7 @@ class AreaSocial(Area):
     ]
 
     def __init__(self, nome, qtd_pessoas, area_espaco: float | int, sistema_de_som: bool):
-        super().__init__(nome, qtd_pessoas)
+        super().__init__(nome, qtd_pessoas, timedelta(hours=6))
 
         self.area_espaco = area_espaco
         self.sistema_de_som = sistema_de_som
