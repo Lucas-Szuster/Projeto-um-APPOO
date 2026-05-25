@@ -421,8 +421,6 @@ class App:
             minute=minuto_evento
         )
 
-        print(data_evento)
-
 
     # INICIAR
 
