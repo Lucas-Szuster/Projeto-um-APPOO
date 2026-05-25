@@ -94,3 +94,4 @@ class Gerenciadora:
             raise TypeError("O usuário não é do tipo ADM! Logo, não pode remover item!")
         
         self.buscar_area_por_nome(nome_area).remover_item_da_lista(item)
+        
