@@ -57,11 +57,8 @@ class Gerenciadora:
     def remover_evento_em_usuario(self, id_usuario: id, evento_a_ser_removido: Evento):
         self.buscar_usuario_por_id(id_usuario).remover_evento(evento_a_ser_removido)
 
-    def checar_tipo_usuario(self, id_usuario: int):
-        if self.buscar_usuario_por_id(id_usuario).is_adm:
-            return True
-        
-        return False
+    def checar_adm(self, id_usuario: int):
+        return self.buscar_usuario_por_id(id_usuario).is_adm
 
     def adicionar_area(self, nova_area: Area):
         if not isinstance(nova_area, Area):

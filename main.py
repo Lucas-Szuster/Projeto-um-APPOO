@@ -63,11 +63,10 @@ for area in geral.lista_areas:
 print('parte 7\n========')
 
 ## Deve dar erro mesmo!
-geral.adicionar_item_em_area(2021015, "area social 1", "Televisão")
+#geral.adicionar_item_em_area(2021015, "area social 1", "Televisão")
 
 for area in geral.lista_areas:
     print(f"{area.nome}\n{area.lista_de_itens}")
 
-
-
-
+for usuario in geral.lista_usuarios:
+    print(f"{usuario.nome}: {geral.checar_adm(usuario.id)}")
