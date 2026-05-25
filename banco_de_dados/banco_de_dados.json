@@ -1,19 +1,10 @@
 [
     {
-        "nome": "a",
-        "eventos": [
-            {
-                "nome_do_evento": "um"
-            },
-            {
-                "nome_do_evento": "dois"
-            },
-            {
-                "nome_do_evento": "tres"
-            },
-            {
-                "nome_do_evento": "quatro"
-            }
-        ]
+        "nome": "leila",
+        "senha": "hei",
+        "is_adm": true,
+        "idade": 12,
+        "id": 1,
+        "lista_de_eventos": []
     }
 ]
