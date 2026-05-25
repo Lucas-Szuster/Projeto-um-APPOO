@@ -361,17 +361,19 @@ class App:
             area_criar_evento,
             text="Enviar e criar evento",
             command=lambda: self.enviar_dados_evento(
-                var_area_do_evento,
-                var_texto_nome_evento,
-                var_quantidade_participantes_evento,
-                var_horario_evento,
-                var_minuto_evento,
-                dia_evento
+                var_opcao_area_evento=var_area_do_evento,
+                var_nome_evento=var_texto_nome_evento,
+                var_quantidade_de_participantes_evento=var_quantidade_participantes_evento,
+                var_horario_evento=var_horario_evento,
+                var_minuto_evento=var_minuto_evento,
+                entrada_dia=dia_evento,
+                tela_evento_adicionado=tela_voltar,
+                tela_evento_nao_adicionado=enumTelas.TELA_CRIAR_EVENTO
             )
         )
         botao_eviar.pack()
     
-    def enviar_dados_evento(self, var_opcao_area_evento: tk.StringVar, var_nome_evento: tk.StringVar, var_quantidade_de_participantes_evento: tk.StringVar, var_horario_evento: tk.StringVar, var_minuto_evento: tk.StringVar, entrada_dia: ttk.DateEntry):
+    def enviar_dados_evento(self, var_opcao_area_evento: tk.StringVar, var_nome_evento: tk.StringVar, var_quantidade_de_participantes_evento: tk.StringVar, var_horario_evento: tk.StringVar, var_minuto_evento: tk.StringVar, entrada_dia: ttk.DateEntry, tela_evento_adicionado: enumTelas, tela_evento_nao_adicionado: enumTelas):
         lista_var = [
             var_nome_evento,
             var_quantidade_de_participantes_evento,
@@ -411,16 +413,23 @@ class App:
         ]):
             erro_dados("Entrada inválida: quantidade de participantes, horário e minuto devem ser números e nenhuma entrada pode estar vazia")
 
+        area_evento = var_opcao_area_evento.get()
         nome_evento = var_nome_evento.get()
         quantidade_de_participantes = int(var_quantidade_de_participantes_evento.get())
         horario_evento = int(var_horario_evento.get())
         minuto_evento = int(var_minuto_evento.get())
         
-        data_evento: datetime = datetime.strptime(entrada_dia.entry.get(), "%d/%m/%Y").replace(
+        data_e_horario_evento: datetime = datetime.strptime(entrada_dia.entry.get(), "%d/%m/%Y").replace(
             hour=horario_evento,
             minute=minuto_evento
         )
 
+        try:
+            novo_evento = Evento(nome_evento, data_e_horario_evento, quantidade_de_participantes)
+            self.adicionar_evento(novo_evento, area_evento, self.usuario_logado.id, tela_evento_adicionado)
+        except Exception as e:
+            erro_dados(e)
+            return
 
     # INICIAR
 

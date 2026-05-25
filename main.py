@@ -5,8 +5,8 @@ from evento.evento import Evento
 from datetime import datetime
 from area.areaSocial import AreaSocial
 
-ev1 = Evento('evento 1', datetime(1, 1, 1, 1, 1), 10)
-ev2 = Evento('evento 2', datetime(2, 2, 2, 2, 2), 10)
+ev1 = Evento('evento 1', datetime(year=2026, month=10, day=12, hour=10), 10)
+ev2 = Evento('evento 2', datetime(year=2026, month=10, day=12, hour=19), 10)
 
 usuario_um = Usuario('lucas', 12, 13, 'lelebel')
 usuario_um.adicionar_evento(ev1)
