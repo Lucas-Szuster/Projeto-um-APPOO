@@ -1,5 +1,7 @@
 import json
 
+from gerenciadora.gerenciadora import Gerenciadora
+
 class BancoDeDados:
     def __init__(self):
         self.diretorio = 'banco_de_dados'
@@ -11,6 +13,10 @@ class BancoDeDados:
                 json_puro = json.load(arq)
             except json.JSONDecodeError as e:
                 json_puro = []
+
+    def salvar_dados(self, gerenciadora: Gerenciadora):
+        for usuario in gerenciadora.lista_usuarios:
+            pass
 
 a = BancoDeDados()
 a.ler_dados()
