@@ -23,6 +23,7 @@ class Gerenciadora:
     # MÉTODOS
     # =======
 
+    
     def validar_usuario(self, nome_usuario: str, senha_usuario: str) -> bool:
         for usuario in self.lista_usuarios:
             if (usuario.nome == nome_usuario) and (usuario.senha == senha_usuario):
@@ -43,24 +44,28 @@ class Gerenciadora:
 
         self.__lista_usuarios.append(novo_usuario)
 
-    def buscar_usuario_por_nome(self, nome_usuario: str):
-        lista_de_nomes_de_usuarios: list[str] = [usuario.nome for usuario in self.__lista_usuarios]
-        if nome_usuario not in lista_de_nomes_de_usuarios:
+    def buscar_usuario_por_id(self, id_usuario: int):
+        lista_ids_de_usuario: list[int] = [usuario.id for usuario in self.__lista_usuarios]
+        if id_usuario not in lista_ids_de_usuario:
             raise ValueError("Este usuário não existe")
+    
+        return self.__lista_usuarios[lista_ids_de_usuario.index(id_usuario)]
+    
+    def adicionar_evento_em_usuario(self, id_usuario: int, novo_evento: Evento):
+        self.buscar_usuario_por_id(id_usuario).adicionar_evento(novo_evento)
 
-        return self.__lista_usuarios[lista_de_nomes_de_usuarios.index(nome_usuario)]
+    def remover_evento_em_usuario(self, id_usuario: id, evento_a_ser_removido: Evento):
+        self.buscar_usuario_por_id(id_usuario).remover_evento(evento_a_ser_removido)
 
-    def adicionar_evento_em_usuario(self, nome_usuario: str, novo_evento: Evento):
-        self.buscar_usuario_por_nome(nome_usuario).adicionar_evento(novo_evento)
-
-    def remover_evento_em_usuario(self, nome_usuario: str, evento_a_ser_removido: Evento):
-        self.buscar_usuario_por_nome(nome_usuario).remover_evento(evento_a_ser_removido)
+    def checar_adm(self, id_usuario: int):
+        return self.buscar_usuario_por_id(id_usuario).is_adm
 
     def adicionar_area(self, nova_area: Area):
         if not isinstance(nova_area, Area):
             raise TypeError("A área deve ser do tipo Area")
 
         self.__lista_areas.append(nova_area)
+        
 
     def buscar_area_por_nome(self, nome_area) -> Area:
         lista_de_nomes_de_areas: list[str] = [area.nome for area in self.__lista_areas]
@@ -77,3 +82,15 @@ class Gerenciadora:
 
     def gerar_relatorio(self):
         pass
+
+    def adicionar_item_em_area(self, id_usuario: int, nome_area: str, item: str):
+        if self.checar_tipo_usuario(id_usuario) == False:
+            raise TypeError("O usuário não é do tipo ADM! Logo, não pode adicionar item!")
+        
+        self.buscar_area_por_nome(nome_area).adicionar_item_na_lista(item)
+
+    def remover_item_em_area(self, id_usuario: int, nome_area: str, item: str):
+        if self.checar_tipo_usuario(id_usuario) == False:
+            raise TypeError("O usuário não é do tipo ADM! Logo, não pode remover item!")
+        
+        self.buscar_area_por_nome(nome_area).remover_item_da_lista(item)

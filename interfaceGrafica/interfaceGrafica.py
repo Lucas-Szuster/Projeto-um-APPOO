@@ -2,6 +2,7 @@ import tkinter as tk
 import ttkbootstrap as ttk
 from tkinter import messagebox
 from interfaceGrafica.enumInterfaceGrafica import enumTelas
+from datetime import datetime
 
 from usuario.usuario import Usuario
 from gerenciadora.gerenciadora import Gerenciadora
@@ -37,7 +38,7 @@ class App:
         for elemento in widget.winfo_children():
             elemento.destroy()
 
-    def trocar_tela(self, tela: enumTelas):
+    def trocar_tela(self, tela: enumTelas, **kwargs):
         """
         Função que troca a tela que está sendo mostrada no aplicativo para uma nova tela
 
@@ -61,6 +62,8 @@ class App:
                 self.gerar_tela_eventos_area()
             case enumTelas.TELA_EVENTOS_PROPRIOS:
                 self.gerar_tela_eventos_proprios()
+            case enumTelas.TELA_CRIAR_EVENTO:
+                self.gerar_tela_criar_evento(**kwargs)
             case _:
                 pass
 
@@ -76,17 +79,25 @@ class App:
                 print(f'{nome}: {e}')
 
     def remover_evento_em_usuario(self, evento: Evento):
-        lista_de_nomes_de_usuarios: list[str] = [usuario.nome for usuario in self.gerenciadora.lista_usuarios]
+        lista_de_ids_de_usuarios: list[int] = [usuario.id for usuario in self.gerenciadora.lista_usuarios]
 
-        for nome in lista_de_nomes_de_usuarios:
+        for id in lista_de_ids_de_usuarios:
             try:
-                self.gerenciadora.remover_evento_em_usuario(nome, evento)
+                self.gerenciadora.remover_evento_em_usuario(id, evento)
             except Exception as e:
-                print(f'{nome}: {e}')
+                print(f'{id}: {e}')
 
     def remover_evento(self, evento: Evento, tela_para_recarregar: enumTelas):
         self.remover_evento_em_area(evento)
         self.remover_evento_em_usuario(evento)
+
+        self.trocar_tela(tela_para_recarregar)
+
+    # ADICIONAR EVENTO
+
+    def adicionar_evento(self, evento: Evento, nome_area: str, id_usuario: int, tela_para_recarregar: enumTelas):
+        self.gerenciadora.adicionar_evento_em_area(nome_area, evento)
+        self.gerenciadora.adicionar_evento_em_usuario(id_usuario, evento)
 
         self.trocar_tela(tela_para_recarregar)
 
@@ -281,6 +292,137 @@ class App:
         area_de_eventos.pack()
 
         self.gerar_lista_de_eventos(area_de_eventos, self.usuario_logado.lista_de_eventos, True, enumTelas.TELA_EVENTOS_PROPRIOS)    
+        
+        botao_novo_evento = ttk.Button(
+            area_de_eventos,
+            text="Criar novo evento",
+            command=lambda: self.trocar_tela(
+                enumTelas.TELA_CRIAR_EVENTO, 
+                tela_voltar=enumTelas.TELA_EVENTOS_PROPRIOS,
+            )
+        )
+        botao_novo_evento.pack(pady=20)        
+
+    # TELA CRIAR EVENTO
+
+    def gerar_tela_criar_evento(self, tela_voltar: enumTelas):
+        def criar_campo_de_dados(master: tk.Tk | tk.Widget, texto_rotulo: str, show: str = ''):
+            """
+            Função que cria um campo de dados com rótulo para o que deve ser inserido.
+
+            Parâmetros:
+                master: Onde deve ser anexado o campo de dados criado;
+                texto_rotulo: O texto que deve ser utilizado no rótulo da entrada de dados;
+                variavel_texto: A variável que deve ser utilizada para guardar o que é escrito na entrada de daos gerada;
+                show: O que deve ser mostrando enquanto o usuário digita (por padrão mostra o texto que ele digitou, mas se for alterado mostra o caractere inserido).
+            """
+            frame_campo_de_dados = ttk.Frame(master)
+            frame_campo_de_dados.pack(expand=True, pady=2)
+
+            label_entrada_de_dados = ttk.Label(frame_campo_de_dados, text=texto_rotulo)
+            label_entrada_de_dados.pack()
+
+            variavel_de_texto = tk.StringVar()
+
+            entrada_de_dados = ttk.Entry(frame_campo_de_dados, textvariable=variavel_de_texto, show=show)
+            entrada_de_dados.pack()
+
+            return variavel_de_texto
+
+        self.gerar_botao_voltar(tela_voltar)
+
+        area_criar_evento = ttk.Frame(self.janela_principal)
+        area_criar_evento.pack()
+
+        var_area_do_evento = tk.StringVar(area_criar_evento)
+        opcoes_area_do_evento = ttk.OptionMenu(
+            area_criar_evento, 
+            var_area_do_evento, 
+            "Escolha uma opção",  
+            *[area.nome for area in self.gerenciadora.lista_areas]          
+        )
+        opcoes_area_do_evento.pack(pady=2)
+
+        var_texto_nome_evento = criar_campo_de_dados(area_criar_evento, "nome do evento")
+        var_quantidade_participantes_evento = criar_campo_de_dados(area_criar_evento, "quantidade de participantes")
+        
+        frame_data = ttk.Frame(area_criar_evento)
+        frame_data.pack(expand=True, pady=2)
+
+        label_data = ttk.Label(frame_data, text="Insira a data do evento")
+        label_data.pack()
+        dia_evento =ttk.DateEntry(frame_data)
+        dia_evento.pack()
+
+        var_horario_evento = criar_campo_de_dados(area_criar_evento, "Insira a hora que ocorrerá o evento (somente números)")
+        var_minuto_evento = criar_campo_de_dados(area_criar_evento, "Insira o minuto que ocorrerá o evento (somente números)")
+
+        botao_eviar = ttk.Button(
+            area_criar_evento,
+            text="Enviar e criar evento",
+            command=lambda: self.enviar_dados_evento(
+                var_area_do_evento,
+                var_texto_nome_evento,
+                var_quantidade_participantes_evento,
+                var_horario_evento,
+                var_minuto_evento,
+                dia_evento
+            )
+        )
+        botao_eviar.pack()
+    
+    def enviar_dados_evento(self, var_opcao_area_evento: tk.StringVar, var_nome_evento: tk.StringVar, var_quantidade_de_participantes_evento: tk.StringVar, var_horario_evento: tk.StringVar, var_minuto_evento: tk.StringVar, entrada_dia: ttk.DateEntry):
+        lista_var = [
+            var_nome_evento,
+            var_quantidade_de_participantes_evento,
+            var_horario_evento,
+            var_minuto_evento
+        ]
+        
+        def erro_dados(mensagem_de_erro):
+            messagebox.showerror(title="Erro", message=mensagem_de_erro)
+            for var in lista_var:
+                var.set("")
+            return
+
+        def checagem_string(var_string: tk.StringVar):
+            string: str = var_string.get()
+            if not string.strip():
+                return False
+            
+            return True
+
+        def checagem_numero(var_num: tk.StringVar):
+            try:
+                num = int(var_num.get())
+                return True
+            except Exception as e:
+                return False
+        
+        if var_opcao_area_evento.get() == "Escolha uma opção":
+            erro_dados("Escolha uma área vália")
+            return
+
+        if not all([
+            checagem_string(var_nome_evento), 
+            checagem_numero(var_quantidade_de_participantes_evento),
+            checagem_numero(var_horario_evento),
+            checagem_numero(var_minuto_evento)
+        ]):
+            erro_dados("Entrada inválida: quantidade de participantes, horário e minuto devem ser números e nenhuma entrada pode estar vazia")
+
+        nome_evento = var_nome_evento.get()
+        quantidade_de_participantes = int(var_quantidade_de_participantes_evento.get())
+        horario_evento = int(var_horario_evento.get())
+        minuto_evento = int(var_minuto_evento.get())
+        
+        data_evento: datetime = datetime.strptime(entrada_dia.entry.get(), "%d/%m/%Y").replace(
+            hour=horario_evento,
+            minute=minuto_evento
+        )
+
+        print(data_evento)
+
 
     # INICIAR
 
