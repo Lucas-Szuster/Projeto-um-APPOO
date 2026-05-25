@@ -400,7 +400,7 @@ class App:
                 return False
         
         if var_opcao_area_evento.get() == "Escolha uma opção":
-            erro_dados("Escolha uma área vália")
+            erro_dados("Escolha uma área válida")
             return
 
         if not all([
