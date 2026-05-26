@@ -1,6 +1,6 @@
 from area.area import Area
 from evento.evento import Evento
-from datetime import time
+from datetime import timedelta
 
 # ======================
 # IMPORTANTE: Como lista_eventos é um atributo interno que NÃO queremos chamar o getter (pois ele retorna uma cópia),
@@ -19,7 +19,7 @@ class AreaEsportiva(Area):
     ]
 
     def __init__(self, nome: str, qtd_pessoas: int, esporte_praticado: str, sistema_de_iluminacao: bool):
-        super().__init__(nome, qtd_pessoas)
+        super().__init__(nome, qtd_pessoas, timedelta(minutes=50))
 
         self.esporte_praticado = esporte_praticado
         self.sistema_de_iluminacao = sistema_de_iluminacao
@@ -67,3 +67,15 @@ class AreaEsportiva(Area):
 
     def remover_item_da_lista(self, item):
         self._lista_de_itens.remove(item)
+
+    def to_dict(self):
+        return {
+            "tipo": "AreaEsportiva",
+            "nome": self.nome,
+            "qtd_pessoas": self.qtd_pessoas,
+            "esporte_praticado": self.esporte_praticado,
+            "sistema_de_iluminacao": self.sistema_de_iluminacao,
+            "lista_eventos": [evento.to_dict() for evento in self.lista_eventos],
+            "lista_de_itens": self.lista_de_itens,
+            "lista_restricoes": self.lista_restricoes
+        }

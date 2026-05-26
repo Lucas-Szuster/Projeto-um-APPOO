@@ -1,7 +1,5 @@
 from evento.evento import Evento
 
-from copy import deepcopy
-
 class Usuario:
     def __init__(self, nome: str, idade: int, id: int, senha: str, is_adm: bool):
         self.nome = nome
@@ -67,7 +65,7 @@ class Usuario:
 
     @property
     def lista_de_eventos(self):
-        return deepcopy(self.__lista_de_eventos)
+        return self.__lista_de_eventos
     
     @lista_de_eventos.setter
     def lista_de_eventos(self, nova_lista_de_eventos):
@@ -96,3 +94,13 @@ class Usuario:
             raise TypeError("O evento deve ser do tipo evento")
         
         self.__lista_de_eventos.remove(evento)
+
+    def to_dict(self):
+        return {
+            "nome": self.nome,
+            "senha": self.senha,
+            "is_adm": self.is_adm,
+            "idade": self.idade,
+            "id": self.id,
+            "lista_de_eventos": [evento.to_dict() for evento in self.lista_de_eventos]
+        }
