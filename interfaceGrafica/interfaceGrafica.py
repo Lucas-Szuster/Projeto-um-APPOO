@@ -68,7 +68,7 @@ class App:
                 pass
 
     # REMOVER EVENTO
-
+    
     def remover_evento(self, evento: Evento, tela_para_recarregar: enumTelas):
         self.gerenciadora.remover_evento(evento)
 
