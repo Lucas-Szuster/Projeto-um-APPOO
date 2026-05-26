@@ -1,6 +1,9 @@
 from enum import Enum
 
 class enumTelas(Enum):
+    """
+    Enum que corresponde às diferentes telas que existem no programa
+    """
     TELA_LOGIN = 0
     TELA_MENU_USUARIO = 1
     TELA_AREAS_DISPONIVEIS = 2
