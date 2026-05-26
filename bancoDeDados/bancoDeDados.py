@@ -89,9 +89,8 @@ class BancoDeDados:
             for item in dict_area["lista_de_itens"]:
                 nova_area.adicionar_item_na_lista(item)
 
-            # ============================
-            # FALTA A LÓGICA DE RESTRIÇÕES
-            # ============================
+            for restricao in dict_area["lista_restricoes"]:
+                nova_area.adicionar_restricao_area(restricao)
 
             gerenciadora.adicionar_area(nova_area)
 

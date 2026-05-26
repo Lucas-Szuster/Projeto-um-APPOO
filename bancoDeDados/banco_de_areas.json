@@ -7,7 +7,9 @@
         "sistema_de_iluminacao": true,
         "lista_eventos": [],
         "lista_de_itens": [],
-        "lista_restricoes": []
+        "lista_restricoes": [
+            "lopes"
+        ]
     },
     {
         "tipo": "AreaSocial",
