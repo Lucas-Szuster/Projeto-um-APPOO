@@ -68,25 +68,6 @@ class App:
                 pass
 
     # REMOVER EVENTO
-
-    def remover_evento_em_area(self, evento: Evento):
-        lista_de_nomes_de_areas: list[str] = [area.nome for area in self.gerenciadora.lista_areas]
-
-        for nome in lista_de_nomes_de_areas:
-            try:
-                self.gerenciadora.remover_evento_em_area(nome, evento)
-            except Exception as e:
-                print(f'{nome}: {e}')
-
-    def remover_evento_em_usuario(self, evento: Evento):
-        lista_de_ids_de_usuarios: list[int] = [usuario.id for usuario in self.gerenciadora.lista_usuarios]
-
-        for id in lista_de_ids_de_usuarios:
-            try:
-                self.gerenciadora.remover_evento_em_usuario(id, evento)
-            except Exception as e:
-                print(f'{id}: {e}')
-
     def remover_evento(self, evento: Evento, tela_para_recarregar: enumTelas):
         self.remover_evento_em_area(evento)
         self.remover_evento_em_usuario(evento)
