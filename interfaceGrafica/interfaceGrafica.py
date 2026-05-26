@@ -261,16 +261,28 @@ class App:
             widget_area = ttk.Frame(master)
             widget_area.pack(padx=5, pady=5)
 
-            gerar_componente_label_simples(widget_area, f"Nome da área: {area.nome}").pack()
-            gerar_componente_label_simples(widget_area, f"Quantidade máxima de pessoas: {area.qtd_pessoas}").pack()
+            frame_dados_basicos_area = ttk.Frame(widget_area)
+            frame_dados_basicos_area.pack()
+
+            frame_restricoes = ttk.Frame(widget_area)
+            frame_restricoes.pack(padx=5, pady=5)
+
+            gerar_componente_label_simples(frame_dados_basicos_area, f"Nome da área: {area.nome}").pack()
+            gerar_componente_label_simples(frame_dados_basicos_area, f"Quantidade máxima de pessoas: {area.qtd_pessoas}").pack()
 
             if (isinstance(area, AreaSocial)):
-                gerar_componente_label_simples(widget_area, f"Espaco da área: {area.area_espaco} metros quadrados").pack()
-                gerar_componente_label_simples(widget_area, f"A área possui sistema de som? {"Sim" if area.sistema_de_som else "Não"}").pack()
+                gerar_componente_label_simples(frame_dados_basicos_area, f"Espaco da área: {area.area_espaco} metros quadrados").pack()
+                gerar_componente_label_simples(frame_dados_basicos_area, f"A área possui sistema de som? {"Sim" if area.sistema_de_som else "Não"}").pack()
 
             if (isinstance(area, AreaEsportiva)):
-                gerar_componente_label_simples(widget_area, f"Esporte da área: {area.esporte_praticado}").pack()
-                gerar_componente_label_simples(widget_area, f"A área possui sistema de iluminação? {"Sim" if area.sistema_de_iluminacao else "Não"}").pack()
+                gerar_componente_label_simples(frame_dados_basicos_area, f"Esporte da área: {area.esporte_praticado}").pack()
+                gerar_componente_label_simples(frame_dados_basicos_area, f"A área possui sistema de iluminação? {"Sim" if area.sistema_de_iluminacao else "Não"}").pack()
+
+            if (len(area.lista_restricoes) > 1):
+                gerar_componente_label_simples(frame_restricoes, "Restrições da área").pack()
+
+            for restricao in area.lista_restricoes:
+                gerar_componente_label_simples(frame_restricoes, restricao).pack()
 
             botao_ver_eventos = ttk.Button(
                 widget_area, 
@@ -279,12 +291,13 @@ class App:
             botao_ver_eventos.pack()
 
             if (self.gerenciadora.checar_adm(self.usuario_logado.id)):
-                botao_adicionar_restricao_a_area = ttk.Button(
+                botao_adicionar_restricao_area = ttk.Button(
                     widget_area,
                     text="Adicionar restrição à área",
                     command=lambda: self.trocar_tela(enumTelas.TELA_ADICIONAR_RESTRICAO_A_AREA, area=area)
                 )
-                botao_adicionar_restricao_a_area.pack()
+                botao_adicionar_restricao_area.pack()
+
 
         self.gerar_botao_voltar(enumTelas.TELA_MENU_USUARIO)
 
