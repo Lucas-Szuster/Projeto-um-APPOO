@@ -64,6 +64,8 @@ class App:
                 self.gerar_tela_eventos_proprios()
             case enumTelas.TELA_CRIAR_EVENTO:
                 self.gerar_tela_criar_evento(**kwargs)
+            case enumTelas.TELA_CRIAR_USUARIO:
+                self.gerar_tela_criar_usuario()
             case _:
                 pass
 
@@ -81,6 +83,15 @@ class App:
 
         self.trocar_tela(tela_para_recarregar)
 
+    # ADICIONAR USUARIO
+
+    def adicionar_usuario(self, novo_usuario: Usuario, tela: enumTelas):
+        self.gerenciadora.adicionar_usuario(novo_usuario)
+
+        messagebox.showinfo("Informação", "Usuário criado com sucesso")
+
+        self.trocar_tela(tela)
+
     # BOTAO VOLTAR
 
     def gerar_botao_voltar(self, tela_anterior):
@@ -94,40 +105,42 @@ class App:
         )
         botao_voltar.pack(side='left')
 
+    # FUNÇÃO CRIAR CAMPO DE DADOS
+
+    def criar_campo_de_dados(self, master: tk.Tk | tk.Widget, texto_rotulo: str, show: str = ''):
+        """
+        Função que cria um campo de dados com rótulo para o que deve ser inserido.
+
+        Parâmetros:
+            master: Onde deve ser anexado o campo de dados criado;
+            texto_rotulo: O texto que deve ser utilizado no rótulo da entrada de dados;
+            variavel_texto: A variável que deve ser utilizada para guardar o que é escrito na entrada de daos gerada;
+            show: O que deve ser mostrando enquanto o usuário digita (por padrão mostra o texto que ele digitou, mas se for alterado mostra o caractere inserido).
+        """
+        frame_campo_de_dados = ttk.Frame(master)
+        frame_campo_de_dados.pack(expand=True, pady=2)
+
+        label_entrada_de_dados = ttk.Label(frame_campo_de_dados, text=texto_rotulo)
+        label_entrada_de_dados.pack()
+
+        variavel_de_texto = tk.StringVar()
+
+        entrada_de_dados = ttk.Entry(frame_campo_de_dados, textvariable=variavel_de_texto, show=show)
+        entrada_de_dados.pack()
+
+        return variavel_de_texto
+
     # TELA LOGIN
 
     def gerar_tela_login(self):
-        def criar_campo_de_dados(master: tk.Tk | tk.Widget, texto_rotulo: str, show: str = ''):
-            """
-            Função que cria um campo de dados com rótulo para o que deve ser inserido.
-
-            Parâmetros:
-                master: Onde deve ser anexado o campo de dados criado;
-                texto_rotulo: O texto que deve ser utilizado no rótulo da entrada de dados;
-                variavel_texto: A variável que deve ser utilizada para guardar o que é escrito na entrada de daos gerada;
-                show: O que deve ser mostrando enquanto o usuário digita (por padrão mostra o texto que ele digitou, mas se for alterado mostra o caractere inserido).
-            """
-            frame_campo_de_dados = ttk.Frame(master)
-            frame_campo_de_dados.pack(expand=True, pady=2)
-
-            label_entrada_de_dados = ttk.Label(frame_campo_de_dados, text=texto_rotulo)
-            label_entrada_de_dados.pack()
-
-            variavel_de_texto = tk.StringVar()
-
-            entrada_de_dados = ttk.Entry(frame_campo_de_dados, textvariable=variavel_de_texto, show=show)
-            entrada_de_dados.pack()
-
-            return variavel_de_texto
-
         frame_geral_login = ttk.Frame(self.janela_principal)
         frame_geral_login.pack(expand=True)
 
         titulo_login = ttk.Label(frame_geral_login, text='Insira seus dados', font=('', 14, 'bold'))
         titulo_login.pack()
 
-        variavel_de_texto_nome_do_usuario = criar_campo_de_dados(frame_geral_login, "Insira o nome de usuário")
-        variavel_de_texto_senha_do_usuario = criar_campo_de_dados(frame_geral_login, "Insira a senha", '*')
+        variavel_de_texto_nome_do_usuario = self.criar_campo_de_dados(frame_geral_login, "Insira o nome de usuário")
+        variavel_de_texto_senha_do_usuario = self.criar_campo_de_dados(frame_geral_login, "Insira a senha", '*')
 
         botao_enviar_dados = ttk.Button(
             frame_geral_login, 
@@ -164,6 +177,9 @@ class App:
     # TELA MENU USUARIO
 
     def gerar_tela_menu_usuario(self):
+        area_botoes_tela_menu_adm = ttk.Frame(self.janela_principal)
+        area_botoes_tela_menu_adm.pack(expand=True)
+
         area_botoes_tela_menu_usuario = ttk.Frame(self.janela_principal)
         area_botoes_tela_menu_usuario.pack(expand=True)
 
@@ -180,6 +196,14 @@ class App:
             command=lambda: self.trocar_tela(enumTelas.TELA_EVENTOS_PROPRIOS)
         )
         botao_ver_eventos_proprios.grid(column=1, row=0, padx=10)
+
+        if (self.gerenciadora.checar_adm(self.usuario_logado.id)):
+            botao_novo_usuario = ttk.Button(
+                area_botoes_tela_menu_adm,
+                text="Criar novo usuário",
+                command=lambda: self.trocar_tela(enumTelas.TELA_CRIAR_USUARIO)
+            )
+            botao_novo_usuario.pack()
 
     # TELA ÁREAS DISPONÍVEIS
 
@@ -261,7 +285,10 @@ class App:
         area_de_eventos = ttk.Frame(self.janela_principal)
         area_de_eventos.pack()
 
-        self.gerar_lista_de_eventos(area_de_eventos, self.area_atual.lista_eventos, False, enumTelas.TELA_EVENTOS_AREA)
+        if (self.gerenciadora.checar_adm(self.usuario_logado.id)):
+            self.gerar_lista_de_eventos(area_de_eventos, self.area_atual.lista_eventos, True, enumTelas.TELA_EVENTOS_AREA)
+        else:
+            self.gerar_lista_de_eventos(area_de_eventos, self.area_atual.lista_eventos, False, enumTelas.TELA_EVENTOS_AREA)
 
     # TELA EVENTOS PRÓPRIOS
 
@@ -286,29 +313,6 @@ class App:
     # TELA CRIAR EVENTO
 
     def gerar_tela_criar_evento(self, tela_voltar: enumTelas):
-        def criar_campo_de_dados(master: tk.Tk | tk.Widget, texto_rotulo: str, show: str = ''):
-            """
-            Função que cria um campo de dados com rótulo para o que deve ser inserido.
-
-            Parâmetros:
-                master: Onde deve ser anexado o campo de dados criado;
-                texto_rotulo: O texto que deve ser utilizado no rótulo da entrada de dados;
-                variavel_texto: A variável que deve ser utilizada para guardar o que é escrito na entrada de daos gerada;
-                show: O que deve ser mostrando enquanto o usuário digita (por padrão mostra o texto que ele digitou, mas se for alterado mostra o caractere inserido).
-            """
-            frame_campo_de_dados = ttk.Frame(master)
-            frame_campo_de_dados.pack(expand=True, pady=2)
-
-            label_entrada_de_dados = ttk.Label(frame_campo_de_dados, text=texto_rotulo)
-            label_entrada_de_dados.pack()
-
-            variavel_de_texto = tk.StringVar()
-
-            entrada_de_dados = ttk.Entry(frame_campo_de_dados, textvariable=variavel_de_texto, show=show)
-            entrada_de_dados.pack()
-
-            return variavel_de_texto
-
         self.gerar_botao_voltar(tela_voltar)
 
         area_criar_evento = ttk.Frame(self.janela_principal)
@@ -323,8 +327,8 @@ class App:
         )
         opcoes_area_do_evento.pack(pady=2)
 
-        var_texto_nome_evento = criar_campo_de_dados(area_criar_evento, "nome do evento")
-        var_quantidade_participantes_evento = criar_campo_de_dados(area_criar_evento, "quantidade de participantes")
+        var_texto_nome_evento = self.criar_campo_de_dados(area_criar_evento, "nome do evento")
+        var_quantidade_participantes_evento = self.criar_campo_de_dados(area_criar_evento, "quantidade de participantes")
         
         frame_data = ttk.Frame(area_criar_evento)
         frame_data.pack(expand=True, pady=2)
@@ -334,8 +338,8 @@ class App:
         dia_evento =ttk.DateEntry(frame_data)
         dia_evento.pack()
 
-        var_horario_evento = criar_campo_de_dados(area_criar_evento, "Insira a hora que ocorrerá o evento (somente números)")
-        var_minuto_evento = criar_campo_de_dados(area_criar_evento, "Insira o minuto que ocorrerá o evento (somente números)")
+        var_horario_evento = self.criar_campo_de_dados(area_criar_evento, "Insira a hora que ocorrerá o evento (somente números)")
+        var_minuto_evento = self.criar_campo_de_dados(area_criar_evento, "Insira o minuto que ocorrerá o evento (somente números)")
 
         botao_eviar = ttk.Button(
             area_criar_evento,
@@ -407,6 +411,84 @@ class App:
         try:
             novo_evento = Evento(nome_evento, data_e_horario_evento, quantidade_de_participantes)
             self.adicionar_evento(novo_evento, area_evento, self.usuario_logado.id, tela_evento_adicionado)
+        except Exception as e:
+            erro_dados(e)
+            return
+        
+    # TELA CRIAR USUARIO
+
+    def gerar_tela_criar_usuario(self):
+        self.gerar_botao_voltar(enumTelas.TELA_MENU_USUARIO)
+
+        area_criar_usuario = ttk.Frame(self.janela_principal)
+        area_criar_usuario.pack(expand=True)
+
+        var_nome_usuario = self.criar_campo_de_dados(area_criar_usuario, "Insira o nome do usuário")
+        id_usuario = Gerenciadora.NOVO_ID
+        var_idade_usuario = self.criar_campo_de_dados(area_criar_usuario, "Insira a idade do usuário")
+        var_senha_usuario = self.criar_campo_de_dados(area_criar_usuario, "Insira a senha do usuario", '*')
+        
+        var_is_adm_usuario = tk.BooleanVar(value=False)
+        label_is_adm_usuario = ttk.Label(area_criar_usuario, text="O usuário é adm?")
+        label_is_adm_usuario.pack()
+        botao_is_adm_usuario = ttk.Checkbutton(area_criar_usuario, variable=var_is_adm_usuario)
+        botao_is_adm_usuario.pack()
+
+        botao_enviar_dados = ttk.Button(
+            area_criar_usuario,
+            text="Enviar dados",
+            command=lambda: self.criar_novo_usuario(
+                var_nome_usuario=var_nome_usuario,
+                id_usuario=id_usuario,
+                var_idade_usuario=var_idade_usuario,
+                var_senha_usuario=var_senha_usuario,
+                var_is_adm_usuario=var_is_adm_usuario
+            )
+        )
+        botao_enviar_dados.pack(pady=2)
+
+    def criar_novo_usuario(self, var_nome_usuario: tk.StringVar, id_usuario: int, var_idade_usuario: tk.StringVar, var_senha_usuario: tk.StringVar, var_is_adm_usuario: tk.BooleanVar):
+        lista_var = [
+            var_nome_usuario,
+            var_idade_usuario,
+            var_senha_usuario
+        ]
+        
+        def erro_dados(mensagem_de_erro):
+            messagebox.showerror(title="Erro", message=mensagem_de_erro)
+            for var in lista_var:
+                var.set("")
+            return
+
+        def checagem_string(var_string: tk.StringVar):
+            string: str = var_string.get()
+            if not string.strip():
+                return False
+            
+            return True
+
+        def checagem_numero(var_num: tk.StringVar):
+            try:
+                num = int(var_num.get())
+                return True
+            except Exception as e:
+                return False
+            
+        if not all([
+            checagem_string(var_nome_usuario),
+            checagem_numero(var_idade_usuario),
+            checagem_string(var_senha_usuario)
+        ]):
+            erro_dados("Algum campo está inválido")
+
+        nome_usuario = var_nome_usuario.get()
+        senha_usuario = var_senha_usuario.get()
+        idade_usuario = int(var_idade_usuario.get())
+        id_adm_usuario = var_is_adm_usuario.get()
+
+        try:
+            novo_usuario = Usuario(nome_usuario, idade_usuario, id_usuario, senha_usuario, id_adm_usuario)
+            self.adicionar_usuario(novo_usuario, enumTelas.TELA_MENU_USUARIO)
         except Exception as e:
             erro_dados(e)
             return

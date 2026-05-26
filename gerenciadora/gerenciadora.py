@@ -3,6 +3,9 @@ from evento.evento import Evento
 from usuario.usuario import Usuario
 
 class Gerenciadora:
+
+    NOVO_ID = 1
+
     def __init__(self):
         self.__lista_areas: list[Area] = []
         self.__lista_usuarios: list[Usuario] = []
@@ -43,6 +46,7 @@ class Gerenciadora:
             raise TypeError("O usuário deve ser do tipo Usuario")
 
         self.__lista_usuarios.append(novo_usuario)
+        Gerenciadora.NOVO_ID += 1
 
     def buscar_usuario_por_id(self, id_usuario: int):
         lista_ids_de_usuario: list[int] = [usuario.id for usuario in self.__lista_usuarios]
