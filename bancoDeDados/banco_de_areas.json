@@ -8,5 +8,15 @@
         "lista_eventos": [],
         "lista_de_itens": [],
         "lista_restricoes": []
+    },
+    {
+        "tipo": "AreaSocial",
+        "nome": "area da resenha",
+        "qtd_pessoas": 67,
+        "area_espaco": 67.0,
+        "sistema_de_som": true,
+        "lista_eventos": [],
+        "lista_de_itens": [],
+        "lista_restricoes": []
     }
 ]

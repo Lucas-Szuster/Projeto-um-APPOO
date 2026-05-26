@@ -361,6 +361,65 @@ class App:
                     botao_possui_sistema_de_som = ttk.Checkbutton(tela_de_gerar_area, variable=var_sistema_de_som)
                     botao_possui_sistema_de_som.pack()
 
+                    botao_enviar = ttk.Button(
+                        tela_de_gerar_area,
+                        text="Enviar Dados",
+                        command=lambda: self.enviar_dados_em_area_social(
+                            var_nome_area=var_nome_area,
+                            var_qtd_pessoas=var_qtd_pessoas,
+                            var_area_em_metros=var_area_em_metros,
+                            var_sistema_de_som=var_sistema_de_som
+                        )
+                    )
+                    botao_enviar.pack()
+
+    def enviar_dados_em_area_social(self, var_nome_area: tk.StringVar, var_qtd_pessoas: tk.StringVar, var_area_em_metros: tk.StringVar, var_sistema_de_som: tk.BooleanVar):
+        lista_var = [
+            var_nome_area,
+            var_qtd_pessoas,
+            var_area_em_metros
+        ]
+        
+        def erro_dados(mensagem_de_erro):
+            messagebox.showerror(title="Erro", message=mensagem_de_erro)
+            for var in lista_var:
+                var.set("")
+            return
+
+        def checagem_string(var_string: tk.StringVar):
+            string: str = var_string.get()
+            if not string.strip():
+                return False
+            
+            return True
+
+        def checagem_numero(var_num: tk.StringVar):
+            try:
+                num = int(var_num.get())
+                return True
+            except Exception as e:
+                return False
+            
+        if not all([
+            checagem_string(var_nome_area),
+            checagem_numero(var_qtd_pessoas),
+            checagem_numero(var_area_em_metros)
+        ]):
+            erro_dados("Um dos campos esta preenchido incorretamente!")
+            return
+        
+        nome_area = var_nome_area.get()
+        qtd_pessoas = int(var_qtd_pessoas.get())
+        area_em_metros = float(var_area_em_metros.get())
+        sistema_de_som = var_sistema_de_som.get()
+
+        try:
+            nova_area = AreaSocial(nome_area, qtd_pessoas, area_em_metros, sistema_de_som)
+            self.adicionar_area(nova_area, enumTelas.TELA_MENU_USUARIO)
+        except Exception as e:
+            erro_dados(e)
+            return
+
 
     def enviar_dados_area_esportiva(self,var_nome_area: tk.StringVar, var_qtd_pessoas: tk.StringVar, var_esporte_praticado: tk.StringVar, var_iluminacao: tk.BooleanVar):
         lista_var = [
