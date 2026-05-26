@@ -1,6 +1,6 @@
 from gerenciadora.gerenciadora import Gerenciadora
 from usuario.usuario import Usuario
-from banco_de_dados.banco_de_dados import BancoDeDados
+from bancoDeDados.bancoDeDados import BancoDeDados
 from evento.evento import Evento
 
 from datetime import datetime
