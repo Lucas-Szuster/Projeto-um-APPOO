@@ -62,6 +62,9 @@ class Area(ABC):
     # =======
 
     def adicionar_evento(self, novo_evento: Evento):
+        if novo_evento.qtd_participantes > self.qtd_pessoas:
+            raise ValueError("A quantidade de pessoas é acima do permitido")
+
         if not isinstance(novo_evento, Evento):
             raise TypeError('O evento deve ser do tipo evento')
         
@@ -78,6 +81,13 @@ class Area(ABC):
 
     def remover_evento(self, evento):
         self._lista_eventos.remove(evento)
+
+    def adicionar_restricao_area(self, restricao: str):
+        if not isinstance(restricao, str):
+            raise TypeError("A restrição deve ser uma string")
+
+        self.lista_de_restricoes.append(restricao)
+
 
     # =================
     # MÉTODOS ABSTRATOS

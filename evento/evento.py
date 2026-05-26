@@ -51,7 +51,7 @@ class Evento:
     # MÉTODOS
     # =======
 
-    def adicionar_restricao(self, restricao: str):
+    def adicionar_restricao_evento(self, restricao: str):
         if not isinstance(restricao, str):
             raise TypeError("A restrição deve ser uma string")
 
