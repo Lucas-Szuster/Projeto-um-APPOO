@@ -26,6 +26,8 @@ class Gerenciadora:
     # MÉTODOS
     # =======
 
+    def adicionar_restricao_a_area(self, area: Area, restricao: str):
+        self.buscar_area_por_nome(area.nome).adicionar_restricao_area(restricao)            
     
     def validar_usuario(self, nome_usuario: str, senha_usuario: str) -> bool:
         for usuario in self.lista_usuarios:
@@ -60,15 +62,15 @@ class Gerenciadora:
         self.buscar_area_por_nome(nome_area).adicionar_evento(novo_evento)
 
     def remover_evento(self, evento_a_ser_removido: Evento):
-        for usuario in self.lista_usuarios:
+        for usuario in self.__lista_usuarios:
             try:
-                self.buscar_usuario_por_id(usuario.id).remover_evento(evento_a_ser_removido)
+                usuario.remover_evento(evento_a_ser_removido)
             except Exception as e:
                 print(f'{usuario.nome}: {e}')
 
-        for area in self.lista_areas:
+        for area in self.__lista_areas:
             try:
-                self.buscar_area_por_nome(area.nome).remover_evento(evento_a_ser_removido)
+                area.remover_evento(evento_a_ser_removido)
             except Exception as e:
                 print(f'{area.nome}: {e}')
 
@@ -80,7 +82,6 @@ class Gerenciadora:
             raise TypeError("A área deve ser do tipo Area")
 
         self.__lista_areas.append(nova_area)
-        
 
     def buscar_area_por_nome(self, nome_area) -> Area:
         lista_de_nomes_de_areas: list[str] = [area.nome for area in self.__lista_areas]
@@ -103,6 +104,4 @@ class Gerenciadora:
             raise TypeError("O usuário não é do tipo ADM! Logo, não pode remover item!")
         
         self.buscar_area_por_nome(nome_area).remover_item_da_lista(item)
-        
-
         
