@@ -66,9 +66,18 @@ class App:
                 self.gerar_tela_criar_evento(**kwargs)
             case enumTelas.TELA_CRIAR_USUARIO:
                 self.gerar_tela_criar_usuario()
+            case enumTelas.TELA_CRIAR_AREA:
+                self.gerar_tela_criar_area()
             case _:
                 pass
 
+    #ADICIONAR AREA
+
+    def adicionar_area(self, nova_area: Area, tela_para_recarregar: enumTelas):
+        self.gerenciadora.adicionar_area(nova_area)
+
+        self.trocar_tela(tela_para_recarregar)
+    
     # REMOVER EVENTO
     
     def remover_evento(self, evento: Evento, tela_para_recarregar: enumTelas):
@@ -205,6 +214,13 @@ class App:
             )
             botao_novo_usuario.pack()
 
+            botao_criar_area = ttk.Button(
+                area_botoes_tela_menu_adm,
+                text="Criar area",
+                command=lambda: self.trocar_tela(enumTelas.TELA_CRIAR_AREA)
+            )
+            botao_criar_area.pack()
+
     # TELA ÁREAS DISPONÍVEIS
 
     def gerar_tela_areas_disponiveis(self):
@@ -273,6 +289,42 @@ class App:
 
         for evento in lista:
             formatar_evento(evento, master)
+
+    #TELA CRIAR AREA
+    def gerar_tela_criar_area(self):
+        self.gerar_botao_voltar(enumTelas.TELA_MENU_USUARIO)
+
+        tela_de_gerar_area = ttk.Frame(self.janela_principal)
+        tela_de_gerar_area.pack()
+        
+        var_tipo_de_area = tk.StringVar()
+        opcoes_area_do_evento = ttk.OptionMenu(
+            tela_de_gerar_area, 
+            var_tipo_de_area, 
+            "Escolha uma opção",  
+            *["Area esportiva", "Area Social"]         
+        )
+        opcoes_area_do_evento.pack(pady=2)
+        opcoes_area_do_evento.bind("<Button>", lambda event, var = var_tipo_de_area, tela = tela_de_gerar_area: self.checar_tipo_de_area(var, tela))
+
+        var_nome_da_area = self.criar_campo_de_dados(tela_de_gerar_area, "Escreva o nome da area:")
+        var_qtd_pessoas = self.criar_campo_de_dados(tela_de_gerar_area, "Insira a quantidade maxima permitida de pessoas")
+
+    def checar_tipo_de_area(self, var_tipo_de_area: tk.StringVar, tela_de_gerar_area: tk.Frame):
+        if var_tipo_de_area.get() != "Escolha uma opção":
+            match var_tipo_de_area.get():
+                case "Area esportiva":
+                    var_esporte_praticado = self.criar_campo_de_dados(tela_de_gerar_area,"Insira o esporte praticado")
+                    
+                    var_ilumincacao = tk.BooleanVar(value=False)
+                    label_tem_iluminacao = ttk.Label(tela_de_gerar_area, text="O espaço tem iluminação?")
+                    label_tem_iluminacao.pack()
+                    botao_possui_iluminacao = ttk.Checkbutton(tela_de_gerar_area, variable=var_ilumincacao)
+                    botao_possui_iluminacao.pack()
+
+
+
+
 
     # TELA EVENTOS AREA
 

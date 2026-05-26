@@ -38,5 +38,21 @@
         "idade": 12,
         "id": 5,
         "lista_de_eventos": []
+    },
+    {
+        "nome": "pedro",
+        "senha": "12121",
+        "is_adm": false,
+        "idade": 19,
+        "id": 6,
+        "lista_de_eventos": []
+    },
+    {
+        "nome": "PEdrinho",
+        "senha": "21212121",
+        "is_adm": true,
+        "idade": 21,
+        "id": 7,
+        "lista_de_eventos": []
     }
 ]

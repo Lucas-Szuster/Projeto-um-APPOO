@@ -11,3 +11,4 @@ class enumTelas(Enum):
     TELA_EVENTOS_PROPRIOS = 4
     TELA_CRIAR_EVENTO = 5
     TELA_CRIAR_USUARIO = 6
+    TELA_CRIAR_AREA = 7
