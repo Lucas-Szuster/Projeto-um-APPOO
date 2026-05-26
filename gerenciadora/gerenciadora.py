@@ -50,12 +50,23 @@ class Gerenciadora:
             raise ValueError("Este usuário não existe")
     
         return self.__lista_usuarios[lista_ids_de_usuario.index(id_usuario)]
-    
-    def adicionar_evento_em_usuario(self, id_usuario: int, novo_evento: Evento):
-        self.buscar_usuario_por_id(id_usuario).adicionar_evento(novo_evento)
 
-    def remover_evento_em_usuario(self, id_usuario: id, evento_a_ser_removido: Evento):
-        self.buscar_usuario_por_id(id_usuario).remover_evento(evento_a_ser_removido)
+    def adicionar_evento(self, id_usuario: int, novo_evento: Evento, nome_area: str):
+        self.buscar_usuario_por_id(id_usuario).adicionar_evento(novo_evento)
+        self.buscar_area_por_nome(nome_area).adicionar_evento(novo_evento)
+
+    def remover_evento(self, evento_a_ser_removido: Evento):
+        for usuario in self.lista_usuarios:
+            try:
+                self.buscar_usuario_por_id(usuario.id).remover_evento(evento_a_ser_removido)
+            except Exception as e:
+                print(f'{usuario.nome}: {e}')
+
+        for area in self.lista_areas:
+            try:
+                self.buscar_area_por_nome(area.nome).remover_evento(evento_a_ser_removido)
+            except Exception as e:
+                print(f'{area.nome}: {e}')
 
     def checar_adm(self, id_usuario: int):
         return self.buscar_usuario_por_id(id_usuario).is_adm
@@ -74,12 +85,6 @@ class Gerenciadora:
         
         return self.__lista_areas[lista_de_nomes_de_areas.index(nome_area)]
 
-    def adicionar_evento_em_area(self, nome_area: str, novo_evento: Evento):
-        self.buscar_area_por_nome(nome_area).adicionar_evento(novo_evento)
-
-    def remover_evento_em_area(self, nome_area: str, evento_a_ser_removido: Evento):
-        self.buscar_area_por_nome(nome_area).remover_evento(evento_a_ser_removido)
-
     def gerar_relatorio(self):
         pass
 
@@ -94,3 +99,4 @@ class Gerenciadora:
             raise TypeError("O usuário não é do tipo ADM! Logo, não pode remover item!")
         
         self.buscar_area_por_nome(nome_area).remover_item_da_lista(item)
+        
