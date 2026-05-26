@@ -305,22 +305,43 @@ class App:
             *["Area esportiva", "Area Social"]         
         )
         opcoes_area_do_evento.pack(pady=2)
-        opcoes_area_do_evento.bind("<Button>", lambda event, var = var_tipo_de_area, tela = tela_de_gerar_area: self.checar_tipo_de_area(var, tela))
-
+        
+        frame_informacoes_extras = ttk.Frame(self.janela_principal)
+        frame_informacoes_extras.pack()
+        
+        var_tipo_de_area.trace_add(
+            "write", 
+            lambda *args: self.checar_tipo_de_area(
+                var_tipo_de_area=var_tipo_de_area,
+                tela_de_gerar_area=frame_informacoes_extras
+            )
+        )
         var_nome_da_area = self.criar_campo_de_dados(tela_de_gerar_area, "Escreva o nome da area:")
         var_qtd_pessoas = self.criar_campo_de_dados(tela_de_gerar_area, "Insira a quantidade maxima permitida de pessoas")
 
     def checar_tipo_de_area(self, var_tipo_de_area: tk.StringVar, tela_de_gerar_area: tk.Frame):
-        if var_tipo_de_area.get() != "Escolha uma opção":
-            match var_tipo_de_area.get():
+        valor = var_tipo_de_area.get() 
+
+        self.limpar_widgets_filhos(tela_de_gerar_area)
+        if valor != "Escolha uma opção":
+            match valor:
                 case "Area esportiva":
-                    var_esporte_praticado = self.criar_campo_de_dados(tela_de_gerar_area,"Insira o esporte praticado")
+                    var_esporte_praticado = self.criar_campo_de_dados(tela_de_gerar_area, "Insira o esporte praticado")
                     
-                    var_ilumincacao = tk.BooleanVar(value=False)
+                    var_iluminacao = tk.BooleanVar(value=False)
                     label_tem_iluminacao = ttk.Label(tela_de_gerar_area, text="O espaço tem iluminação?")
                     label_tem_iluminacao.pack()
-                    botao_possui_iluminacao = ttk.Checkbutton(tela_de_gerar_area, variable=var_ilumincacao)
+                    botao_possui_iluminacao = ttk.Checkbutton(tela_de_gerar_area, variable=var_iluminacao)
                     botao_possui_iluminacao.pack()
+                
+                case "Area Social":
+                    var_area_em_metros = self.criar_campo_de_dados(tela_de_gerar_area, "Insira o tamanho de sua area social")
+
+                    var_sistema_de_som = tk.BooleanVar(value=False)
+                    label_tem_sistema_de_som = ttk.Label(tela_de_gerar_area, text="O espaço tem sistema de som?")
+                    label_tem_sistema_de_som.pack()
+                    botao_possui_sistema_de_som = ttk.Checkbutton(tela_de_gerar_area, variable=var_sistema_de_som)
+                    botao_possui_sistema_de_som.pack()
 
 
 
