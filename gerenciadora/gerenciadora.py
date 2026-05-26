@@ -55,11 +55,18 @@ class Gerenciadora:
         self.buscar_usuario_por_id(id_usuario).adicionar_evento(novo_evento)
         self.buscar_area_por_nome(nome_area).adicionar_evento(novo_evento)
 
-    def remover_evento(self, id_usuario: int, evento_a_ser_removido: Evento, nome_area: str):
-        self.buscar_usuario_por_id(id_usuario).remover_evento(evento_a_ser_removido)
-        self.buscar_area_por_nome(nome_area).remover_evento(evento_a_ser_removido)
+    def remover_evento(self, evento_a_ser_removido: Evento):
+        for usuario in self.lista_usuarios:
+            try:
+                self.buscar_usuario_por_id(usuario.id).remover_evento(evento_a_ser_removido)
+            except Exception as e:
+                print(f'{usuario.nome}: {e}')
 
-
+        for area in self.lista_areas:
+            try:
+                self.buscar_area_por_nome(area.nome).remover_evento(evento_a_ser_removido)
+            except Exception as e:
+                print(f'{area.nome}: {e}')
 
     def checar_adm(self, id_usuario: int):
         return self.buscar_usuario_por_id(id_usuario).is_adm
