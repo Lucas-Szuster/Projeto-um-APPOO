@@ -559,8 +559,7 @@ class App:
 
         self.gerar_botao_voltar(enumTelas.TELA_AREAS_DISPONIVEIS)
 
-        area_de_eventos = ttk.Frame(self.janela_principal)
-        area_de_eventos.pack()
+        area_de_eventos = self.criar_tela_rolavel(self.janela_principal, self.janela_principal)
 
         if (self.gerenciadora.checar_adm(self.usuario_logado.id)):
             self.gerar_lista_de_eventos(area_de_eventos, self.area_atual.lista_eventos, True, enumTelas.TELA_EVENTOS_AREA)
@@ -572,8 +571,7 @@ class App:
     def gerar_tela_eventos_proprios(self):        
         self.gerar_botao_voltar(enumTelas.TELA_MENU_USUARIO)
 
-        area_de_eventos = ttk.Frame(self.janela_principal)
-        area_de_eventos.pack()
+        area_de_eventos = self.criar_tela_rolavel(self.janela_principal, self.janela_principal)
 
         self.gerar_lista_de_eventos(area_de_eventos, self.usuario_logado.lista_de_eventos, True, enumTelas.TELA_EVENTOS_PROPRIOS)    
         
