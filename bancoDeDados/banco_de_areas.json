@@ -18,5 +18,25 @@
         "lista_eventos": [],
         "lista_de_itens": [],
         "lista_restricoes": []
+    },
+    {
+        "tipo": "AreaEsportiva",
+        "nome": "asda",
+        "qtd_pessoas": 12,
+        "esporte_praticado": "asdads",
+        "sistema_de_iluminacao": true,
+        "lista_eventos": [],
+        "lista_de_itens": [],
+        "lista_restricoes": []
+    },
+    {
+        "tipo": "AreaSocial",
+        "nome": "fdsafdsa",
+        "qtd_pessoas": 12,
+        "area_espaco": 12.0,
+        "sistema_de_som": true,
+        "lista_eventos": [],
+        "lista_de_itens": [],
+        "lista_restricoes": []
     }
 ]

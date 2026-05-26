@@ -290,7 +290,8 @@ class App:
         for evento in lista:
             formatar_evento(evento, master)
 
-    #TELA CRIAR AREA
+    # TELA CRIAR AREA
+
     def gerar_tela_criar_area(self):
         self.gerar_botao_voltar(enumTelas.TELA_MENU_USUARIO)
 
@@ -416,6 +417,7 @@ class App:
         try:
             nova_area = AreaSocial(nome_area, qtd_pessoas, area_em_metros, sistema_de_som)
             self.adicionar_area(nova_area, enumTelas.TELA_MENU_USUARIO)
+            messagebox.showinfo("Informação", "Área criada com sucesso")
         except Exception as e:
             erro_dados(e)
             return
@@ -464,6 +466,7 @@ class App:
         try:
             nova_area = AreaEsportiva(nome_area, qtd_pessoas, esporte_praticado, iluminacao)
             self.adicionar_area(nova_area, enumTelas.TELA_MENU_USUARIO)
+            messagebox.showinfo("Informação", "Área criada com sucesso")
         except Exception as e:
             erro_dados(e)
             return
