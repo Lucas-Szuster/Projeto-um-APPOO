@@ -11,7 +11,7 @@ from area.areaSocial import AreaSocial
 class BancoDeDados:
     def __init__(self):
         self.enconding = "utf-8"
-        self.diretorio = "banco_de_dados"
+        self.diretorio = "bancoDeDados"
         self.arquivo_usuarios = "banco_de_usuarios.json"
         self.arquivo_areas = "banco_de_areas.json"
 
@@ -89,9 +89,8 @@ class BancoDeDados:
             for item in dict_area["lista_de_itens"]:
                 nova_area.adicionar_item_na_lista(item)
 
-            # ============================
-            # FALTA A LÓGICA DE RESTRIÇÕES
-            # ============================
+            for restricao in dict_area["lista_restricoes"]:
+                nova_area.adicionar_restricao_area(restricao)
 
             gerenciadora.adicionar_area(nova_area)
 
