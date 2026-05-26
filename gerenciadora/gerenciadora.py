@@ -26,8 +26,11 @@ class Gerenciadora:
     # MÉTODOS
     # =======
 
-    def adicionar_restricao_a_area(self, area: Area, restricao: str):
-        self.buscar_area_por_nome(area.nome).adicionar_restricao_area(restricao)            
+    def adicionar_restricao_area(self, area: Area, restricao: str):
+        self.buscar_area_por_nome(area.nome).adicionar_restricao(restricao)  
+
+    def remover_restricao_area(self, area: Area, restricao: str):
+        self.buscar_area_por_nome(area.nome).remover_restricao(restricao)   
     
     def validar_usuario(self, nome_usuario: str, senha_usuario: str) -> bool:
         for usuario in self.lista_usuarios:
