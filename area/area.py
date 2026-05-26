@@ -70,6 +70,7 @@ class Area(ABC):
                 raise AttributeError('eventos não podem ter o mesmo dia e hora')
             
             if (evento.data_e_horario.date() == novo_evento.data_e_horario.date()) and (novo_evento.data_e_horario <= (evento.data_e_horario + self.intervalo)):
+                print(f'{novo_evento.data_e_horario} | {(evento.data_e_horario + self.intervalo)} | {novo_evento.data_e_horario >= (evento.data_e_horario + self.intervalo)}')
                 raise AttributeError(f"Um evento só pode ser agendado quando outro acabar, o intervalo é {self.intervalo}")
 
         self._lista_eventos.append(novo_evento) 
@@ -88,4 +89,8 @@ class Area(ABC):
 
     @abstractmethod
     def remover_item_da_lista(self, item: str):
+        pass
+
+    @abstractmethod
+    def to_dict(self) -> dict:
         pass

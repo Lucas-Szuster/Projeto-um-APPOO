@@ -1,11 +1,10 @@
 from evento.evento import Evento
 
-from copy import deepcopy
-
 class Usuario:
-    def __init__(self, nome: str, idade: int, id: int, senha: str):
+    def __init__(self, nome: str, idade: int, id: int, senha: str, is_adm: bool):
         self.nome = nome
         self.senha = senha
+        self.is_adm = is_adm
         self.__lista_de_eventos: list[Evento] = []
 
         if not isinstance(idade, int):
@@ -66,11 +65,19 @@ class Usuario:
 
     @property
     def lista_de_eventos(self):
-        return deepcopy(self.__lista_de_eventos)
+        return self.__lista_de_eventos
     
     @lista_de_eventos.setter
     def lista_de_eventos(self, nova_lista_de_eventos):
         raise AttributeError("A lista de eventos não pode ser alterada")
+    
+    @property
+    def is_adm(self):
+        return self.__is_adm
+    
+    @is_adm.setter
+    def is_adm(self, novo_tipo: bool):
+        self.__is_adm = novo_tipo
     
     # =======
     # MÉTODOS
@@ -86,7 +93,14 @@ class Usuario:
         if not isinstance(evento, Evento):
             raise TypeError("O evento deve ser do tipo evento")
         
-        try:
-            self.__lista_de_eventos.remove(evento)
-        except Exception as e:
-            raise e
+        self.__lista_de_eventos.remove(evento)
+
+    def to_dict(self):
+        return {
+            "nome": self.nome,
+            "senha": self.senha,
+            "is_adm": self.is_adm,
+            "idade": self.idade,
+            "id": self.id,
+            "lista_de_eventos": [evento.to_dict() for evento in self.lista_de_eventos]
+        }

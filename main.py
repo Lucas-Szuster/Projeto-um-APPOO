@@ -4,24 +4,20 @@ from usuario.usuario import Usuario
 from evento.evento import Evento
 from datetime import datetime
 from area.areaSocial import AreaSocial
+from bancoDeDados.bancoDeDados import BancoDeDados
 
-ev1 = Evento('evento 1', datetime(year=2026, month=10, day=12, hour=10), 10)
-ev2 = Evento('evento 2', datetime(year=2026, month=10, day=12, hour=19), 10)
 
-usuario_um = Usuario('lucas', 12, 13, 'lelebel')
-usuario_um.adicionar_evento(ev1)
-usuario_um.adicionar_evento(ev2)
+if __name__ == "__main__":
+    # gerando as instâncias necessários
+    gerenciadora = Gerenciadora()
+    bancoDeDados = BancoDeDados()
+    app = App("Aplicativo de eventos", "500x500", gerenciadora)
 
-ger = Gerenciadora()
+    # lendo o banco de dados e salvando na gerenciadora
+    bancoDeDados.ler_dados(gerenciadora)
+    
+    # inicializando o aplicativo do sistema
+    app.iniciar()
 
-ger.adicionar_area(AreaSocial('area 1', 12, 14, True))
-ger.adicionar_area(AreaSocial('area 2', 14, 15, False))
-ger.adicionar_area(AreaSocial('area 3', 16, 16, True))
-
-ger.adicionar_evento_em_area('area 1', ev1)
-ger.adicionar_evento_em_area('area 1', ev2)
-
-ger.adicionar_usuario(usuario_um)
-
-app = App("titu", "500x500", ger)
-app.iniciar()
+    # finalizando, salvando os dados no banco de dados
+    bancoDeDados.salvar_dados(gerenciadora)
