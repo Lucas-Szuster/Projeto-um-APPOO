@@ -90,3 +90,7 @@ class Area(ABC):
     @abstractmethod
     def remover_item_da_lista(self, item: str):
         pass
+
+    @abstractmethod
+    def to_dict(self):
+        pass

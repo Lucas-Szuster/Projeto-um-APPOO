@@ -59,3 +59,15 @@ class AreaSocial(Area):
 
     def remover_item_da_lista(self, item):
         self._lista_de_itens.remove(item)
+
+    def to_dict(self):
+        return {
+            "tipo": "AreaSocial",
+            "nome": self.nome,
+            "qtd_pessoas": self.qtd_pessoas,
+            "area_espaco": self.area_espaco,
+            "sistema_de_som": self.sistema_de_som,
+            "lista_eventos": [evento.to_dict() for evento in self.lista_eventos],
+            "lista_de_itens": self.lista_de_itens,
+            "lista_restricoes": self.lista_restricoes
+        }
