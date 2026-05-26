@@ -92,5 +92,5 @@ class Area(ABC):
         pass
 
     @abstractmethod
-    def to_dict(self):
+    def to_dict(self) -> dict:
         pass
