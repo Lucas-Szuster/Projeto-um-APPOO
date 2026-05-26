@@ -62,6 +62,9 @@ class Area(ABC):
     # =======
 
     def adicionar_evento(self, novo_evento: Evento):
+        if novo_evento.qtd_participantes > self.qtd_pessoas:
+            raise ValueError("A quantidade de pessoas é acima do permitido")
+
         if not isinstance(novo_evento, Evento):
             raise TypeError('O evento deve ser do tipo evento')
         
