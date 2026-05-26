@@ -104,3 +104,5 @@ class Gerenciadora:
         
         self.buscar_area_por_nome(nome_area).remover_item_da_lista(item)
         
+
+        
