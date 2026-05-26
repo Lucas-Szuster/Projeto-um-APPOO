@@ -308,18 +308,22 @@ class App:
         
         frame_informacoes_extras = ttk.Frame(self.janela_principal)
         frame_informacoes_extras.pack()
+
+        var_nome_da_area = self.criar_campo_de_dados(tela_de_gerar_area, "Escreva o nome da area:")
+        var_qtd_pessoas = self.criar_campo_de_dados(tela_de_gerar_area, "Insira a quantidade maxima permitida de pessoas")
         
         var_tipo_de_area.trace_add(
             "write", 
             lambda *args: self.checar_tipo_de_area(
                 var_tipo_de_area=var_tipo_de_area,
-                tela_de_gerar_area=frame_informacoes_extras
+                tela_de_gerar_area=frame_informacoes_extras,
+                var_nome_area=var_nome_da_area,
+                var_qtd_pessoas=var_qtd_pessoas
             )
         )
-        var_nome_da_area = self.criar_campo_de_dados(tela_de_gerar_area, "Escreva o nome da area:")
-        var_qtd_pessoas = self.criar_campo_de_dados(tela_de_gerar_area, "Insira a quantidade maxima permitida de pessoas")
+        
 
-    def checar_tipo_de_area(self, var_tipo_de_area: tk.StringVar, tela_de_gerar_area: tk.Frame):
+    def checar_tipo_de_area(self, var_tipo_de_area: tk.StringVar, tela_de_gerar_area: tk.Frame, var_nome_area: tk.StringVar, var_qtd_pessoas: tk.StringVar):
         valor = var_tipo_de_area.get() 
 
         self.limpar_widgets_filhos(tela_de_gerar_area)
@@ -333,6 +337,20 @@ class App:
                     label_tem_iluminacao.pack()
                     botao_possui_iluminacao = ttk.Checkbutton(tela_de_gerar_area, variable=var_iluminacao)
                     botao_possui_iluminacao.pack()
+
+                    botao_enviar = ttk.Button(
+                        tela_de_gerar_area,
+                        text="Enviar Dados",
+                        command=lambda: self.enviar_dados_area_esportiva(
+                            var_nome_area=var_nome_area,
+                            var_qtd_pessoas=var_qtd_pessoas,
+                            var_esporte_praticado=var_esporte_praticado,
+                            var_iluminacao=var_iluminacao
+                        )
+                    )
+                    botao_enviar.pack()
+
+
                 
                 case "Area Social":
                     var_area_em_metros = self.criar_campo_de_dados(tela_de_gerar_area, "Insira o tamanho de sua area social")
@@ -344,6 +362,52 @@ class App:
                     botao_possui_sistema_de_som.pack()
 
 
+    def enviar_dados_area_esportiva(self,var_nome_area: tk.StringVar, var_qtd_pessoas: tk.StringVar, var_esporte_praticado: tk.StringVar, var_iluminacao: tk.BooleanVar):
+        lista_var = [
+            var_nome_area,
+            var_qtd_pessoas,
+            var_esporte_praticado
+        ]
+        
+        def erro_dados(mensagem_de_erro):
+            messagebox.showerror(title="Erro", message=mensagem_de_erro)
+            for var in lista_var:
+                var.set("")
+            return
+
+        def checagem_string(var_string: tk.StringVar):
+            string: str = var_string.get()
+            if not string.strip():
+                return False
+            
+            return True
+
+        def checagem_numero(var_num: tk.StringVar):
+            try:
+                num = int(var_num.get())
+                return True
+            except Exception as e:
+                return False
+            
+        if not all([
+            checagem_string(var_nome_area),
+            checagem_numero(var_qtd_pessoas),
+            checagem_string(var_esporte_praticado)
+        ]):
+            erro_dados("Um dos campos esta preenchido corretamente!")
+            return
+        
+        nome_area = var_nome_area.get()
+        qtd_pessoas = int(var_qtd_pessoas.get())
+        esporte_praticado = var_esporte_praticado.get()
+        iluminacao = var_iluminacao.get()
+
+        try:
+            nova_area = AreaEsportiva(nome_area, qtd_pessoas, esporte_praticado, iluminacao)
+            self.adicionar_area(nova_area, enumTelas.TELA_MENU_USUARIO)
+        except Exception as e:
+            erro_dados(e)
+            return
 
 
 

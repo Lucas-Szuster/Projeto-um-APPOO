@@ -1,1 +1,12 @@
-[]
+[
+    {
+        "tipo": "AreaEsportiva",
+        "nome": "Area 1",
+        "qtd_pessoas": 10,
+        "esporte_praticado": "Futebol",
+        "sistema_de_iluminacao": true,
+        "lista_eventos": [],
+        "lista_de_itens": [],
+        "lista_restricoes": []
+    }
+]
