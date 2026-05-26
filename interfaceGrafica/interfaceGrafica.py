@@ -87,17 +87,15 @@ class App:
             except Exception as e:
                 print(f'{id}: {e}')
 
-    def remover_evento(self, evento: Evento, tela_para_recarregar: enumTelas):
-        self.remover_evento_em_area(evento)
-        self.remover_evento_em_usuario(evento)
+    def remover_evento(self, evento: Evento, nome_area: str, id_usuario: int, tela_para_recarregar: enumTelas):
+        self.gerenciadora.remover_evento(id_usuario, evento, nome_area)
 
         self.trocar_tela(tela_para_recarregar)
 
     # ADICIONAR EVENTO
 
     def adicionar_evento(self, evento: Evento, nome_area: str, id_usuario: int, tela_para_recarregar: enumTelas):
-        self.gerenciadora.adicionar_evento_em_area(nome_area, evento)
-        self.gerenciadora.adicionar_evento_em_usuario(id_usuario, evento)
+        self.gerenciadora.adicionar_evento(id_usuario, evento, nome_area)
 
         self.trocar_tela(tela_para_recarregar)
 
@@ -245,7 +243,7 @@ class App:
 
     # GERAR LISTA DE EVENTOS (USADO PARA MÚLTIPLAS TELAS)
 
-    def gerar_lista_de_eventos(self, master, lista: list[Evento], permissao: bool, tela_para_recarregar: enumTelas):
+    def gerar_lista_de_eventos(self, master, lista: list[Evento], permissao: bool, tela_para_recarregar: enumTelas, id_usuario: int, nome_area: str):
         def gerar_componente_label_simples(master, texto: str):
             return ttk.Label(
                 master,
@@ -263,7 +261,7 @@ class App:
                 botao_remover = ttk.Button(
                     frame_evento, 
                     text="Remover evento",
-                    command=lambda: self.remover_evento(evento, tela_para_recarregar)
+                    command=lambda: self.gerenciadora.remover_evento(id_usuario, evento, nome_area)
                 )
                 botao_remover.pack()
 
@@ -419,7 +417,7 @@ class App:
         horario_evento = int(var_horario_evento.get())
         minuto_evento = int(var_minuto_evento.get())
         
-        data_e_horario_evento: datetime = datetime.strptime(entrada_dia.entry.get(), "%d/%m/%Y").replace(
+        data_e_horario_evento: datetime = datetime.strptime(entrada_dia.entry.get(), "%m/%d/%Y").replace(
             hour=horario_evento,
             minute=minuto_evento
         )

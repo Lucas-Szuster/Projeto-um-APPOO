@@ -50,12 +50,16 @@ class Gerenciadora:
             raise ValueError("Este usuário não existe")
     
         return self.__lista_usuarios[lista_ids_de_usuario.index(id_usuario)]
-    
-    def adicionar_evento_em_usuario(self, id_usuario: int, novo_evento: Evento):
-        self.buscar_usuario_por_id(id_usuario).adicionar_evento(novo_evento)
 
-    def remover_evento_em_usuario(self, id_usuario: id, evento_a_ser_removido: Evento):
+    def adicionar_evento(self, id_usuario: int, novo_evento: Evento, nome_area: str):
+        self.buscar_usuario_por_id(id_usuario).adicionar_evento(novo_evento)
+        self.buscar_area_por_nome(nome_area).adicionar_evento(novo_evento)
+
+    def remover_evento(self, id_usuario: int, evento_a_ser_removido: Evento, nome_area: str):
         self.buscar_usuario_por_id(id_usuario).remover_evento(evento_a_ser_removido)
+        self.buscar_area_por_nome(nome_area).remover_evento(evento_a_ser_removido)
+
+
 
     def checar_adm(self, id_usuario: int):
         return self.buscar_usuario_por_id(id_usuario).is_adm
@@ -73,12 +77,6 @@ class Gerenciadora:
             raise ValueError("Esta área não existe")
         
         return self.__lista_areas[lista_de_nomes_de_areas.index(nome_area)]
-
-    def adicionar_evento_em_area(self, nome_area: str, novo_evento: Evento):
-        self.buscar_area_por_nome(nome_area).adicionar_evento(novo_evento)
-
-    def remover_evento_em_area(self, nome_area: str, evento_a_ser_removido: Evento):
-        self.buscar_area_por_nome(nome_area).remover_evento(evento_a_ser_removido)
 
     def gerar_relatorio(self):
         pass
