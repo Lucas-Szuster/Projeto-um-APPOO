@@ -82,6 +82,20 @@ class Area(ABC):
     def remover_evento(self, evento):
         self._lista_eventos.remove(evento)
 
+    def adicionar_restricao(self, restricao: str):
+        if not isinstance(restricao, str):
+            raise TypeError("A restrição deve ser uma string")
+
+        self.lista_restricoes.append(restricao)
+
+    def remover_restricao(self, restricao: str):
+        if not isinstance(restricao, str):
+            raise TypeError("A restrição deve ser uma string")
+        if restricao not in self.lista_restricoes:
+            raise ValueError("A restrição deve estar na lista de restrições para ser removida")
+        
+        self.lista_restricoes.remove(restricao)
+
     # =================
     # MÉTODOS ABSTRATOS
     # =================
