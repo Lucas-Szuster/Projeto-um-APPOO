@@ -57,6 +57,14 @@ class Evento:
 
         self.lista_de_restricoes.append(restricao)
 
+    def to_dict(self):
+        return {
+            "nome_evento": self.nome_evento,
+            "data_e_horario": self.data_e_horario,
+            "qtd_participantes": self.qtd_participantes,
+            "lista_de_restricoes": self.lista_de_restricoes
+        }
+
     # ==========
     # OPERADORES
     # ==========
@@ -73,4 +81,3 @@ class Evento:
                 return False
             
         return True
-    
