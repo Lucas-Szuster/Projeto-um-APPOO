@@ -34,3 +34,6 @@ b.ler_dados(ger)
 
 print(ger.lista_areas)
 print(ger.lista_usuarios)
+
+
+b.salvar_dados(ger)
