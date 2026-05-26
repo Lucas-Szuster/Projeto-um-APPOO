@@ -1,5 +1,40 @@
 [
     {
+        "nome": "lucas",
+        "senha": "lelebel",
+        "is_adm": true,
+        "idade": 12,
+        "id": 13,
+        "lista_de_eventos": [
+            {
+                "nome_evento": "evento 1",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 10,
+                    "day": 12,
+                    "hour": 10,
+                    "minute": 0,
+                    "second": 0
+                },
+                "qtd_participantes": 10,
+                "lista_de_restricoes": []
+            },
+            {
+                "nome_evento": "evento 2",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 10,
+                    "day": 12,
+                    "hour": 19,
+                    "minute": 0,
+                    "second": 0
+                },
+                "qtd_participantes": 10,
+                "lista_de_restricoes": []
+            }
+        ]
+    },
+    {
         "nome": "leila",
         "senha": "hei",
         "is_adm": true,

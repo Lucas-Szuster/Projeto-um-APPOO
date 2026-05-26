@@ -1,1 +1,116 @@
-[]
+[
+    {
+        "tipo": "AreaSocial",
+        "nome": "area 1",
+        "qtd_pessoas": 12,
+        "area_espaco": 14,
+        "sistema_de_som": true,
+        "lista_eventos": [
+            {
+                "nome_evento": "evento 1",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 10,
+                    "day": 12,
+                    "hour": 10,
+                    "minute": 0,
+                    "second": 0
+                },
+                "qtd_participantes": 10,
+                "lista_de_restricoes": []
+            },
+            {
+                "nome_evento": "evento 2",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 10,
+                    "day": 12,
+                    "hour": 19,
+                    "minute": 0,
+                    "second": 0
+                },
+                "qtd_participantes": 10,
+                "lista_de_restricoes": []
+            }
+        ],
+        "lista_de_itens": [],
+        "lista_restricoes": []
+    },
+    {
+        "tipo": "AreaSocial",
+        "nome": "area 2",
+        "qtd_pessoas": 14,
+        "area_espaco": 15,
+        "sistema_de_som": false,
+        "lista_eventos": [],
+        "lista_de_itens": [],
+        "lista_restricoes": []
+    },
+    {
+        "tipo": "AreaSocial",
+        "nome": "area 3",
+        "qtd_pessoas": 16,
+        "area_espaco": 16,
+        "sistema_de_som": true,
+        "lista_eventos": [],
+        "lista_de_itens": [],
+        "lista_restricoes": []
+    },
+    {
+        "tipo": "AreaSocial",
+        "nome": "area 1",
+        "qtd_pessoas": 12,
+        "area_espaco": 14,
+        "sistema_de_som": true,
+        "lista_eventos": [
+            {
+                "nome_evento": "evento 1",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 10,
+                    "day": 12,
+                    "hour": 10,
+                    "minute": 0,
+                    "second": 0
+                },
+                "qtd_participantes": 10,
+                "lista_de_restricoes": []
+            },
+            {
+                "nome_evento": "evento 2",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 10,
+                    "day": 12,
+                    "hour": 19,
+                    "minute": 0,
+                    "second": 0
+                },
+                "qtd_participantes": 10,
+                "lista_de_restricoes": []
+            }
+        ],
+        "lista_de_itens": [],
+        "lista_restricoes": []
+    },
+    {
+        "tipo": "AreaSocial",
+        "nome": "area 2",
+        "qtd_pessoas": 14,
+        "area_espaco": 15,
+        "sistema_de_som": false,
+        "lista_eventos": [],
+        "lista_de_itens": [],
+        "lista_restricoes": []
+    },
+    {
+        "tipo": "AreaSocial",
+        "nome": "area 3",
+        "qtd_pessoas": 16,
+        "area_espaco": 16,
+        "sistema_de_som": true,
+        "lista_eventos": [],
+        "lista_de_itens": [],
+        "lista_restricoes": []
+    }
+]

@@ -111,6 +111,6 @@ class BancoDeDados:
         with open(f'{self.diretorio}/{self.arquivo_areas}', 'w', encoding=self.enconding) as arq:
             json.dump(lista_de_dicts_areas, arq, indent=4)
 
-    def salvar_dados_gerenciadora(self, gerenciadora: Gerenciadora):
+    def salvar_dados(self, gerenciadora: Gerenciadora):
         self.salvar_dados_usuarios(gerenciadora)
         self.salvar_dados_areas(gerenciadora)
