@@ -1,12 +1,16 @@
 from gerenciadora.gerenciadora import Gerenciadora
 from usuario.usuario import Usuario
 from banco_de_dados.banco_de_dados import BancoDeDados
+from evento.evento import Evento
 
-
-usu1 = Usuario('leila', 12, 1, 'hei', True)
+from datetime import datetime
 
 gen = Gerenciadora()
-gen.adicionar_usuario(usu1)
 
 bancoDeDados = BancoDeDados()
-bancoDeDados.salvar_dados(gen)
+bancoDeDados.ler_dados(gen)
+
+for usuario in gen.lista_usuarios:
+    print(f'{usuario.nome}, {usuario.lista_de_eventos}')
+
+#bancoDeDados.ler_dados_usuarios()

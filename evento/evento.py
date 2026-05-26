@@ -60,7 +60,14 @@ class Evento:
     def to_dict(self):
         return {
             "nome_evento": self.nome_evento,
-            "data_e_horario": self.data_e_horario,
+            "data_e_horario": {
+                "year": self.data_e_horario.year,
+                "month": self.data_e_horario.month,
+                "day": self.data_e_horario.day,
+                "hour": self.data_e_horario.hour,
+                "minute": self.data_e_horario.minute,
+                "second": self.data_e_horario.second
+            },
             "qtd_participantes": self.qtd_participantes,
             "lista_de_restricoes": self.lista_de_restricoes
         }

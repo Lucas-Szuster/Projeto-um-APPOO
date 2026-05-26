@@ -1,0 +1,24 @@
+[
+    {
+        "nome": "leila",
+        "senha": "hei",
+        "is_adm": true,
+        "idade": 12,
+        "id": 1,
+        "lista_de_eventos": [
+            {
+                "nome_evento": "lelel",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 1,
+                    "day": 28,
+                    "hour": 10,
+                    "minute": 0,
+                    "second": 0
+                },
+                "qtd_participantes": 11,
+                "lista_de_restricoes": []
+            }
+        ]
+    }
+]
