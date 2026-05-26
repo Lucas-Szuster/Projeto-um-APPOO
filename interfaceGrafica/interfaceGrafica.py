@@ -68,6 +68,8 @@ class App:
                 self.gerar_tela_criar_usuario()
             case enumTelas.TELA_CRIAR_AREA:
                 self.gerar_tela_criar_area()
+            case enumTelas.TELA_ADICIONAR_RESTRICAO_A_AREA:
+                self.gerar_tela_adicionar_restricao_a_area(**kwargs)
             case _:
                 pass
 
@@ -138,6 +140,27 @@ class App:
         entrada_de_dados.pack()
 
         return variavel_de_texto
+
+    # CANVAS ROLÁVEL
+
+    def criar_tela_rolavel(self, master_canvas: tk.Tk | tk.Widget, master_barra_de_rolagem: tk.Tk | tk.Widget):
+        canvas = tk.Canvas(master_canvas)
+        canvas.pack(side="left", fill="both", expand=True)
+
+        barra_de_rolagem = tk.Scrollbar(master_barra_de_rolagem, orient="vertical", command=canvas.yview)
+        barra_de_rolagem.pack(side="right", fill="y")
+
+        canvas.configure(yscrollcommand=barra_de_rolagem.set)
+
+        area_final = ttk.Frame(canvas)
+
+        janela_id = canvas.create_window((0, 0), window=area_final, anchor="nw")
+
+        area_final.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+
+        canvas.bind("<Configure>", lambda e: canvas.itemconfig(janela_id, width=e.width))
+
+        return area_final
 
     # TELA LOGIN
 
@@ -255,13 +278,68 @@ class App:
                 command= lambda: comando_botao_ver_eventos(area))
             botao_ver_eventos.pack()
 
+            if (self.gerenciadora.checar_adm(self.usuario_logado.id)):
+                botao_adicionar_restricao_a_area = ttk.Button(
+                    widget_area,
+                    text="Adicionar restrição à área",
+                    command=lambda: self.trocar_tela(enumTelas.TELA_ADICIONAR_RESTRICAO_A_AREA, area=area)
+                )
+                botao_adicionar_restricao_a_area.pack()
+
         self.gerar_botao_voltar(enumTelas.TELA_MENU_USUARIO)
 
-        area_de_areas = ttk.Frame(self.janela_principal)
-        area_de_areas.pack()
+        area_de_areas = self.criar_tela_rolavel(self.janela_principal, self.janela_principal)
 
         for area in self.gerenciadora.lista_areas:
             formatar_area(area, area_de_areas)
+
+    # ADICIONAR RESTRIÇÃO A AREA
+
+    def adicionar_restricao_a_area(self, var_restricao_area: tk.StringVar, area: Area):
+        lista_var = [var_restricao_area]
+        
+        def erro_dados(mensagem_de_erro):
+            messagebox.showerror(title="Erro", message=mensagem_de_erro)
+            for var in lista_var:
+                var.set("")
+            return
+
+        def checagem_string(var_string: tk.StringVar):
+            string: str = var_string.get()
+            if not string.strip():
+                return False
+            
+            return True
+        
+        if not checagem_string(var_restricao_area):
+            erro_dados("Restrição inválida")
+            return
+        
+        restricao = var_restricao_area.get()
+
+        try:
+            self.gerenciadora.adicionar_restricao_a_area(area, restricao)
+            messagebox.showinfo("Informação", "Restrição adicionada com sucesso")
+            self.trocar_tela(enumTelas.TELA_AREAS_DISPONIVEIS)
+        except Exception as e:
+            erro_dados(e)
+            return
+
+
+    def gerar_tela_adicionar_restricao_a_area(self, area: Area):
+        self.gerar_botao_voltar(enumTelas.TELA_AREAS_DISPONIVEIS)
+
+        frame_adicionar_restricao_a_area = ttk.Frame(self.janela_principal)
+        frame_adicionar_restricao_a_area.pack()
+
+        var_restricao_da_area = self.criar_campo_de_dados(frame_adicionar_restricao_a_area, "Insira a restrição que deve ser adicionada")
+
+        botao_enviar_dados = ttk.Button(
+            frame_adicionar_restricao_a_area,
+            text="Enviar dados",
+            command=lambda: self.adicionar_restricao_a_area(var_restricao_da_area, area)
+        )
+        botao_enviar_dados.pack()
 
     # GERAR LISTA DE EVENTOS (USADO PARA MÚLTIPLAS TELAS)
 

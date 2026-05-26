@@ -86,7 +86,7 @@ class Area(ABC):
         if not isinstance(restricao, str):
             raise TypeError("A restrição deve ser uma string")
 
-        self.lista_de_restricoes.append(restricao)
+        self.lista_restricoes.append(restricao)
 
 
     # =================
