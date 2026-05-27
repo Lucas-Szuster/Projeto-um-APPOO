@@ -90,7 +90,7 @@ class BancoDeDados:
                 nova_area.adicionar_item_na_lista(item)
 
             for restricao in dict_area["lista_restricoes"]:
-                nova_area.adicionar_restricao_area(restricao)
+                nova_area.adicionar_restricao(restricao)
 
             gerenciadora.adicionar_area(nova_area)
 

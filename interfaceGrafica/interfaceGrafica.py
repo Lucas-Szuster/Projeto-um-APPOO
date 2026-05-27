@@ -70,6 +70,8 @@ class App:
                 self.gerar_tela_criar_area()
             case enumTelas.TELA_ADICIONAR_RESTRICAO_A_AREA:
                 self.gerar_tela_adicionar_restricao_a_area(**kwargs)
+            case enumTelas.TELA_REMOVER_RESTRICAO_A_AREA:
+                self.gerar_tela_remover_restricao_area(**kwargs)
             case _:
                 pass
 
@@ -298,6 +300,13 @@ class App:
                 )
                 botao_adicionar_restricao_area.pack()
 
+                botao_remover_restricao_area = ttk.Button(
+                    widget_area,
+                    text="Remover restrição de área",
+                    command=lambda: self.trocar_tela(enumTelas.TELA_REMOVER_RESTRICAO_A_AREA, area=area)
+                )
+                botao_remover_restricao_area.pack()
+
 
         self.gerar_botao_voltar(enumTelas.TELA_MENU_USUARIO)
 
@@ -334,6 +343,59 @@ class App:
             self.gerenciadora.adicionar_restricao_a_area(area, restricao)
             messagebox.showinfo("Informação", "Restrição adicionada com sucesso")
             self.trocar_tela(enumTelas.TELA_AREAS_DISPONIVEIS)
+        except Exception as e:
+            erro_dados(e)
+            return
+        
+    # REMOVER RESTRICAO AREA
+
+    def gerar_tela_remover_restricao_area(self, area: Area):
+        self.gerar_botao_voltar(enumTelas.TELA_AREAS_DISPONIVEIS)
+
+        frame_remover_restricao = ttk.Frame(self.janela_principal)
+        frame_remover_restricao.pack()
+
+        var_restricao_a_remover = tk.StringVar()
+        opcoes_area_do_evento = ttk.OptionMenu(
+            frame_remover_restricao, 
+            var_restricao_a_remover, 
+            "Escolha uma opção",  
+            *area.lista_restricoes        
+        )
+        opcoes_area_do_evento.pack(pady=2)
+
+        botao_enviar_dados = ttk.Button(
+            frame_remover_restricao,
+            text="Enviar dados",
+            command=lambda: self.remover_restricao_area(area, var_restricao_a_remover)
+        )
+        botao_enviar_dados.pack()
+
+    def remover_restricao_area(self, area: Area, var_restricao_a_remover: tk.StringVar):
+        def erro_dados(mensagem_de_erro):
+            messagebox.showerror(title="Erro", message=mensagem_de_erro)
+            for var in lista_var:
+                var.set("")
+            return
+
+        def checagem_string(var_string: tk.StringVar):
+            string: str = var_string.get()
+            if not string.strip():
+                return False
+            
+            return True
+        
+        if not checagem_string(var_restricao_a_remover):
+            erro_dados("Restrição inválida")
+            return
+        
+        restricao = var_restricao_a_remover.get()
+
+        try:
+            self.gerenciadora.remover_restricao_area(area, restricao)
+            #
+            # CONTINUAR AQUI!!!!!!!
+            #
         except Exception as e:
             erro_dados(e)
             return
