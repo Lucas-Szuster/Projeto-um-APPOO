@@ -379,7 +379,7 @@ class App:
         restricao = var_restricao_area.get()
 
         try:
-            self.gerenciadora.adicionar_restricao_a_area(area, restricao)
+            self.gerenciadora.adicionar_restricao_area(area, restricao)
             messagebox.showinfo("Informação", "Restrição adicionada com sucesso")
             self.trocar_tela(enumTelas.TELA_AREAS_DISPONIVEIS)
         except Exception as e:
@@ -410,11 +410,9 @@ class App:
         )
         botao_enviar_dados.pack()
 
-    def remover_restricao_area(self, area: Area, var_restricao_a_remover: tk.StringVar):
+    def remover_restricao_area(self, area: Area, var_restricao_a_remover: tk.StringVar):        
         def erro_dados(mensagem_de_erro):
             messagebox.showerror(title="Erro", message=mensagem_de_erro)
-            for var in lista_var:
-                var.set("")
             return
 
         def checagem_string(var_string: tk.StringVar):
@@ -432,9 +430,8 @@ class App:
 
         try:
             self.gerenciadora.remover_restricao_area(area, restricao)
-            #
-            # CONTINUAR AQUI!!!!!!!
-            #
+            messagebox.showinfo("Informação", "Restrição removida com sucesso")
+            self.trocar_tela(enumTelas.TELA_AREAS_DISPONIVEIS)
         except Exception as e:
             erro_dados(e)
             return

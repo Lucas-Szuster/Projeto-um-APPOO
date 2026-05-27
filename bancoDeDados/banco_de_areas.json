@@ -10,7 +10,6 @@
             "bola de futebol"
         ],
         "lista_restricoes": [
-            "lopes",
             "fdsafds",
             "dfsafdsa"
         ]
@@ -45,6 +44,8 @@
         "sistema_de_som": true,
         "lista_eventos": [],
         "lista_de_itens": [],
-        "lista_restricoes": []
+        "lista_restricoes": [
+            "lele"
+        ]
     }
 ]
