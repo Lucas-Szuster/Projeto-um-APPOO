@@ -6,7 +6,9 @@
         "esporte_praticado": "Futebol",
         "sistema_de_iluminacao": true,
         "lista_eventos": [],
-        "lista_de_itens": [],
+        "lista_de_itens": [
+            "bola de futebol"
+        ],
         "lista_restricoes": [
             "lopes",
             "fdsafds",
@@ -20,7 +22,9 @@
         "area_espaco": 67.0,
         "sistema_de_som": true,
         "lista_eventos": [],
-        "lista_de_itens": [],
+        "lista_de_itens": [
+            "Televis\u00e3o"
+        ],
         "lista_restricoes": []
     },
     {

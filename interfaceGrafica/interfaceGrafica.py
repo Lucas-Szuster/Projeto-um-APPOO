@@ -72,6 +72,8 @@ class App:
                 self.gerar_tela_adicionar_restricao_a_area(**kwargs)
             case enumTelas.TELA_REMOVER_RESTRICAO_A_AREA:
                 self.gerar_tela_remover_restricao_area(**kwargs)
+            case enumTelas.TELA_ADICIONAR_ITEM:
+                self.gerar_tela_adicionar_item(**kwargs)
             case _:
                 pass
 
@@ -307,6 +309,13 @@ class App:
                 )
                 botao_remover_restricao_area.pack()
 
+                botao_adicionar_item = ttk.Button(
+                    widget_area,
+                    text="Adicione um item",
+                    command=lambda: self.trocar_tela(enumTelas.TELA_ADICIONAR_ITEM, area=area)
+                )
+                botao_adicionar_item.pack()
+
 
         self.gerar_botao_voltar(enumTelas.TELA_MENU_USUARIO)
 
@@ -317,6 +326,36 @@ class App:
 
     # ADICIONAR RESTRIÇÃO A AREA
 
+    def adicionar_item(self, var_item_a_ser_adicionado: tk.StringVar, area: Area):
+        var_lista = [var_item_a_ser_adicionado]
+
+        def erro_dados(mensage_de_erro):
+            messagebox.showerror(title="Erro", message=mensage_de_erro)
+            return
+        
+        def checar_string(var_string: tk.StringVar):
+            string: str = var_string.get()
+            if not string.strip():
+                return False
+            
+            return True
+
+        if not checar_string(var_item_a_ser_adicionado):
+            erro_dados("Item invalido!")
+            return
+        
+        item = var_item_a_ser_adicionado.get()
+
+        try:
+            self.gerenciadora.adicionar_item_em_area(area.nome, item)
+            messagebox.showinfo("Informação", "Item adicionado com sucesso!")
+            self.trocar_tela(enumTelas.TELA_AREAS_DISPONIVEIS)
+        except Exception as e:
+            erro_dados(e)
+            return
+
+
+    
     def adicionar_restricao_a_area(self, var_restricao_area: tk.StringVar, area: Area):
         lista_var = [var_restricao_area]
         
@@ -399,6 +438,21 @@ class App:
         except Exception as e:
             erro_dados(e)
             return
+
+    def gerar_tela_adicionar_item(self, area: Area):
+        self.gerar_botao_voltar(enumTelas.TELA_AREAS_DISPONIVEIS)
+
+        frame_adicionar_item = ttk.Frame(self.janela_principal)
+        frame_adicionar_item.pack()
+
+        var_item_a_ser_adicionado = self.criar_campo_de_dados(frame_adicionar_item, "Qual item deseja inserir?")
+
+        botao_para_envio_de_dados = ttk.Button(
+            frame_adicionar_item,
+            text="Inserir Item",
+            command = lambda: self.adicionar_item(var_item_a_ser_adicionado, area)
+        )
+        botao_para_envio_de_dados.pack()
 
 
     def gerar_tela_adicionar_restricao_a_area(self, area: Area):

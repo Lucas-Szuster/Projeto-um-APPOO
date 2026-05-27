@@ -96,10 +96,7 @@ class Gerenciadora:
     def gerar_relatorio(self):
         pass
 
-    def adicionar_item_em_area(self, id_usuario: int, nome_area: str, item: str):
-        if self.checar_tipo_usuario(id_usuario) == False:
-            raise TypeError("O usuário não é do tipo ADM! Logo, não pode adicionar item!")
-        
+    def adicionar_item_em_area(self, nome_area: str, item: str):
         self.buscar_area_por_nome(nome_area).adicionar_item_na_lista(item)
 
     def remover_item_em_area(self, id_usuario: int, nome_area: str, item: str):
