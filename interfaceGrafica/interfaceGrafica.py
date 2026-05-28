@@ -268,8 +268,17 @@ class App:
             frame_dados_basicos_area = ttk.Frame(widget_area)
             frame_dados_basicos_area.pack()
 
-            frame_restricoes = ttk.Frame(widget_area)
-            frame_restricoes.pack(padx=5, pady=5)
+            frame_restricoes_e_itens = ttk.Frame(widget_area)
+            frame_restricoes_e_itens.pack(padx=5, pady=5)
+
+            frame_restricoes = ttk.Frame(frame_restricoes_e_itens)
+            frame_restricoes.grid(row=0, column=0)
+
+            linha_separadora = ttk.Separator(frame_restricoes_e_itens, orient="vertical")
+            linha_separadora.grid(row=0, column=1)
+
+            frame_itens = ttk.Frame(frame_restricoes_e_itens)
+            frame_itens.grid(row=0, column=2)
 
             gerar_componente_label_simples(frame_dados_basicos_area, f"Nome da área: {area.nome}").pack()
             gerar_componente_label_simples(frame_dados_basicos_area, f"Quantidade máxima de pessoas: {area.qtd_pessoas}").pack()
@@ -282,11 +291,21 @@ class App:
                 gerar_componente_label_simples(frame_dados_basicos_area, f"Esporte da área: {area.esporte_praticado}").pack()
                 gerar_componente_label_simples(frame_dados_basicos_area, f"A área possui sistema de iluminação? {"Sim" if area.sistema_de_iluminacao else "Não"}").pack()
 
-            if (len(area.lista_restricoes) > 1):
-                gerar_componente_label_simples(frame_restricoes, "Restrições da área").pack()
+            if (len(area.lista_restricoes) >= 1):
+                gerar_componente_label_simples(frame_restricoes, "Restrições da área").pack(expand=True)
 
-            for restricao in area.lista_restricoes:
-                gerar_componente_label_simples(frame_restricoes, restricao).pack()
+                for restricao in area.lista_restricoes:
+                    gerar_componente_label_simples(frame_restricoes, restricao).pack()
+            else:
+                gerar_componente_label_simples(frame_restricoes, "Esta área não possui restrições cadastradas").pack()
+
+            if (len(area.lista_de_itens) >= 1):
+                gerar_componente_label_simples(frame_itens, "Itens da área").pack(expand=True)
+
+                for item in area.lista_de_itens:
+                    gerar_componente_label_simples(frame_itens, item).pack()
+            else:
+                gerar_componente_label_simples(frame_itens, "Esta área não possui itens cadastrados").pack()
 
             botao_ver_eventos = ttk.Button(
                 widget_area, 

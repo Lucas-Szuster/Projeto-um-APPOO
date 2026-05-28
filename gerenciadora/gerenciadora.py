@@ -61,8 +61,8 @@ class Gerenciadora:
         return self.__lista_usuarios[lista_ids_de_usuario.index(id_usuario)]
 
     def adicionar_evento(self, id_usuario: int, novo_evento: Evento, nome_area: str):
-        self.buscar_usuario_por_id(id_usuario).adicionar_evento(novo_evento)
         self.buscar_area_por_nome(nome_area).adicionar_evento(novo_evento)
+        self.buscar_usuario_por_id(id_usuario).adicionar_evento(novo_evento)
 
     def remover_evento(self, evento_a_ser_removido: Evento):
         for usuario in self.__lista_usuarios:
