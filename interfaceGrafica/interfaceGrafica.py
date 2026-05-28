@@ -391,8 +391,8 @@ class App:
             erro_dados(e)
             return
 
+    # ADICIONAR RESTRIÇÃO A AREA
 
-    
     def adicionar_restricao_a_area(self, var_restricao_area: tk.StringVar, area: Area):
         lista_var = [var_restricao_area]
         
