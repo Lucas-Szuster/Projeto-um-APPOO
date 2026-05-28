@@ -261,6 +261,44 @@ class App:
             self.area_atual = area
             self.trocar_tela(enumTelas.TELA_EVENTOS_AREA)
 
+        def gerar_partes_area_social(area: AreaSocial, frame_dados_basicos_area: ttk.Frame):
+            gerar_componente_label_simples(frame_dados_basicos_area, f"Espaco da área: {area.area_espaco} metros quadrados").pack()
+            gerar_componente_label_simples(frame_dados_basicos_area, f"A área possui sistema de som? {"Sim" if area.sistema_de_som else "Não"}").pack()
+
+        def gerar_partes_area_esportiva(area: AreaEsportiva, frame_dados_basicos_area: ttk.Frame):
+            gerar_componente_label_simples(frame_dados_basicos_area, f"Esporte da área: {area.esporte_praticado}").pack()
+            gerar_componente_label_simples(frame_dados_basicos_area, f"A área possui sistema de iluminação? {"Sim" if area.sistema_de_iluminacao else "Não"}").pack()
+
+        def gerar_lista_de_restricoes(frame_restricoes: ttk.Frame, area: Area):
+            gerar_componente_label_simples(frame_restricoes, "Restrições da área").pack(expand=True)
+
+            for restricao in area.lista_restricoes:
+                gerar_componente_label_simples(frame_restricoes, restricao).pack()
+
+        def gerar_botao_adicionar_restricao(frame_restricoes: ttk.Frame, area: Area):
+            botao_adicionar_restricao_area = ttk.Button(
+                    frame_restricoes,
+                    text="Adicionar restrição à área",
+                    command=lambda: self.trocar_tela(enumTelas.TELA_ADICIONAR_RESTRICAO_A_AREA, area=area)
+                )
+            botao_adicionar_restricao_area.pack()
+
+        def gerar_botao_remover_restricao(frame_restricoes: ttk.Frame, area: Area):
+            botao_remover_restricao_area = ttk.Button(
+                frame_restricoes,
+                text="Remover restrição de área",
+                command=lambda: self.trocar_tela(enumTelas.TELA_REMOVER_RESTRICAO_A_AREA, area=area)
+            )
+            botao_remover_restricao_area.pack()
+
+        def gerar_botao_adicionar_item(frame_itens: ttk.Frame, area: Area):
+            botao_adicionar_item = ttk.Button(
+                    frame_itens,
+                    text="Adicione um item",
+                    command=lambda: self.trocar_tela(enumTelas.TELA_ADICIONAR_ITEM, area=area)
+                )
+            botao_adicionar_item.pack()
+
         def formatar_area(area: Area, master):
             widget_area = ttk.Frame(master)
             widget_area.pack(padx=5, pady=5)
@@ -275,7 +313,7 @@ class App:
             frame_restricoes.grid(row=0, column=0)
 
             linha_separadora = ttk.Separator(frame_restricoes_e_itens, orient="vertical")
-            linha_separadora.grid(row=0, column=1)
+            linha_separadora.grid(row=0, column=1, padx=10)
 
             frame_itens = ttk.Frame(frame_restricoes_e_itens)
             frame_itens.grid(row=0, column=2)
@@ -284,20 +322,19 @@ class App:
             gerar_componente_label_simples(frame_dados_basicos_area, f"Quantidade máxima de pessoas: {area.qtd_pessoas}").pack()
 
             if (isinstance(area, AreaSocial)):
-                gerar_componente_label_simples(frame_dados_basicos_area, f"Espaco da área: {area.area_espaco} metros quadrados").pack()
-                gerar_componente_label_simples(frame_dados_basicos_area, f"A área possui sistema de som? {"Sim" if area.sistema_de_som else "Não"}").pack()
+                gerar_partes_area_social(area, frame_dados_basicos_area)
 
             if (isinstance(area, AreaEsportiva)):
-                gerar_componente_label_simples(frame_dados_basicos_area, f"Esporte da área: {area.esporte_praticado}").pack()
-                gerar_componente_label_simples(frame_dados_basicos_area, f"A área possui sistema de iluminação? {"Sim" if area.sistema_de_iluminacao else "Não"}").pack()
+                gerar_partes_area_esportiva(area, frame_dados_basicos_area)
 
             if (len(area.lista_restricoes) >= 1):
-                gerar_componente_label_simples(frame_restricoes, "Restrições da área").pack(expand=True)
-
-                for restricao in area.lista_restricoes:
-                    gerar_componente_label_simples(frame_restricoes, restricao).pack()
+                gerar_lista_de_restricoes(frame_restricoes, area)
             else:
                 gerar_componente_label_simples(frame_restricoes, "Esta área não possui restrições cadastradas").pack()
+
+            if (self.gerenciadora.checar_adm(self.usuario_logado.id)):
+                gerar_botao_adicionar_restricao(frame_restricoes, area)
+                gerar_botao_remover_restricao(frame_restricoes, area)
 
             if (len(area.lista_de_itens) >= 1):
                 gerar_componente_label_simples(frame_itens, "Itens da área").pack(expand=True)
@@ -307,33 +344,14 @@ class App:
             else:
                 gerar_componente_label_simples(frame_itens, "Esta área não possui itens cadastrados").pack()
 
+            if (self.gerenciadora.checar_adm(self.usuario_logado.id)):
+                gerar_botao_adicionar_item(frame_itens, area)
+
             botao_ver_eventos = ttk.Button(
                 widget_area, 
                 text="Ver eventos da área",
                 command= lambda: comando_botao_ver_eventos(area))
             botao_ver_eventos.pack()
-
-            if (self.gerenciadora.checar_adm(self.usuario_logado.id)):
-                botao_adicionar_restricao_area = ttk.Button(
-                    widget_area,
-                    text="Adicionar restrição à área",
-                    command=lambda: self.trocar_tela(enumTelas.TELA_ADICIONAR_RESTRICAO_A_AREA, area=area)
-                )
-                botao_adicionar_restricao_area.pack()
-
-                botao_remover_restricao_area = ttk.Button(
-                    widget_area,
-                    text="Remover restrição de área",
-                    command=lambda: self.trocar_tela(enumTelas.TELA_REMOVER_RESTRICAO_A_AREA, area=area)
-                )
-                botao_remover_restricao_area.pack()
-
-                botao_adicionar_item = ttk.Button(
-                    widget_area,
-                    text="Adicione um item",
-                    command=lambda: self.trocar_tela(enumTelas.TELA_ADICIONAR_ITEM, area=area)
-                )
-                botao_adicionar_item.pack()
 
 
         self.gerar_botao_voltar(enumTelas.TELA_MENU_USUARIO)
