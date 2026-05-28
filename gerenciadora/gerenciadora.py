@@ -61,8 +61,8 @@ class Gerenciadora:
         return self.__lista_usuarios[lista_ids_de_usuario.index(id_usuario)]
 
     def adicionar_evento(self, id_usuario: int, novo_evento: Evento, nome_area: str):
-        self.buscar_usuario_por_id(id_usuario).adicionar_evento(novo_evento)
         self.buscar_area_por_nome(nome_area).adicionar_evento(novo_evento)
+        self.buscar_usuario_por_id(id_usuario).adicionar_evento(novo_evento)
 
     def remover_evento(self, evento_a_ser_removido: Evento):
         for usuario in self.__lista_usuarios:
@@ -96,10 +96,7 @@ class Gerenciadora:
     def gerar_relatorio(self):
         pass
 
-    def adicionar_item_em_area(self, id_usuario: int, nome_area: str, item: str):
-        if self.checar_tipo_usuario(id_usuario) == False:
-            raise TypeError("O usuário não é do tipo ADM! Logo, não pode adicionar item!")
-        
+    def adicionar_item_em_area(self, nome_area: str, item: str):
         self.buscar_area_por_nome(nome_area).adicionar_item_na_lista(item)
 
     def remover_item_em_area(self, id_usuario: int, nome_area: str, item: str):
