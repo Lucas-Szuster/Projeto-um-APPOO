@@ -18,6 +18,5 @@ if __name__ == "__main__":
     
     # inicializando o aplicativo do sistema
     app.iniciar()
-
     # finalizando, salvando os dados no banco de dados
     bancoDeDados.salvar_dados(gerenciadora)

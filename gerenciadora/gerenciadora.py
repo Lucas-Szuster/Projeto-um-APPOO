@@ -1,6 +1,11 @@
 from area.area import Area
 from evento.evento import Evento
 from usuario.usuario import Usuario
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
+from area.areaEsportiva import AreaEsportiva
+from area.areaSocial import AreaSocial
+
 
 class Gerenciadora:
 
@@ -64,6 +69,8 @@ class Gerenciadora:
         self.buscar_area_por_nome(nome_area).adicionar_evento(novo_evento)
         self.buscar_usuario_por_id(id_usuario).adicionar_evento(novo_evento)
 
+        self.gerar_relatorio(self.buscar_area_por_nome(nome_area), novo_evento)
+
     def remover_evento(self, evento_a_ser_removido: Evento):
         for usuario in self.__lista_usuarios:
             try:
@@ -93,8 +100,39 @@ class Gerenciadora:
         
         return self.__lista_areas[lista_de_nomes_de_areas.index(nome_area)]
 
-    def gerar_relatorio(self):
-        pass
+    def gerar_relatorio(self, area_maracda: Area, novo_evento: Evento):
+        nome_arquivo = "relatorio_gerado.pdf"
+        pdf = canvas.Canvas(nome_arquivo, A4)
+
+        Titulo = str("Relatorio de agendamento de Evento")
+        nome_area = area_maracda.nome
+        area_qtd = str(area_maracda.qtd_pessoas)
+
+        pdf.drawString(100, 750, Titulo)
+        pdf.drawString(100, 700, nome_area)
+        pdf.drawString(100, 680, area_qtd)
+        
+        if isinstance(area_maracda, AreaEsportiva):
+            
+            esporte_praticado = area_maracda.esporte_praticado
+            pdf.drawString(100, 660, esporte_praticado)
+
+            if area_maracda.sistema_de_iluminacao == True:
+                pdf.drawString(100, 640, "Possui sistema de iluminacao!")
+            else:
+                pdf.drawString(100, 640, "Não Possui sistema de iluminacao!")
+
+        if isinstance(area_maracda, AreaSocial):
+            tamanho = str(area_maracda.area_espaco)
+            pdf.drawString(100, 660, tamanho)
+
+            if area_maracda.sistema_de_som == True:
+                pdf.drawString(100, 640, "Possui sistema de som!")
+            else:
+                pdf.drawString(100, 640, "Não Possui sistema de som!")
+
+        
+        pdf.save()
 
     def adicionar_item_em_area(self, nome_area: str, item: str):
         self.buscar_area_por_nome(nome_area).adicionar_item_na_lista(item)

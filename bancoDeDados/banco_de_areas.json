@@ -5,7 +5,34 @@
         "qtd_pessoas": 10,
         "esporte_praticado": "Futebol",
         "sistema_de_iluminacao": true,
-        "lista_eventos": [],
+        "lista_eventos": [
+            {
+                "nome_evento": "legal",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 5,
+                    "day": 26,
+                    "hour": 19,
+                    "minute": 0,
+                    "second": 0
+                },
+                "qtd_participantes": 5,
+                "lista_de_restricoes": []
+            },
+            {
+                "nome_evento": "legal",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 12,
+                    "day": 12,
+                    "hour": 12,
+                    "minute": 12,
+                    "second": 0
+                },
+                "qtd_participantes": 3,
+                "lista_de_restricoes": []
+            }
+        ],
         "lista_de_itens": [],
         "lista_restricoes": []
     },
@@ -15,7 +42,47 @@
         "qtd_pessoas": 67,
         "area_espaco": 67.0,
         "sistema_de_som": true,
-        "lista_eventos": [],
+        "lista_eventos": [
+            {
+                "nome_evento": "resenhaaa",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 5,
+                    "day": 30,
+                    "hour": 21,
+                    "minute": 59,
+                    "second": 0
+                },
+                "qtd_participantes": 12,
+                "lista_de_restricoes": []
+            },
+            {
+                "nome_evento": "resenhite",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 7,
+                    "day": 29,
+                    "hour": 12,
+                    "minute": 13,
+                    "second": 0
+                },
+                "qtd_participantes": 10,
+                "lista_de_restricoes": []
+            },
+            {
+                "nome_evento": "resenhte",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 12,
+                    "day": 12,
+                    "hour": 12,
+                    "minute": 12,
+                    "second": 0
+                },
+                "qtd_participantes": 13,
+                "lista_de_restricoes": []
+            }
+        ],
         "lista_de_itens": [
             "Televis\u00e3o"
         ],
