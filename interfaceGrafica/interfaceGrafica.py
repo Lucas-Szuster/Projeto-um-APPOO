@@ -74,6 +74,8 @@ class App:
                 self.gerar_tela_remover_restricao_area(**kwargs)
             case enumTelas.TELA_ADICIONAR_ITEM:
                 self.gerar_tela_adicionar_item(**kwargs)
+            case enumTelas.TELA_REMOVER_ITEM:
+                self.gerar_tela_remover_item(**kwargs)
             case _:
                 pass
 
@@ -287,7 +289,8 @@ class App:
             botao_remover_restricao_area = ttk.Button(
                 frame_restricoes,
                 text="Remover restrição de área",
-                command=lambda: self.trocar_tela(enumTelas.TELA_REMOVER_RESTRICAO_A_AREA, area=area)
+                command=lambda: self.trocar_tela(enumTelas.TELA_REMOVER_RESTRICAO_A_AREA, area=area),
+                state="disabled" if len(area.lista_restricoes) < 1 else "enabled"
             )
             botao_remover_restricao_area.pack()
 
@@ -298,6 +301,15 @@ class App:
                     command=lambda: self.trocar_tela(enumTelas.TELA_ADICIONAR_ITEM, area=area)
                 )
             botao_adicionar_item.pack()
+
+        def gerar_botao_remover_item(frame_itens: ttk.Frame, area: Area):
+            botao_remover_item = ttk.Button(
+                frame_itens,
+                text="Remover um item",
+                command=lambda: self.trocar_tela(enumTelas.TELA_REMOVER_ITEM, area=area),
+                state="disabled" if len(area.lista_de_itens) < 1 else "enabled"
+            )
+            botao_remover_item.pack()
 
         def formatar_area(area: Area, master):
             widget_area = ttk.Frame(master)
@@ -346,6 +358,7 @@ class App:
 
             if (self.gerenciadora.checar_adm(self.usuario_logado.id)):
                 gerar_botao_adicionar_item(frame_itens, area)
+                gerar_botao_remover_item(frame_itens, area)
 
             botao_ver_eventos = ttk.Button(
                 widget_area, 
@@ -361,7 +374,7 @@ class App:
         for area in self.gerenciadora.lista_areas:
             formatar_area(area, area_de_areas)
 
-    # ADICIONAR RESTRIÇÃO A AREA
+    # ADICIONAR ITEM A AREA
 
     def adicionar_item(self, var_item_a_ser_adicionado: tk.StringVar, area: Area):
         var_lista = [var_item_a_ser_adicionado]
@@ -390,6 +403,60 @@ class App:
         except Exception as e:
             erro_dados(e)
             return
+
+    # TELA REMOVER ITEM
+
+    def gerar_tela_remover_item(self, area: Area):
+        self.gerar_botao_voltar(enumTelas.TELA_AREAS_DISPONIVEIS)
+
+        frame_items_a_remover = ttk.Frame(self.janela_principal)
+        frame_items_a_remover.pack()
+
+        var_item_a_remover = tk.StringVar()
+        opcoes_itens = ttk.OptionMenu(
+            frame_items_a_remover, 
+            var_item_a_remover, 
+            "Escolha uma opção",  
+            *area.lista_de_itens        
+        )
+        opcoes_itens.pack(pady=2)
+
+        botao_enviar_dados = ttk.Button(
+            frame_items_a_remover, 
+            text="Enviar dados",
+            command=lambda: self.remover_item(area, var_item_a_remover)
+        )
+        botao_enviar_dados.pack()
+
+    def remover_item(self, area: Area, var_item_a_remover: ttk.StringVar):
+        lista_var = [var_item_a_remover]
+        
+        def erro_dados(mensagem_de_erro):
+            messagebox.showerror(title="Erro", message=mensagem_de_erro)
+            for var in lista_var:
+                var.set("")
+            return
+
+        def checagem_string(var_string: tk.StringVar):
+            string: str = var_string.get()
+            if not string.strip():
+                return False
+            
+            return True
+        
+        if not checagem_string(var_item_a_remover):
+            erro_dados("Opção inválida")
+            return
+        
+        item_a_remover = var_item_a_remover.get()
+
+        try:
+            self.gerenciadora.remover_item_em_area(self.usuario_logado.id, area.nome, item_a_remover)
+            messagebox.showinfo("Informação", "Item removido com sucesso")
+            self.trocar_tela(enumTelas.TELA_AREAS_DISPONIVEIS)
+        except Exception as e:
+            erro_dados(e)
+
 
     # ADICIONAR RESTRIÇÃO A AREA
 

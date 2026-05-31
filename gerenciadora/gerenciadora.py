@@ -102,7 +102,7 @@ class Gerenciadora:
     ##Verificação de usuário já é feita em interface gráfica
     ##- Só apagar as dependenciias de id_usuario quando for fazer, igual ta em cima
     def remover_item_em_area(self, id_usuario: int, nome_area: str, item: str):
-        if self.checar_tipo_usuario(id_usuario) == False:
+        if self.checar_adm(id_usuario) == False:
             raise TypeError("O usuário não é do tipo ADM! Logo, não pode remover item!")
         
         self.buscar_area_por_nome(nome_area).remover_item_da_lista(item)
