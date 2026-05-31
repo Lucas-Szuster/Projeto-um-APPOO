@@ -70,6 +70,58 @@
                 },
                 "qtd_participantes": 10,
                 "lista_de_restricoes": []
+            },
+            {
+                "nome_evento": "dancinha",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 6,
+                    "day": 10,
+                    "hour": 20,
+                    "minute": 0,
+                    "second": 0
+                },
+                "qtd_participantes": 2,
+                "lista_de_restricoes": []
+            },
+            {
+                "nome_evento": "oi",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 5,
+                    "day": 31,
+                    "hour": 13,
+                    "minute": 31,
+                    "second": 0
+                },
+                "qtd_participantes": 2,
+                "lista_de_restricoes": []
+            },
+            {
+                "nome_evento": "eiii",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 8,
+                    "day": 21,
+                    "hour": 19,
+                    "minute": 13,
+                    "second": 0
+                },
+                "qtd_participantes": 2,
+                "lista_de_restricoes": []
+            },
+            {
+                "nome_evento": "eeeiiuiu",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 9,
+                    "day": 9,
+                    "hour": 13,
+                    "minute": 31,
+                    "second": 0
+                },
+                "qtd_participantes": 3,
+                "lista_de_restricoes": []
             }
         ]
     },

@@ -109,28 +109,42 @@ class Gerenciadora:
         area_qtd = str(area_maracda.qtd_pessoas)
 
         pdf.drawString(100, 750, Titulo)
-        pdf.drawString(100, 700, nome_area)
-        pdf.drawString(100, 680, area_qtd)
+        pdf.drawString(100, 700, "Dados da area:")
+        pdf.drawString(100, 680, nome_area)
+        pdf.drawString(100, 660, area_qtd)
         
         if isinstance(area_maracda, AreaEsportiva):
             
             esporte_praticado = area_maracda.esporte_praticado
-            pdf.drawString(100, 660, esporte_praticado)
+            pdf.drawString(100, 640, esporte_praticado)
 
             if area_maracda.sistema_de_iluminacao == True:
-                pdf.drawString(100, 640, "Possui sistema de iluminacao!")
+                pdf.drawString(100, 620, "Possui sistema de iluminacao!")
             else:
-                pdf.drawString(100, 640, "Não Possui sistema de iluminacao!")
+                pdf.drawString(100, 620, "Não Possui sistema de iluminacao!")
 
         if isinstance(area_maracda, AreaSocial):
             tamanho = str(area_maracda.area_espaco)
-            pdf.drawString(100, 660, tamanho)
+            pdf.drawAlignedString(100, 640, tamanho, "Metros quadrados")
 
             if area_maracda.sistema_de_som == True:
-                pdf.drawString(100, 640, "Possui sistema de som!")
+                pdf.drawString(100, 620, "Possui sistema de som!")
             else:
-                pdf.drawString(100, 640, "Não Possui sistema de som!")
+                pdf.drawString(100, 620, "Não Possui sistema de som!")
 
+        y = 620
+        
+        for restricao in area_maracda.lista_restricoes:
+            y -= 20
+            limitacoes = restricao
+            pdf.drawString(100,y,limitacoes)
+
+        for item in area_maracda.lista_de_itens:
+            y -= 20
+            itens = item
+            pdf.drawString(100, y , itens)
+
+        pdf.drawString(100, 700, "Dados do evento:")
         
         pdf.save()
 
