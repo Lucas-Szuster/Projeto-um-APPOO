@@ -160,8 +160,24 @@ class Gerenciadora:
         y -= 50
 
         # Dados do evento
+        nome_evento = novo_evento.nome_evento
+        
         pdf.drawString(50, y, "DADOS DO EVENTO")
+        y -= 50
+        pdf.drawString(70, y, "Nome:")
+        pdf.drawString(180, y, nome_evento)
 
+        y -= 50
+        evento_qtd = str(novo_evento.qtd_participantes)
+        pdf.drawString(70, y, "Quantidade de participantes:")
+        pdf.drawString(250,y, evento_qtd)
+
+        y -= 50
+        evento_data = str(novo_evento.data_e_horario)
+        pdf.drawString(70, y, "Data e horario:")
+        pdf.drawString(250,y, evento_data)
+
+        
         pdf.save()
 
     def adicionar_item_em_area(self, nome_area: str, item: str):
