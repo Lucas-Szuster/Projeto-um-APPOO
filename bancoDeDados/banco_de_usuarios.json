@@ -1,215 +1,91 @@
 [
     {
-        "nome": "lucas",
-        "senha": "lelebel",
+        "nome": "default",
+        "senha": "adm",
         "is_adm": true,
         "idade": 12,
         "id": 0,
+        "lista_de_eventos": []
+    },
+    {
+        "nome": "Pedro",
+        "senha": "LugarLegal",
+        "is_adm": false,
+        "idade": 19,
+        "id": 2,
+        "lista_de_eventos": []
+    },
+    {
+        "nome": "Lucas",
+        "senha": "tenho20anos",
+        "is_adm": true,
+        "idade": 20,
+        "id": 3,
+        "lista_de_eventos": []
+    },
+    {
+        "nome": "Arthur",
+        "senha": "Tenho20anostbm",
+        "is_adm": true,
+        "idade": 20,
+        "id": 4,
         "lista_de_eventos": [
             {
-                "nome_evento": "legal",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 5,
-                    "day": 26,
-                    "hour": 19,
-                    "minute": 0,
-                    "second": 0
-                },
-                "qtd_participantes": 5,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "resenhaaa",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 5,
-                    "day": 30,
-                    "hour": 21,
-                    "minute": 59,
-                    "second": 0
-                },
-                "qtd_participantes": 12,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "resenhte",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 12,
-                    "day": 12,
-                    "hour": 12,
-                    "minute": 12,
-                    "second": 0
-                },
-                "qtd_participantes": 13,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "legal",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 12,
-                    "day": 12,
-                    "hour": 12,
-                    "minute": 12,
-                    "second": 0
-                },
-                "qtd_participantes": 3,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "resenhite",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 7,
-                    "day": 29,
-                    "hour": 12,
-                    "minute": 13,
-                    "second": 0
-                },
-                "qtd_participantes": 10,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "dancinha",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 6,
-                    "day": 10,
-                    "hour": 20,
-                    "minute": 0,
-                    "second": 0
-                },
-                "qtd_participantes": 2,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "oi",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 5,
-                    "day": 31,
-                    "hour": 13,
-                    "minute": 31,
-                    "second": 0
-                },
-                "qtd_participantes": 2,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "eiii",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 8,
-                    "day": 21,
-                    "hour": 19,
-                    "minute": 13,
-                    "second": 0
-                },
-                "qtd_participantes": 2,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "eeeiiuiu",
+                "nome_evento": "Partida entre amigos",
                 "data_e_horario": {
                     "year": 2026,
                     "month": 9,
-                    "day": 9,
-                    "hour": 13,
-                    "minute": 31,
+                    "day": 6,
+                    "hour": 10,
+                    "minute": 30,
                     "second": 0
                 },
-                "qtd_participantes": 3,
+                "qtd_participantes": 2,
                 "lista_de_restricoes": []
             },
             {
-                "nome_evento": "AVERIGUADOR",
+                "nome_evento": "Assistir Wes Anderson",
                 "data_e_horario": {
                     "year": 2026,
-                    "month": 1,
+                    "month": 12,
                     "day": 8,
-                    "hour": 12,
-                    "minute": 1,
+                    "hour": 19,
+                    "minute": 0,
                     "second": 0
                 },
-                "qtd_participantes": 3,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "talvez",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 10,
-                    "day": 7,
-                    "hour": 1,
-                    "minute": 1,
-                    "second": 0
-                },
-                "qtd_participantes": 2,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "beach boys",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 7,
-                    "day": 23,
-                    "hour": 13,
-                    "minute": 13,
-                    "second": 0
-                },
-                "qtd_participantes": 2,
+                "qtd_participantes": 10,
                 "lista_de_restricoes": []
             }
         ]
     },
     {
-        "nome": "hugo",
-        "senha": "hugo123",
+        "nome": "Caio",
+        "senha": "achoquetenho20",
         "is_adm": true,
-        "idade": 12,
-        "id": 2,
-        "lista_de_eventos": []
-    },
-    {
-        "nome": "joiir",
-        "senha": "hifdsoiafd",
-        "is_adm": false,
-        "idade": 14,
-        "id": 3,
-        "lista_de_eventos": []
-    },
-    {
-        "nome": "oi",
-        "senha": "fdhjshafds",
-        "is_adm": false,
-        "idade": 12,
-        "id": 4,
-        "lista_de_eventos": []
-    },
-    {
-        "nome": "outro usuario",
-        "senha": "12345",
-        "is_adm": false,
-        "idade": 12,
+        "idade": 20,
         "id": 5,
         "lista_de_eventos": []
     },
     {
-        "nome": "pedro",
-        "senha": "12121",
+        "nome": "Ana",
+        "senha": "3838399",
         "is_adm": false,
-        "idade": 19,
+        "idade": 37,
         "id": 6,
-        "lista_de_eventos": []
-    },
-    {
-        "nome": "PEdrinho",
-        "senha": "21212121",
-        "is_adm": true,
-        "idade": 21,
-        "id": 7,
-        "lista_de_eventos": []
+        "lista_de_eventos": [
+            {
+                "nome_evento": "Anivers\u00e1rio Do Julio",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 9,
+                    "day": 30,
+                    "hour": 20,
+                    "minute": 0,
+                    "second": 0
+                },
+                "qtd_participantes": 79,
+                "lista_de_restricoes": []
+            }
+        ]
     }
 ]

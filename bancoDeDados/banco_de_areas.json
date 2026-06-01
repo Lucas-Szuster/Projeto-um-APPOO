@@ -1,208 +1,96 @@
 [
     {
         "tipo": "AreaEsportiva",
-        "nome": "Area 1",
+        "nome": "Quadra de Cimento",
         "qtd_pessoas": 10,
         "esporte_praticado": "Futebol",
         "sistema_de_iluminacao": true,
-        "lista_eventos": [
-            {
-                "nome_evento": "AVERIGUADOR",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 1,
-                    "day": 8,
-                    "hour": 12,
-                    "minute": 1,
-                    "second": 0
-                },
-                "qtd_participantes": 3,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "legal",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 5,
-                    "day": 26,
-                    "hour": 19,
-                    "minute": 0,
-                    "second": 0
-                },
-                "qtd_participantes": 5,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "oi",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 5,
-                    "day": 31,
-                    "hour": 13,
-                    "minute": 31,
-                    "second": 0
-                },
-                "qtd_participantes": 2,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "dancinha",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 6,
-                    "day": 10,
-                    "hour": 20,
-                    "minute": 0,
-                    "second": 0
-                },
-                "qtd_participantes": 2,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "beach boys",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 7,
-                    "day": 23,
-                    "hour": 13,
-                    "minute": 13,
-                    "second": 0
-                },
-                "qtd_participantes": 2,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "eiii",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 8,
-                    "day": 21,
-                    "hour": 19,
-                    "minute": 13,
-                    "second": 0
-                },
-                "qtd_participantes": 2,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "eeeiiuiu",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 9,
-                    "day": 9,
-                    "hour": 13,
-                    "minute": 31,
-                    "second": 0
-                },
-                "qtd_participantes": 3,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "talvez",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 10,
-                    "day": 7,
-                    "hour": 1,
-                    "minute": 1,
-                    "second": 0
-                },
-                "qtd_participantes": 2,
-                "lista_de_restricoes": []
-            },
-            {
-                "nome_evento": "legal",
-                "data_e_horario": {
-                    "year": 2026,
-                    "month": 12,
-                    "day": 12,
-                    "hour": 12,
-                    "minute": 12,
-                    "second": 0
-                },
-                "qtd_participantes": 3,
-                "lista_de_restricoes": []
-            }
-        ],
+        "lista_eventos": [],
         "lista_de_itens": [
             "bola de futebol"
         ],
         "lista_restricoes": [
-            "proibido dan\u00e7ar"
+            "proibido menores de 7 anos"
         ]
     },
     {
         "tipo": "AreaSocial",
-        "nome": "area da resenha",
-        "qtd_pessoas": 67,
-        "area_espaco": 67.0,
+        "nome": "Sal\u00e3o de Festas",
+        "qtd_pessoas": 100,
+        "area_espaco": 200.0,
         "sistema_de_som": true,
         "lista_eventos": [
             {
-                "nome_evento": "resenhaaa",
+                "nome_evento": "Anivers\u00e1rio Do Julio",
                 "data_e_horario": {
                     "year": 2026,
-                    "month": 5,
+                    "month": 9,
                     "day": 30,
-                    "hour": 21,
-                    "minute": 59,
+                    "hour": 20,
+                    "minute": 0,
                     "second": 0
                 },
-                "qtd_participantes": 12,
+                "qtd_participantes": 79,
                 "lista_de_restricoes": []
-            },
+            }
+        ],
+        "lista_de_itens": [],
+        "lista_restricoes": []
+    },
+    {
+        "tipo": "AreaEsportiva",
+        "nome": "Quadra de t\u00eanis",
+        "qtd_pessoas": 4,
+        "esporte_praticado": "T\u00eanis",
+        "sistema_de_iluminacao": false,
+        "lista_eventos": [
             {
-                "nome_evento": "resenhite",
+                "nome_evento": "Partida entre amigos",
                 "data_e_horario": {
                     "year": 2026,
-                    "month": 7,
-                    "day": 29,
-                    "hour": 12,
-                    "minute": 13,
+                    "month": 9,
+                    "day": 6,
+                    "hour": 10,
+                    "minute": 30,
                     "second": 0
                 },
-                "qtd_participantes": 10,
+                "qtd_participantes": 2,
                 "lista_de_restricoes": []
-            },
+            }
+        ],
+        "lista_de_itens": [
+            "bola de t\u00eanis"
+        ],
+        "lista_restricoes": [
+            "Cal\u00e7ado apropriado"
+        ]
+    },
+    {
+        "tipo": "AreaSocial",
+        "nome": "Espa\u00e7o Cinema",
+        "qtd_pessoas": 15,
+        "area_espaco": 30.0,
+        "sistema_de_som": false,
+        "lista_eventos": [
             {
-                "nome_evento": "resenhte",
+                "nome_evento": "Assistir Wes Anderson",
                 "data_e_horario": {
                     "year": 2026,
                     "month": 12,
-                    "day": 12,
-                    "hour": 12,
-                    "minute": 12,
+                    "day": 8,
+                    "hour": 19,
+                    "minute": 0,
                     "second": 0
                 },
-                "qtd_participantes": 13,
+                "qtd_participantes": 10,
                 "lista_de_restricoes": []
             }
         ],
         "lista_de_itens": [
             "Televis\u00e3o"
         ],
-        "lista_restricoes": []
-    },
-    {
-        "tipo": "AreaEsportiva",
-        "nome": "asda",
-        "qtd_pessoas": 12,
-        "esporte_praticado": "asdads",
-        "sistema_de_iluminacao": true,
-        "lista_eventos": [],
-        "lista_de_itens": [],
-        "lista_restricoes": []
-    },
-    {
-        "tipo": "AreaSocial",
-        "nome": "fdsafdsa",
-        "qtd_pessoas": 12,
-        "area_espaco": 12.0,
-        "sistema_de_som": true,
-        "lista_eventos": [],
-        "lista_de_itens": [],
         "lista_restricoes": [
-            "lele"
+            "Sil\u00eancio mandat\u00f3rio"
         ]
     }
 ]
