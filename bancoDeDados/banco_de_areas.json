@@ -7,6 +7,19 @@
         "sistema_de_iluminacao": true,
         "lista_eventos": [
             {
+                "nome_evento": "AVERIGUADOR",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 1,
+                    "day": 8,
+                    "hour": 12,
+                    "minute": 1,
+                    "second": 0
+                },
+                "qtd_participantes": 3,
+                "lista_de_restricoes": []
+            },
+            {
                 "nome_evento": "legal",
                 "data_e_horario": {
                     "year": 2026,
@@ -46,6 +59,19 @@
                 "lista_de_restricoes": []
             },
             {
+                "nome_evento": "beach boys",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 7,
+                    "day": 23,
+                    "hour": 13,
+                    "minute": 13,
+                    "second": 0
+                },
+                "qtd_participantes": 2,
+                "lista_de_restricoes": []
+            },
+            {
                 "nome_evento": "eiii",
                 "data_e_horario": {
                     "year": 2026,
@@ -69,6 +95,19 @@
                     "second": 0
                 },
                 "qtd_participantes": 3,
+                "lista_de_restricoes": []
+            },
+            {
+                "nome_evento": "talvez",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 10,
+                    "day": 7,
+                    "hour": 1,
+                    "minute": 1,
+                    "second": 0
+                },
+                "qtd_participantes": 2,
                 "lista_de_restricoes": []
             },
             {

@@ -108,44 +108,60 @@ class Gerenciadora:
         nome_area = area_maracda.nome
         area_qtd = str(area_maracda.qtd_pessoas)
 
-        pdf.drawString(100, 750, Titulo)
-        pdf.drawString(100, 700, "Dados da area:")
-        pdf.drawString(100, 680, nome_area)
-        pdf.drawString(100, 660, area_qtd)
-        
+        # Título
+        pdf.drawString(180, 800, Titulo)
+
+        # Dados da área
+        pdf.drawString(50, 760, "DADOS DA ÁREA")
+        pdf.drawString(70, 735, "Nome:")
+        pdf.drawString(180, 735, nome_area)
+
+        pdf.drawString(70, 715, "Quantidade máxima de pessoas:")
+        pdf.drawString(250, 715, area_qtd)
+
         if isinstance(area_maracda, AreaEsportiva):
-            
+
+            pdf.drawString(70, 695, "Esporte praticado:")
             esporte_praticado = area_maracda.esporte_praticado
-            pdf.drawString(100, 640, esporte_praticado)
+            pdf.drawString(180, 695, esporte_praticado)
 
             if area_maracda.sistema_de_iluminacao == True:
-                pdf.drawString(100, 620, "Possui sistema de iluminacao!")
+                pdf.drawString(180, 675, "Possui sistema de iluminação")
             else:
-                pdf.drawString(100, 620, "Não Possui sistema de iluminacao!")
+                pdf.drawString(180, 675, "Não possui sistema de iluminação")
 
         if isinstance(area_maracda, AreaSocial):
+
+            pdf.drawString(70, 695, "Tamanho da área (m²):")
             tamanho = str(area_maracda.area_espaco)
-            pdf.drawAlignedString(100, 640, tamanho, "Metros quadrados")
+            pdf.drawString(220, 695, tamanho)
 
             if area_maracda.sistema_de_som == True:
-                pdf.drawString(100, 620, "Possui sistema de som!")
+                pdf.drawString(180, 675, "Possui sistema de som")
             else:
-                pdf.drawString(100, 620, "Não Possui sistema de som!")
+                pdf.drawString(180, 675, "Não possui sistema de som")
 
-        y = 620
-        
+        y = 640
+
+        pdf.drawString(50, y, "RESTRIÇÕES DA ÁREA")
         for restricao in area_maracda.lista_restricoes:
             y -= 20
             limitacoes = restricao
-            pdf.drawString(100,y,limitacoes)
+            pdf.drawString(80, y, limitacoes)
 
+        y -= 40
+
+        pdf.drawString(50, y, "ITENS DA ÁREA")
         for item in area_maracda.lista_de_itens:
             y -= 20
             itens = item
-            pdf.drawString(100, y , itens)
+            pdf.drawString(80, y, itens)
 
-        pdf.drawString(100, 700, "Dados do evento:")
-        
+        y -= 50
+
+        # Dados do evento
+        pdf.drawString(50, y, "DADOS DO EVENTO")
+
         pdf.save()
 
     def adicionar_item_em_area(self, nome_area: str, item: str):
