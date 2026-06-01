@@ -7,7 +7,7 @@ pip install reportlab
 # tkinter
 (Incluído no pacote padrão de Python)
 # bootstrap
-(Incluído no pacote padrão de Python)
+pip install ttkbootstrap
 
 O programa também pode ser acessado no GitHub:
 
