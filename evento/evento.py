@@ -51,12 +51,6 @@ class Evento:
     # MÉTODOS
     # =======
 
-    def adicionar_restricao_evento(self, restricao: str):
-        if not isinstance(restricao, str):
-            raise TypeError("A restrição deve ser uma string")
-
-        self.lista_de_restricoes.append(restricao)
-
     def to_dict(self):
         return {
             "nome_evento": self.nome_evento,

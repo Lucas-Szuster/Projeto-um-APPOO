@@ -21,6 +21,19 @@
         "sistema_de_som": true,
         "lista_eventos": [
             {
+                "nome_evento": "evento 1",
+                "data_e_horario": {
+                    "year": 2026,
+                    "month": 5,
+                    "day": 31,
+                    "hour": 12,
+                    "minute": 30,
+                    "second": 0
+                },
+                "qtd_participantes": 12,
+                "lista_de_restricoes": []
+            },
+            {
                 "nome_evento": "Anivers\u00e1rio Do Julio",
                 "data_e_horario": {
                     "year": 2026,
